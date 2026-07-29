@@ -1,34 +1,26 @@
-"use client";
+import { sendMagicLink } from "./actions";
 
-import { useState } from "react";
-
-export default function LoginPage() {
-  const [email, setEmail] = useState("");
-
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ sent?: string; error?: string }>;
+}) {
+  const params = await searchParams;
   return (
     <section className="card loginCard">
-      <h1>Private Access</h1>
-      <p>Use an approved Cubby Cup email address.</p>
-      <label>
-        Email
-        <input
-          className="textInput"
-          type="email"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-          placeholder="name@example.com"
-        />
-      </label>
-      <button
-        className="button"
-        type="button"
-        onClick={() => alert(`Prototype login request for ${email}`)}
-      >
-        Send secure sign-in link
-      </button>
-      <div className="notice">
-        Production login will use Supabase Auth and role-based permissions.
-      </div>
+      <h1>Private Cubby Cup Access</h1>
+      <p>Approved administrators and scorekeepers receive a secure sign-in link by email.</p>
+      {params.sent === "1" && (
+        <div className="notice">Check your email for the secure Cubby Cup sign-in link.</div>
+      )}
+      {params.error && <div className="errorNotice">{params.error}</div>}
+      <form action={sendMagicLink}>
+        <label>
+          Email
+          <input className="textInput" type="email" name="email" required />
+        </label>
+        <button className="button" type="submit">Send secure sign-in link</button>
+      </form>
     </section>
   );
 }

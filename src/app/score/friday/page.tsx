@@ -1,8 +1,11 @@
-import Link from "next/link";
-import { getFridayMatchesFromSeed } from "@/lib/repositories/friday";
+export const dynamic = "force-dynamic";
 
-export default function FridayMatchesPage() {
-  const matches = getFridayMatchesFromSeed();
+import Link from "next/link";
+import { createAdminClient } from "@/lib/supabase/admin";
+import { getFridayMatchesFromDatabase } from "@/lib/repositories/friday-db";
+
+export default async function FridayMatchesPage() {
+  const matches = await getFridayMatchesFromDatabase(createAdminClient());
 
   return (
     <>
@@ -10,7 +13,6 @@ export default function FridayMatchesPage() {
         <h1>Friday Score Entry</h1>
         <p>Mountain Course · 1 Best Ball of 2 · NET team scores</p>
       </section>
-
       <section className="grid">
         {matches.map((match) => (
           <article className="card" key={match.matchNumber}>
@@ -25,9 +27,8 @@ export default function FridayMatchesPage() {
           </article>
         ))}
       </section>
-
       <div className="notice">
-        The score-entry source is the approved 2026 workbook seed. Each match has exactly two team scorecards.
+        All scores on this screen are read from the Supabase tournament database.
       </div>
     </>
   );

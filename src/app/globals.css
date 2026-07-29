@@ -46,3 +46,5 @@ main { width: min(1100px, 94vw); margin: 30px auto 60px; }
 .secondaryButton { background:white; color:var(--navy); border:2px solid var(--navy); padding:12px 18px; border-radius:10px; font-weight:800; }
 .loginCard { max-width:520px; margin:50px auto; }
 .textInput { width:100%; min-height:48px; border:1px solid #aeb8c2; border-radius:10px; margin:8px 0 18px; padding:10px 12px; font-size:16px; }
+
+.errorNotice { margin: 16px 0; padding: 14px 18px; background:#ffe6e6; border-left:5px solid #a31515; color:#751010; }

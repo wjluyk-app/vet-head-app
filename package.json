@@ -10,7 +10,9 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "import:workbook": "tsx scripts/import-workbook.ts",
-    "seed:supabase": "tsx scripts/seed-supabase.ts"
+    "seed:supabase": "tsx scripts/seed-supabase-v4.ts",
+    "bootstrap:admin": "tsx scripts/bootstrap-admin.ts",
+    "verify:database": "tsx scripts/verify-database.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.5.2",
@@ -27,6 +29,7 @@
     "@types/react-dom": "^19.0.3",
     "typescript": "^5.7.3",
     "vitest": "^3.0.7",
-    "tsx": "^4.19.3"
+    "tsx": "^4.19.3",
+    "vite-tsconfig-paths": "^5.1.4"
   }
 }

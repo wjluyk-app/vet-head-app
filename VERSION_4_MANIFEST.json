@@ -1,0 +1,13 @@
+{
+  "version": "4.0.0",
+  "created": "2026-07-29",
+  "purpose": "Live Supabase scoring and full 2026 database seed",
+  "migration": "0004_live_scoring.sql",
+  "expected": {
+    "players": 24,
+    "sessions": 4,
+    "pairings": 30,
+    "friday_scorecards": 12,
+    "friday_hole_scores": 216
+  }
+}

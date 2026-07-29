@@ -1,32 +1,54 @@
 import { z } from "zod";
+import { createClient } from "@/lib/supabase/server";
 
 const scoreInput = z.object({
-  matchNumber: z.number().int().min(1).max(6),
-  teamShortName: z.enum(["L. Swardo", "S. Swardo"]),
+  scorecardId: z.string().uuid(),
   holeNumber: z.number().int().min(1).max(18),
   netScore: z.number().int().min(1).max(20),
-  priorUpdatedAt: z.string().datetime().optional(),
+  expectedVersion: z.number().int().positive().optional(),
+  reason: z.string().trim().min(1).max(250).optional(),
 });
 
 export async function POST(request: Request) {
-  const body = await request.json();
-  const parsed = scoreInput.safeParse(body);
-
+  const parsed = scoreInput.safeParse(await request.json());
   if (!parsed.success) {
     return Response.json(
-      { ok: false, errors: parsed.error.flatten() },
+      { ok: false, error: "Invalid score request", details: parsed.error.flatten() },
       { status: 400 },
     );
   }
 
-  // Phase 1 prototype contract:
-  // 1. Input is already a NET team score.
-  // 2. No handicap adjustment occurs here.
-  // 3. Production persistence will use the authenticated user and audit tables.
+  const supabase = await createClient();
+  const { data: authData, error: authError } = await supabase.auth.getUser();
+  if (authError || !authData.user) {
+    return Response.json({ ok: false, error: "Authentication required" }, { status: 401 });
+  }
+
+  const { data, error } = await supabase.rpc("save_team_hole_score", {
+    p_scorecard_id: parsed.data.scorecardId,
+    p_hole_number: parsed.data.holeNumber,
+    p_net_score: parsed.data.netScore,
+    p_expected_version: parsed.data.expectedVersion ?? null,
+    p_reason: parsed.data.reason ?? "Score entry",
+  });
+
+  if (error) {
+    return Response.json({ ok: false, error: error.message }, { status: 409 });
+  }
+
+  const saved = data?.[0];
+  if (!saved) {
+    return Response.json({ ok: false, error: "No score returned" }, { status: 500 });
+  }
+
   return Response.json({
     ok: true,
-    accepted: parsed.data,
-    serverUpdatedAt: new Date().toISOString(),
-    persistence: "prototype-validation-only",
+    conflict: saved.conflict,
+    score: {
+      id: saved.hole_score_id,
+      netScore: saved.saved_score,
+      version: saved.saved_version,
+      updatedAt: saved.saved_at,
+    },
   });
 }

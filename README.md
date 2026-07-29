@@ -80,3 +80,45 @@ A complete extracted 2026 seed is included at:
 - Initial production database seed script
 
 The API currently validates score synchronization but intentionally does not yet write production data until authenticated database IDs and audit transactions are connected.
+
+
+# Version 4 — Live Database Scoring
+
+Version 4 changes the operating model from a workbook-seed display prototype to a real Supabase scoring application.
+
+## Added
+
+- Complete 2026 database seeding: tournament, teams, 24 players, four sessions, 30 pairings, participants, scorecards and Friday hole scores
+- Supabase-backed Friday match reads
+- Authenticated magic-link login
+- Atomic hole-score save RPC
+- Optimistic conflict detection using score versions
+- Immutable score correction audit records
+- Offline queue with automatic retry when connectivity returns
+- Administrator bootstrap script
+- Database verification script
+- Live database status API
+- Protected scoring and administration routes
+
+## Required rollout sequence
+
+1. Apply `0004_live_scoring.sql` in Supabase.
+2. Pull Version 4 dependencies with `npm install`.
+3. Run `npm run seed:supabase`.
+4. Run `npm run verify:database`.
+5. Create the first administrator:
+   `npm run bootstrap:admin -- your-email@example.com`
+6. Add the same email to Supabase Auth redirect configuration.
+7. Commit and deploy.
+8. Sign in through `/login`.
+9. Enter a test score and verify it in `hole_score` and `audit_record`.
+
+## Expected seed verification
+
+- Players: 24
+- Sessions: 4
+- Pairings: 30
+- Friday scorecards: 12
+- Friday hole scores: 216
+
+The app remains governed by the non-negotiable rule that team-format entries are already NET and are never handicapped again.
