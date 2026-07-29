@@ -17,6 +17,12 @@ export async function sendMagicLink(formData: FormData): Promise<void> {
     },
   });
 
-  if (error) redirect(`/login?error=${encodeURIComponent(error.message)}&at=${Date.now()}`);
+  if (error) {
+    const message =
+      typeof error.message === "string" && error.message.trim()
+        ? error.message
+        : "Unable to send the sign-in email. Please try again later.";
+    redirect(`/login?error=${encodeURIComponent(message)}&at=${Date.now()}`);
+  }
   redirect("/login?sent=1");
 }
