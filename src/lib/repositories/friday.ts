@@ -1,4 +1,4 @@
-import seed from "@/data/2026-workbook-seed.json";
+import seed from "../../data/2026-workbook-seed.json";
 
 export interface FridayTeamCard {
   matchNumber: number;
