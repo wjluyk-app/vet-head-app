@@ -17,6 +17,6 @@ export async function sendMagicLink(formData: FormData): Promise<void> {
     },
   });
 
-  if (error) redirect(`/login?error=${encodeURIComponent(error.message)}`);
+  if (error) redirect(`/login?error=${encodeURIComponent(error.message)}&at=${Date.now()}`);
   redirect("/login?sent=1");
 }

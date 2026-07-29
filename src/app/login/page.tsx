@@ -3,7 +3,7 @@ import { sendMagicLink } from "./actions";
 export default async function LoginPage({
   searchParams,
 }: {
-  searchParams: Promise<{ sent?: string; error?: string }>;
+  searchParams: Promise<{ sent?: string; error?: string; at?: string }>;
 }) {
   const params = await searchParams;
   return (
@@ -13,7 +13,7 @@ export default async function LoginPage({
       {params.sent === "1" && (
         <div className="notice">Check your email for the secure Cubby Cup sign-in link.</div>
       )}
-      {params.error && params.sent !== "1" && <div className="errorNotice">{params.error}</div>}
+      {params.error && params.at && Date.now() - Number(params.at) < 60000 && <div className="errorNotice">{params.error}</div>}
       <form action={sendMagicLink}>
         <label>
           Email
