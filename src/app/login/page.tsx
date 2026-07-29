@@ -13,7 +13,7 @@ export default async function LoginPage({
       {params.sent === "1" && (
         <div className="notice">Check your email for the secure Cubby Cup sign-in link.</div>
       )}
-      {params.error && <div className="errorNotice">{params.error}</div>}
+      {params.error && params.sent !== "1" && <div className="errorNotice">{params.error}</div>}
       <form action={sendMagicLink}>
         <label>
           Email
