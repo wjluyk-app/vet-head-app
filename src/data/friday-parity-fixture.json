@@ -1,0 +1,175 @@
+{
+  "fixture_name": "2026 Friday Workbook Parity",
+  "tournament": {
+    "year": 2026,
+    "name": "Cubby Cup",
+    "venue": "Crystal Mountain Resort",
+    "date": "2026-08-28",
+    "course": "Mountain Course",
+    "format": "1 Best Ball of 2",
+    "score_entry": "team NET score by hole"
+  },
+  "expected_team_points": {
+    "L. Swardo": 8,
+    "S. Swardo": 10
+  },
+  "matches": [
+    {
+      "match": 1,
+      "luke": [
+        "B. Stone",
+        "K. Swardenski"
+      ],
+      "sam": [
+        "L. Bush",
+        "M. Stone"
+      ],
+      "points": {
+        "L. Swardo": 1.5,
+        "S. Swardo": 1.5
+      },
+      "winner": "Halved"
+    },
+    {
+      "match": 2,
+      "luke": [
+        "R. Walls",
+        "M. Hammonds"
+      ],
+      "sam": [
+        "B. Luyk",
+        "B. Walls"
+      ],
+      "points": {
+        "L. Swardo": 2,
+        "S. Swardo": 1
+      },
+      "winner": "L. Swardo"
+    },
+    {
+      "match": 3,
+      "luke": [
+        "M. Parks",
+        "B. Mogg"
+      ],
+      "sam": [
+        "J. Mead",
+        "C. Hiotas"
+      ],
+      "points": {
+        "L. Swardo": 0.5,
+        "S. Swardo": 2.5
+      },
+      "winner": "S. Swardo"
+    },
+    {
+      "match": 4,
+      "luke": [
+        "G. Hoodhood",
+        "D. Schuch"
+      ],
+      "sam": [
+        "E. Blanding",
+        "S. Morgan"
+      ],
+      "points": {
+        "L. Swardo": 1.5,
+        "S. Swardo": 1.5
+      },
+      "winner": "Halved"
+    },
+    {
+      "match": 5,
+      "luke": [
+        "L. Swardo",
+        "C. Mead"
+      ],
+      "sam": [
+        "N. Schaut",
+        "C. Olszewski"
+      ],
+      "points": {
+        "L. Swardo": 2,
+        "S. Swardo": 1
+      },
+      "winner": "L. Swardo"
+    },
+    {
+      "match": 6,
+      "luke": [
+        "S. Chapman",
+        "S. Tedhams"
+      ],
+      "sam": [
+        "S. Swardo",
+        "N. Swardenski"
+      ],
+      "points": {
+        "L. Swardo": 0.5,
+        "S. Swardo": 2.5
+      },
+      "winner": "S. Swardo"
+    }
+  ],
+  "field_payouts": [
+    {
+      "team": "R. Walls / M. Hammonds",
+      "front": 34,
+      "back": 32,
+      "total": 66,
+      "front_dollars": 50,
+      "back_dollars": 100,
+      "total_dollars": 100,
+      "team_dollars": 250
+    },
+    {
+      "team": "B. Luyk / B. Walls",
+      "front": 32,
+      "back": 36,
+      "total": 68,
+      "front_dollars": 100,
+      "back_dollars": 0,
+      "total_dollars": 50,
+      "team_dollars": 150
+    },
+    {
+      "team": "L. Swardo / C. Mead",
+      "front": 36,
+      "back": 34,
+      "total": 70,
+      "front_dollars": 0,
+      "back_dollars": 50,
+      "total_dollars": 0,
+      "team_dollars": 50
+    }
+  ],
+  "field_payout_total": 450,
+  "skins": [
+    {
+      "hole": 6,
+      "team": "B. Luyk / B. Walls",
+      "net_score": 2,
+      "team_dollars": 100,
+      "per_player_dollars": 50
+    },
+    {
+      "hole": 14,
+      "team": "R. Walls / M. Hammonds",
+      "net_score": 1,
+      "team_dollars": 100,
+      "per_player_dollars": 50
+    }
+  ],
+  "skins_total": 200,
+  "friday_money_total": 650,
+  "pdf_acceptance": {
+    "page_count": 5,
+    "footer_pattern": "Journal Page X of 5",
+    "excluded_sections": [
+      "Saturday",
+      "Sunday",
+      "Champions",
+      "Final Player Payouts"
+    ]
+  }
+}
