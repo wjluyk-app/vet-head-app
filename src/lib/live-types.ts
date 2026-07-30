@@ -43,3 +43,22 @@ export interface ScoreSaveResponse {
   conflict?: boolean;
   error?: string;
 }
+
+export interface LiveSundaySinglesMatch {
+  pairingId: string;
+  matchNumber: number;
+  lukeTeamId: string;
+  samTeamId: string;
+  lukePlayer: string;
+  samPlayer: string;
+  winnerTeamId: string | null;
+  halved: boolean;
+  resultText: string | null;
+  closedOnHole: number | null;
+  status: string;
+}
+
+export interface LiveSundayData {
+  pinehurst: LiveFridayMatch[];
+  singles: LiveSundaySinglesMatch[];
+}
