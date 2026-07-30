@@ -1,0 +1,15 @@
+{
+  "version": "6.2.0",
+  "section": "Teams & Pairings",
+  "data_source": "2026-workbook-seed.json",
+  "features": [
+    "Team Luke and Team Sam rosters",
+    "Captain badges",
+    "Handicap index and format handicaps",
+    "Mountain and Betsie tee assignments",
+    "Housing units",
+    "Friday, Saturday, Sunday Front and Sunday Back pairings",
+    "Tee times, formats, handicap references and throws-first information",
+    "Responsive mobile layout"
+  ]
+}

@@ -1,12 +1,18 @@
+import TeamsPairingsClient from "@/components/TeamsPairingsClient";
 import TournamentSectionShell from "@/components/TournamentSectionShell";
+import { getTeamsPairingsData } from "@/lib/teams-pairings";
 
-export default function Page() {
+export default function TeamsPage() {
+  const data = getTeamsPairingsData();
+
   return (
     <TournamentSectionShell
       eyebrow="EVENT INFORMATION"
       title="Teams & Pairings"
-      description="Rosters, captains, handicaps, tee assignments, pairings and tee times."
+      description="Rosters, handicaps, tee assignments, pairings and tee times for all three tournament days."
       status="Available"
-    />
+    >
+      <TeamsPairingsClient data={data} />
+    </TournamentSectionShell>
   );
 }
