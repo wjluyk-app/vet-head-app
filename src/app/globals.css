@@ -570,3 +570,155 @@ main { width: min(1100px, 94vw); margin: 30px auto 60px; }
   .pairingVersus { min-height:28px; }
   .pairingSam { text-align:left; }
 }
+
+
+/* Schedule & Tee Times */
+.scheduleOverview {
+  margin-top:22px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  background:var(--navy);
+  color:white;
+  border-radius:15px;
+  overflow:hidden;
+}
+.scheduleOverview div {
+  padding:18px;
+  text-align:center;
+  border-right:1px solid rgba(255,255,255,.15);
+}
+.scheduleOverview div:last-child {
+  border-right:0;
+}
+.scheduleOverview span {
+  display:block;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.08em;
+  color:#cbd7e1;
+}
+.scheduleOverview strong {
+  display:block;
+  margin-top:4px;
+  font-size:26px;
+  color:var(--gold);
+}
+.scheduleGrid {
+  margin-top:18px;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:18px;
+}
+.scheduleCard {
+  background:white;
+  border:1px solid #d8e0e7;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 4px 14px rgba(16,42,67,.06);
+}
+.scheduleCardHeader {
+  padding:17px 18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:12px;
+  border-top:5px solid var(--gold);
+}
+.scheduleCardHeader h2 {
+  margin:3px 0 0;
+  color:var(--navy);
+}
+.scheduleCardHeader > span {
+  font-size:11px;
+  font-weight:900;
+  color:#526475;
+  text-align:right;
+}
+.scheduleFormat {
+  padding:10px 18px;
+  background:#edf1f4;
+  color:var(--navy);
+  font-size:12px;
+  font-weight:900;
+}
+.teeTimeGrid {
+  padding:8px 18px 14px;
+}
+.teeTimeRow {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 0;
+  border-bottom:1px solid #e3e8ed;
+}
+.teeTimeRow:last-child {
+  border-bottom:0;
+}
+.teeTimeRow span {
+  color:#68798a;
+  font-size:11px;
+  font-weight:800;
+}
+.teeTimeRow strong {
+  color:var(--navy);
+  font-size:15px;
+}
+.scheduleNote {
+  margin:0 18px 18px;
+  padding:11px 12px;
+  border-radius:10px;
+  background:#fff8d7;
+  color:#6e5a00;
+  font-size:11px;
+  line-height:1.45;
+}
+.scheduleSummaryCard {
+  margin-top:18px;
+  background:white;
+  border:1px solid #d8e0e7;
+  border-radius:15px;
+  padding:18px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+}
+.scheduleSummaryCard h2 {
+  margin:3px 0 0;
+  color:var(--navy);
+}
+.scheduleSummaryCard > div:last-child {
+  text-align:right;
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+  color:#68798a;
+}
+.scheduleSummaryCard strong {
+  color:var(--navy);
+}
+
+@media (max-width:900px) {
+  .scheduleGrid {
+    grid-template-columns:1fr;
+  }
+}
+@media (max-width:650px) {
+  .scheduleOverview {
+    grid-template-columns:1fr;
+  }
+  .scheduleOverview div {
+    border-right:0;
+    border-bottom:1px solid rgba(255,255,255,.15);
+  }
+  .scheduleOverview div:last-child {
+    border-bottom:0;
+  }
+  .scheduleSummaryCard {
+    align-items:flex-start;
+    flex-direction:column;
+  }
+  .scheduleSummaryCard > div:last-child {
+    text-align:left;
+  }
+}
