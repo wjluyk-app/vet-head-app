@@ -98,3 +98,280 @@ main { width: min(1100px, 94vw); margin: 30px auto 60px; }
   .matchPointLine { grid-template-columns:1fr; }
   .matchPointLine strong:first-child, .matchPointLine strong:last-child { text-align:center; }
 }
+
+/* Version 6 Friday tournament board */
+.boardKpiGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:18px}.boardKpi{background:white;border:1px solid #d9dee5;border-radius:14px;padding:15px 16px;display:flex;flex-direction:column;gap:5px}.boardKpi span{font-size:11px;font-weight:900;letter-spacing:.08em;color:#66788a}.boardKpi strong{font-size:18px;color:var(--navy)}.boardKpiGold{background:var(--gold)}.tournamentBoardSection{margin-top:22px;background:white;border:1px solid #d9dee5;border-radius:18px;overflow:hidden}.boardSectionHeader{display:flex;justify-content:space-between;gap:20px;align-items:flex-end;padding:22px 24px;border-bottom:1px solid #d9dee5}.boardSectionHeader h2{margin:4px 0}.boardSectionHeader p{margin:0;color:#66788a}.boardTableWrap{overflow-x:auto}.fridayBoardTable{width:100%;min-width:900px;border-collapse:collapse;font-size:12px}.holesVisible .fridayBoardTable{min-width:1700px}.fridayBoardTable th{background:var(--navy);color:white;padding:9px 7px}.fridayBoardTable td{padding:8px 7px;border-right:1px solid #e2e6ea;border-bottom:1px solid #e2e6ea;text-align:center;white-space:nowrap}.fridayBoardTable td small{display:block;color:#66788a;font-size:9px}.boardLukeRow{background:#f3f8fc}.boardSamRow{background:#fff9d9}.matchNumberCell{font-size:20px;font-weight:900;background:#f0f1f3;border-left:5px solid var(--gold)}.captainCell{font-weight:900}.playersCell{text-align:left!important;min-width:175px;font-weight:700}.pointsCell,.moneyCell{font-weight:900}.moneyCell{color:#17663a}.segmentWinnerCell{background:#fff0ae!important}.totalWinnerCell,.skinWinningCell{background:var(--gold)!important;font-weight:900}.matchStatusRow td{background:#e9e9e9;text-align:left}.matchExpandButton{border:0;background:transparent;color:var(--navy);font-weight:900}.expandedMatchGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:10px}.expandedMatchGrid div{border:1px solid #d9dee5;border-radius:10px;padding:10px;display:flex;flex-direction:column}.fridayMoneyGrid{display:grid;grid-template-columns:1.3fr .7fr;gap:18px;margin-top:22px}@media(max-width:900px){.boardKpiGrid{grid-template-columns:1fr 1fr}.fridayMoneyGrid{grid-template-columns:1fr}}@media(max-width:650px){.boardKpiGrid{grid-template-columns:1fr}.boardSectionHeader{flex-direction:column;align-items:flex-start}.holesVisible .fridayBoardTable{min-width:1300px}}
+
+
+/* Tournament Hub */
+.brandLink { color:inherit; text-decoration:none; }
+.headerNav { display:flex; gap:10px; align-items:center; }
+.headerNav a { color:white; text-decoration:none; font-size:14px; font-weight:900; padding:9px 12px; border:1px solid rgba(255,255,255,.18); border-radius:9px; background:rgba(255,255,255,.06); }
+.headerNav a:hover { color:var(--gold); border-color:var(--gold); background:rgba(255,255,255,.1); }
+
+.hubHero {
+  background:
+    linear-gradient(135deg, rgba(9,35,58,.97), rgba(20,57,88,.94)),
+    radial-gradient(circle at top right, rgba(227,180,20,.22), transparent 42%);
+  color:white;
+  border-radius:20px;
+  padding:32px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:30px;
+  box-shadow:0 10px 30px rgba(9,35,58,.16);
+}
+.hubEdition { color:var(--gold); }
+.hubHero h1 { font-size:clamp(34px,5vw,58px); margin:8px 0; line-height:1; }
+.hubHero p { margin:0; max-width:660px; color:#d9e3ec; font-size:17px; }
+.hubHeroScore {
+  min-width:310px;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:16px;
+  padding:16px 18px;
+  text-align:center;
+}
+.hubHeroScore div:not(.hubScoreDivider) { display:flex; flex-direction:column; }
+.hubHeroScore span { font-size:10px; letter-spacing:.09em; font-weight:900; }
+.hubHeroScore strong { font-size:36px; color:var(--gold); }
+.hubScoreDivider { font-size:10px; color:#c8d3dd; padding:0 12px; }
+
+.hubGroup { margin-top:32px; }
+.hubGroupHeader h2 { margin:0 0 4px; color:var(--navy); font-size:24px; }
+.hubGroupHeader p { margin:0 0 15px; color:#68798a; }
+.hubTileGrid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:15px;
+}
+.hubGroup:nth-of-type(3) .hubTileGrid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.hubGroup:nth-of-type(4) .hubTileGrid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.hubTile {
+  min-height:205px;
+  background:white;
+  color:inherit;
+  text-decoration:none;
+  border:1px solid #d8e0e7;
+  border-radius:16px;
+  padding:19px;
+  display:flex;
+  flex-direction:column;
+  box-shadow:0 4px 14px rgba(16,42,67,.06);
+  transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+}
+.hubTile:hover {
+  transform:translateY(-3px);
+  box-shadow:0 10px 24px rgba(16,42,67,.12);
+  border-color:#c39b12;
+}
+.hubTileFeatured {
+  background:linear-gradient(145deg,#102a43,#173f62);
+  color:white;
+}
+.hubTileTop { display:flex; justify-content:space-between; align-items:flex-start; }
+.hubIcon {
+  width:42px;
+  height:42px;
+  display:grid;
+  place-items:center;
+  border-radius:11px;
+  background:#eef2f5;
+  color:var(--navy);
+  font-weight:900;
+  font-size:13px;
+}
+.hubTileFeatured .hubIcon { background:var(--gold); }
+.hubStatus {
+  padding:5px 8px;
+  border-radius:999px;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+.hubStatusLive { background:#d8f2df; color:#17663a; }
+.hubStatusAvailable { background:#e7eff7; color:#234f76; }
+.hubStatusComingSoon { background:#eef0f2; color:#68798a; }
+.hubTile h3 { margin:22px 0 7px; font-size:19px; color:var(--navy); }
+.hubTileFeatured h3 { color:white; }
+.hubTile p { margin:0; color:#68798a; line-height:1.45; font-size:13px; }
+.hubTileFeatured p { color:#d8e2eb; }
+.hubOpen { margin-top:auto; padding-top:18px; color:#9a7600; font-weight:900; font-size:12px; }
+.hubTileFeatured .hubOpen { color:var(--gold); }
+
+.hubAdminBar {
+  margin-top:30px;
+  padding:18px 20px;
+  background:#edf1f4;
+  border:1px solid #d5dde4;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+.hubAdminBar div { display:flex; flex-direction:column; gap:3px; }
+.hubAdminBar strong { color:var(--navy); }
+.hubAdminBar span { color:#68798a; font-size:13px; }
+
+.sectionHero {
+  background:linear-gradient(135deg,#102a43,#173f62);
+  color:white;
+  border-radius:18px;
+  padding:28px 30px;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:25px;
+}
+.sectionEyebrow { color:var(--gold); }
+.sectionHero h1 { margin:6px 0 8px; font-size:42px; }
+.sectionHero p { margin:0; max-width:720px; color:#d8e2eb; }
+.sectionStatus {
+  padding:7px 11px;
+  border-radius:999px;
+  white-space:nowrap;
+  text-transform:uppercase;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.07em;
+}
+.sectionStatusLive { background:#d8f2df; color:#17663a; }
+.sectionStatusAvailable { background:#e6eef7; color:#234f76; }
+.sectionStatusComingSoon { background:#eef0f2; color:#68798a; }
+.sectionPlaceholder {
+  margin-top:20px;
+  text-align:center;
+  padding:45px 25px;
+}
+.placeholderMark {
+  width:64px; height:64px; display:grid; place-items:center; margin:0 auto 15px;
+  background:var(--gold); color:var(--navy); border-radius:16px; font-weight:900;
+}
+.sectionPlaceholder p { max-width:650px; margin:0 auto 22px; color:#68798a; }
+.sectionActionGrid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:17px;
+  margin-top:22px;
+}
+.sectionActionCard {
+  min-height:220px;
+  border-radius:16px;
+  border:1px solid #d8e0e7;
+  background:white;
+  color:inherit;
+  text-decoration:none;
+  padding:21px;
+  display:flex;
+  flex-direction:column;
+  box-shadow:0 4px 14px rgba(16,42,67,.06);
+}
+.sectionActionPrimary { background:var(--gold); border-color:#c69a00; }
+.sectionActionCard > span { font-size:10px; font-weight:900; letter-spacing:.08em; color:#68798a; }
+.sectionActionPrimary > span { color:var(--navy); }
+.sectionActionCard h2 { color:var(--navy); margin:14px 0 8px; }
+.sectionActionCard p { margin:0; color:#68798a; line-height:1.45; }
+.sectionActionPrimary p { color:#283f53; }
+.sectionActionCard strong { margin-top:auto; padding-top:20px; color:#9a7600; font-size:13px; }
+.sectionActionPrimary strong { color:var(--navy); }
+
+@media (max-width:950px) {
+  .hubHero { align-items:flex-start; flex-direction:column; }
+  .hubHeroScore { width:100%; min-width:0; }
+  .hubTileGrid,
+  .hubGroup:nth-of-type(3) .hubTileGrid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .sectionActionGrid { grid-template-columns:1fr; }
+}
+@media (max-width:650px) {
+  .appHeader { align-items:flex-start; gap:10px; }
+  .headerNav { gap:10px; flex-wrap:wrap; justify-content:flex-end; }
+  .headerNav a { font-size:11px; }
+  .hubHero { padding:24px 20px; }
+  .hubHeroScore strong { font-size:30px; }
+  .hubTileGrid,
+  .hubGroup:nth-of-type(3) .hubTileGrid,
+  .hubGroup:nth-of-type(4) .hubTileGrid { grid-template-columns:1fr; }
+  .hubTile { min-height:180px; }
+  .hubAdminBar { align-items:flex-start; flex-direction:column; }
+  .hubAdminBar .secondaryButton { width:100%; text-align:center; }
+  .sectionHero { padding:23px 20px; flex-direction:column; }
+  .sectionHero h1 { font-size:34px; }
+}
+
+/* Stronger tournament-hub header navigation */
+.appHeader {
+  padding-left: max(28px, calc((100vw - 1100px) / 2));
+  padding-right: max(28px, calc((100vw - 1100px) / 2));
+}
+
+.headerNav {
+  gap: 12px;
+}
+
+.headerNav a {
+  font-size: 15px;
+  padding: 11px 17px;
+  border: 1px solid rgba(255,255,255,.32);
+  background: rgba(255,255,255,.1);
+  box-shadow: 0 2px 5px rgba(0,0,0,.12);
+}
+
+.headerNav a:hover {
+  color: var(--navy);
+  background: var(--gold);
+  border-color: var(--gold);
+}
+
+.boardKpiGridThree { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+/* Improve Friday scoreboard readability */
+.fridayBoardTable {
+  font-size: 15px;
+}
+
+.fridayBoardTable th {
+  font-size: 14px;
+  padding: 12px 10px;
+}
+
+.fridayBoardTable td {
+  font-size: 15px;
+  padding: 11px 10px;
+}
+
+.playersCell {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.captainCell {
+  font-size: 15px;
+}
+
+.pointsCell,
+.moneyCell {
+  font-size: 17px;
+}
+
+.fridayBoardTable td small {
+  font-size: 11px;
+}
+
+.matchNumberCell {
+  font-size: 24px;
+}
+
+.matchStatusRow td {
+  font-size: 14px;
+  padding: 9px 13px;
+}
+
+.boardKpi strong {
+  font-size: 21px;
+}
