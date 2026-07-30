@@ -1007,3 +1007,175 @@ main { width: min(1100px, 94vw); margin: 30px auto 60px; }
     text-align:center;
   }
 }
+
+
+/* Prize Money */
+.prizePoolHero {
+  margin-top:22px;
+  display:grid;
+  grid-template-columns:1.4fr repeat(3,1fr);
+  background:var(--navy);
+  color:white;
+  border-radius:15px;
+  overflow:hidden;
+}
+.prizePoolHero > div {
+  padding:20px;
+  text-align:center;
+  border-right:1px solid rgba(255,255,255,.14);
+}
+.prizePoolHero > div:last-child {
+  border-right:0;
+}
+.prizePoolHero > div:first-child {
+  text-align:left;
+}
+.prizePoolHero span {
+  display:block;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.07em;
+  color:#cbd7e1;
+}
+.prizePoolHero strong {
+  display:block;
+  margin-top:4px;
+  color:var(--gold);
+  font-size:27px;
+}
+.prizePoolHero > div:first-child strong {
+  font-size:38px;
+}
+.prizeMoneyGrid {
+  margin-top:18px;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:16px;
+}
+.prizeMoneyCard {
+  background:white;
+  border:1px solid #d8e0e7;
+  border-radius:15px;
+  padding:18px;
+  box-shadow:0 4px 14px rgba(16,42,67,.06);
+}
+.prizeMoneyCardTop {
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:14px;
+}
+.prizeMoneyCardTop h2 {
+  margin:4px 0 0;
+  color:var(--navy);
+}
+.prizeMoneyCardTop > strong {
+  color:var(--navy);
+  font-size:28px;
+}
+.prizeMoneyCard p {
+  color:#68798a;
+  font-size:12px;
+  line-height:1.5;
+  min-height:42px;
+}
+.prizeMoneyCard a {
+  color:var(--navy);
+  font-weight:900;
+  text-decoration:none;
+  font-size:12px;
+}
+.prizeMoneyRules {
+  margin-top:18px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+.prizeMoneyRules article {
+  background:white;
+  border:1px solid #d8e0e7;
+  border-radius:15px;
+  padding:18px;
+}
+.prizeMoneyRules h2 {
+  margin:4px 0 12px;
+  color:var(--navy);
+}
+.prizeMoneyRules p {
+  color:#68798a;
+  line-height:1.55;
+  margin:0;
+}
+.prizeMoneyBreakdown {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+.prizeMoneyBreakdown div {
+  background:#f1f4f7;
+  border-radius:11px;
+  padding:12px;
+}
+.prizeMoneyBreakdown span {
+  display:block;
+  color:#68798a;
+  font-size:10px;
+  font-weight:900;
+}
+.prizeMoneyBreakdown strong {
+  display:block;
+  margin-top:5px;
+  color:var(--navy);
+}
+.prizeMoneySummary {
+  margin-top:18px;
+  background:#fff7d4;
+  border:1px solid #e0bd24;
+  border-radius:15px;
+  padding:18px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+}
+.prizeMoneySummary h2 {
+  margin:4px 0;
+  color:var(--navy);
+}
+.prizeMoneySummary p {
+  margin:0;
+  color:#6f5b00;
+  max-width:700px;
+}
+
+@media (max-width:900px) {
+  .prizePoolHero {
+    grid-template-columns:1fr 1fr;
+  }
+  .prizePoolHero > div {
+    border-bottom:1px solid rgba(255,255,255,.14);
+  }
+  .prizePoolHero > div:nth-child(2) {
+    border-right:0;
+  }
+  .prizeMoneyGrid {
+    grid-template-columns:1fr 1fr;
+  }
+  .prizeMoneyRules {
+    grid-template-columns:1fr;
+  }
+}
+@media (max-width:620px) {
+  .prizePoolHero,
+  .prizeMoneyGrid,
+  .prizeMoneyBreakdown {
+    grid-template-columns:1fr;
+  }
+  .prizePoolHero > div {
+    border-right:0;
+  }
+  .prizeMoneySummary {
+    align-items:flex-start;
+    flex-direction:column;
+  }
+}
