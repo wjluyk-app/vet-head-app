@@ -455,7 +455,7 @@ main { width: min(1100px, 94vw); margin: 30px auto 60px; }
 .rosterTable {
   width:100%;
   border-collapse:collapse;
-  min-width:650px;
+  min-width:0;
   font-size:12px;
 }
 .rosterTable th {
