@@ -1032,7 +1032,7 @@ main { width: min(1100px, 94vw); margin: 30px auto 60px; }
 }
 .prizePoolHero span {
   display:block;
-  font-size:10px;
+  font-size:11px;
   font-weight:900;
   letter-spacing:.07em;
   color:#cbd7e1;
@@ -1075,15 +1075,15 @@ main { width: min(1100px, 94vw); margin: 30px auto 60px; }
 }
 .prizeMoneyCard p {
   color:#68798a;
-  font-size:12px;
-  line-height:1.5;
-  min-height:42px;
+  font-size:14px;
+  line-height:1.55;
+  min-height:48px;
 }
 .prizeMoneyCard a {
   color:var(--navy);
   font-weight:900;
   text-decoration:none;
-  font-size:12px;
+  font-size:13px;
 }
 .prizeMoneyRules {
   margin-top:18px;
@@ -1119,7 +1119,7 @@ main { width: min(1100px, 94vw); margin: 30px auto 60px; }
 .prizeMoneyBreakdown span {
   display:block;
   color:#68798a;
-  font-size:10px;
+  font-size:11px;
   font-weight:900;
 }
 .prizeMoneyBreakdown strong {
@@ -1146,6 +1146,8 @@ main { width: min(1100px, 94vw); margin: 30px auto 60px; }
   margin:0;
   color:#6f5b00;
   max-width:700px;
+  font-size:14px;
+  line-height:1.5;
 }
 
 @media (max-width:900px) {
