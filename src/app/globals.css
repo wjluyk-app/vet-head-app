@@ -1257,3 +1257,43 @@ main { width: min(1100px, 94vw); margin: 30px auto 60px; }
     grid-template-columns:1fr;
   }
 }
+
+/* Sunday Singles Result Entry */
+.scoreFieldLabel {
+  display:block;
+  margin:20px 0 7px;
+  color:var(--navy);
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+}
+
+.scoreSelect,
+.scoreTextInput {
+  width:100%;
+  min-height:48px;
+  padding:11px 13px;
+  border:2px solid var(--navy);
+  border-radius:10px;
+  background:white;
+  color:var(--navy);
+  font:inherit;
+  font-size:16px;
+}
+
+.scoreTextInput {
+  margin-bottom:18px;
+}
+
+.scoreSelect:focus,
+.scoreTextInput:focus {
+  outline:3px solid rgba(235,186,0,.28);
+  outline-offset:2px;
+}
+
+@media (max-width:620px) {
+  .scoreEntryCard .teamTabs {
+    grid-template-columns:1fr;
+  }
+}
