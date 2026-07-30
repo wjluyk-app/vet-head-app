@@ -160,3 +160,10 @@ Version 6A establishes the permanent information architecture before additional 
 Administration remains a smaller protected destination rather than a player-facing home tile.
 
 All routes are present. Friday links to the existing live board and score-entry system; unfinished modules use polished route shells so future functionality can be added without redesigning navigation.
+
+
+# Teams & Pairings Section
+
+The Teams & Pairings block is now populated directly from the 2026 workbook seed.
+
+It includes both 12-player rosters, captains, handicap references, tee assignments, housing units, and all 30 tournament pairings across Friday, Saturday, Sunday Front and Sunday Back.
