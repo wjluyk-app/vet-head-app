@@ -48,3 +48,53 @@ main { width: min(1100px, 94vw); margin: 30px auto 60px; }
 .textInput { width:100%; min-height:48px; border:1px solid #aeb8c2; border-radius:10px; margin:8px 0 18px; padding:10px 12px; font-size:16px; }
 
 .errorNotice { margin: 16px 0; padding: 14px 18px; background:#ffe6e6; border-left:5px solid #a31515; color:#751010; }
+
+/* Version 5 Friday live results */
+.fridayResultsHero { margin-bottom: 22px; }
+.resultsScoreboard {
+  display: grid;
+  grid-template-columns: 1fr minmax(160px, .7fr) 1fr;
+  align-items: stretch;
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid #d9dee5;
+  background: white;
+  box-shadow: 0 4px 14px rgba(16,42,67,.08);
+}
+.teamTotal { padding: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+.teamTotal span { font-size: 13px; font-weight: 900; letter-spacing: .1em; }
+.teamTotal strong { font-size: 54px; line-height: 1; }
+.lukeTotal { background: var(--navy); color: var(--gold); }
+.samTotal { background: var(--gold); color: var(--navy); }
+.resultsCenter { padding: 18px 12px; text-align: center; display:flex; flex-direction:column; justify-content:center; gap:7px; font-weight:900; }
+.resultsCenter small { font-weight:600; color:#66788a; }
+.refreshButton { align-self:center; margin-top:5px; border:1px solid #aeb8c2; background:white; border-radius:8px; padding:7px 10px; color:var(--navy); font-weight:800; }
+.refreshButton:disabled { opacity:.6; }
+.matchResultsGrid { display:grid; grid-template-columns:repeat(auto-fit, minmax(390px, 1fr)); gap:18px; margin-top:22px; }
+.matchResultCard { padding:0; overflow:hidden; }
+.matchResultHeader { padding:18px 20px 12px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e6e9ed; }
+.matchResultHeader h2 { margin:3px 0 0; }
+.matchComplete, .matchPending { border-radius:999px; padding:7px 12px; font-size:12px; font-weight:900; }
+.matchComplete { background:#dff7e9; color:#17663a; }
+.matchPending { background:#fff0d6; color:#8a5000; }
+.playersRow { display:grid; grid-template-columns:54px 1fr; gap:10px; padding:10px 20px; }
+.playersRow strong { text-transform:uppercase; font-size:12px; letter-spacing:.06em; }
+.lukePlayers { background:#eef5fb; }
+.samPlayers { background:#fff9d9; }
+.componentTable { margin:14px 20px; border:1px solid #d9dee5; border-radius:10px; overflow:hidden; }
+.componentRow { display:grid; grid-template-columns:1.4fr .7fr .7fr .9fr; gap:5px; padding:9px 10px; border-top:1px solid #e6e9ed; text-align:center; }
+.componentRow span:first-child { text-align:left; font-weight:700; }
+.componentHeading { border-top:0; background:#f3f5f7; font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.05em; }
+.matchPointLine { display:grid; grid-template-columns:1fr 1.6fr 1fr; gap:8px; align-items:center; padding:13px 20px; background:var(--navy); color:white; text-align:center; }
+.matchPointLine strong:first-child { color:var(--gold); text-align:left; }
+.matchPointLine strong:last-child { color:var(--gold); text-align:right; }
+.matchPointLine span { font-size:13px; }
+.lastUpdated { padding:8px 20px 12px; color:#66788a; font-size:12px; text-align:right; }
+@media (max-width: 650px) {
+  .resultsScoreboard { grid-template-columns:1fr 1fr; }
+  .resultsCenter { grid-column:1 / -1; grid-row:2; border-top:1px solid #d9dee5; }
+  .teamTotal strong { font-size:44px; }
+  .matchResultsGrid { grid-template-columns:1fr; }
+  .matchPointLine { grid-template-columns:1fr; }
+  .matchPointLine strong:first-child, .matchPointLine strong:last-child { text-align:center; }
+}

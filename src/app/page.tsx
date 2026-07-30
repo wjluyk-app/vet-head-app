@@ -33,6 +33,11 @@ export default function HomePage() {
           <p>Enter each two-man team’s NET score once, by hole.</p>
           <Link className="button" href="/score/friday">Open score entry</Link>
         </article>
+        <article className="card gold">
+          <h2>Friday live results</h2>
+          <p>See every match, front/back/overall points and the Team Luke vs. Team Sam total.</p>
+          <Link className="button" href="/results/friday">Open live scoreboard</Link>
+        </article>
         <article className="card">
           <h2>Administration</h2>
           <p>Review setup, missing scores, reconciliation and publication readiness.</p>
