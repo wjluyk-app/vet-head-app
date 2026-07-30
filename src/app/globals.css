@@ -765,3 +765,245 @@ main { width: min(1100px, 94vw); margin: 30px auto 60px; }
   font-weight:900;
   color:#9aa7b3;
 }
+
+
+/* Player Guide */
+.playerGuideActions {
+  margin-top:22px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.playerGuideSnapshot {
+  margin-top:18px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  background:var(--navy);
+  color:white;
+  border-radius:15px;
+  overflow:hidden;
+}
+.playerGuideSnapshot div {
+  padding:18px;
+  text-align:center;
+  border-right:1px solid rgba(255,255,255,.14);
+}
+.playerGuideSnapshot div:last-child { border-right:0; }
+.playerGuideSnapshot span {
+  display:block;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.08em;
+  color:#cbd7e1;
+}
+.playerGuideSnapshot strong {
+  display:block;
+  margin-top:4px;
+  color:var(--gold);
+  font-size:27px;
+}
+.playerGuideNav {
+  margin-top:18px;
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:12px;
+}
+.playerGuideNavCard {
+  background:white;
+  border:1px solid #d8e0e7;
+  border-radius:13px;
+  padding:15px;
+  text-decoration:none;
+  box-shadow:0 4px 12px rgba(16,42,67,.05);
+}
+.playerGuideNavCard strong {
+  display:block;
+  color:var(--navy);
+  margin-bottom:5px;
+}
+.playerGuideNavCard span {
+  display:block;
+  color:#68798a;
+  font-size:11px;
+  line-height:1.45;
+}
+.playerGuideSection {
+  margin-top:22px;
+}
+.playerGuideSectionHeader {
+  margin-bottom:12px;
+}
+.playerGuideSectionHeader h2 {
+  margin:4px 0 0;
+  color:var(--navy);
+}
+.playerGuideWelcomeGrid {
+  display:grid;
+  grid-template-columns:1.5fr 1fr;
+  gap:16px;
+}
+.playerGuideTextCard,
+.playerGuideContacts,
+.playerGuideDayGrid article,
+.playerGuideFormatGrid article,
+.playerGuideRuleGrid article,
+.playerGuideHousingGrid article,
+.playerGuideSteps article {
+  background:white;
+  border:1px solid #d8e0e7;
+  border-radius:14px;
+  box-shadow:0 4px 12px rgba(16,42,67,.05);
+}
+.playerGuideTextCard {
+  padding:18px;
+}
+.playerGuideTextCard p {
+  margin:0 0 12px;
+  color:#526475;
+  line-height:1.55;
+}
+.playerGuideTextCard p:last-child { margin-bottom:0; }
+.playerGuideContacts {
+  padding:16px;
+  display:grid;
+  gap:12px;
+}
+.playerGuideContacts > div {
+  padding:14px;
+  background:#f4f7f9;
+  border-radius:11px;
+}
+.playerGuideContacts strong,
+.playerGuideContacts a {
+  display:block;
+}
+.playerGuideContacts strong {
+  margin-top:5px;
+  color:var(--navy);
+  font-size:18px;
+}
+.playerGuideContacts a {
+  margin-top:4px;
+  color:var(--navy);
+  font-weight:900;
+  text-decoration:none;
+}
+.playerGuideDayGrid,
+.playerGuideFormatGrid,
+.playerGuideRuleGrid,
+.playerGuideHousingGrid {
+  display:grid;
+  gap:14px;
+}
+.playerGuideDayGrid {
+  grid-template-columns:repeat(3,1fr);
+}
+.playerGuideFormatGrid {
+  grid-template-columns:repeat(4,1fr);
+}
+.playerGuideRuleGrid {
+  margin-top:14px;
+  grid-template-columns:repeat(3,1fr);
+}
+.playerGuideHousingGrid {
+  grid-template-columns:repeat(3,1fr);
+}
+.playerGuideDayGrid article,
+.playerGuideFormatGrid article,
+.playerGuideRuleGrid article,
+.playerGuideHousingGrid article {
+  padding:17px;
+}
+.playerGuideDayGrid article > span,
+.playerGuideFormatGrid article > span {
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.08em;
+  color:#68798a;
+}
+.playerGuideDayGrid h3,
+.playerGuideFormatGrid h3,
+.playerGuideRuleGrid h3,
+.playerGuideHousingGrid h3 {
+  margin:6px 0;
+  color:var(--navy);
+}
+.playerGuideDayGrid strong,
+.playerGuideFormatGrid strong {
+  color:var(--gold);
+}
+.playerGuideDayGrid p,
+.playerGuideFormatGrid p,
+.playerGuideRuleGrid p {
+  color:#68798a;
+  font-size:11px;
+  line-height:1.5;
+}
+.playerGuideHousingGrid article {
+  border-top:5px solid var(--gold);
+}
+.playerGuideHousingGrid p {
+  margin:5px 0;
+  color:var(--navy);
+  font-weight:700;
+  font-size:12px;
+}
+.playerGuideSteps {
+  display:grid;
+  gap:11px;
+}
+.playerGuideSteps article {
+  padding:14px 16px;
+  display:grid;
+  grid-template-columns:40px 1fr;
+  align-items:start;
+  gap:12px;
+}
+.playerGuideSteps article > strong {
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:var(--navy);
+  color:var(--gold);
+  display:grid;
+  place-items:center;
+  font-size:16px;
+}
+.playerGuideSteps h3 {
+  margin:0 0 4px;
+  color:var(--navy);
+}
+.playerGuideSteps p {
+  margin:0;
+  color:#68798a;
+  font-size:12px;
+  line-height:1.45;
+}
+
+@media (max-width:1000px) {
+  .playerGuideNav { grid-template-columns:repeat(2,1fr); }
+  .playerGuideFormatGrid { grid-template-columns:repeat(2,1fr); }
+}
+@media (max-width:760px) {
+  .playerGuideSnapshot { grid-template-columns:repeat(2,1fr); }
+  .playerGuideSnapshot div:nth-child(2) { border-right:0; }
+  .playerGuideWelcomeGrid,
+  .playerGuideDayGrid,
+  .playerGuideRuleGrid,
+  .playerGuideHousingGrid {
+    grid-template-columns:1fr;
+  }
+}
+@media (max-width:560px) {
+  .playerGuideNav,
+  .playerGuideFormatGrid {
+    grid-template-columns:1fr;
+  }
+  .playerGuideActions {
+    flex-direction:column;
+  }
+  .playerGuideActions a {
+    width:100%;
+    text-align:center;
+  }
+}
