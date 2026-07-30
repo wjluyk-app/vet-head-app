@@ -1220,3 +1220,40 @@ main { width: min(1100px, 94vw); margin: 30px auto 60px; }
     grid-template-columns:1fr;
   }
 }
+
+
+/* Sunday */
+.sundayFormatGrid {
+  margin-top:18px;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:16px;
+}
+.sundayFormatGrid article {
+  background:white;
+  border:1px solid #d8e0e7;
+  border-radius:15px;
+  padding:18px;
+  box-shadow:0 4px 14px rgba(16,42,67,.06);
+}
+.sundayFormatGrid h2 {
+  margin:5px 0 7px;
+  color:var(--navy);
+}
+.sundayFormatGrid strong {
+  display:block;
+  color:var(--gold);
+  font-size:17px;
+}
+.sundayFormatGrid p {
+  margin:9px 0 0;
+  color:#68798a;
+  font-size:13px;
+  line-height:1.5;
+}
+
+@media (max-width:760px) {
+  .sundayFormatGrid {
+    grid-template-columns:1fr;
+  }
+}
