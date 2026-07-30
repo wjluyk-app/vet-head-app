@@ -11,24 +11,24 @@ function formatTime(value: string) {
 const schedule = [
   {
     day: "Friday",
+    sourceDay: "Friday",
     date: "August 28",
     course: "Mountain Course",
     format: "1 Best Ball of 2",
-    times: ["13:00:00", "13:10:00", "13:20:00", "13:30:00", "13:40:00", "13:50:00"],
   },
   {
     day: "Saturday",
+    sourceDay: "Saturday",
     date: "August 29",
     course: "Betsie Valley",
     format: "18-Hole Two-Man Scramble",
-    times: ["11:20:00", "11:30:00", "11:40:00", "11:50:00", "12:00:00", "12:10:00"],
   },
   {
     day: "Sunday",
+    sourceDay: "Sunday Front",
     date: "August 30",
     course: "Mountain Course",
     format: "Front Nine Pinehurst · Back Nine Singles",
-    times: ["10:50:00", "11:00:00", "11:10:00", "11:20:00", "11:30:00", "11:40:00"],
   },
 ];
 
@@ -56,7 +56,12 @@ export default function Page() {
       </section>
 
       <section className="scheduleGrid">
-        {schedule.map((item) => (
+        {schedule.map((item) => {
+          const matches = seed.pairings
+            .filter((pairing) => pairing.day === item.sourceDay)
+            .sort((a, b) => a.matchNumber - b.matchNumber);
+
+          return (
           <article className="scheduleCard" key={item.day}>
             <div className="scheduleCardHeader">
               <div>
@@ -69,10 +74,30 @@ export default function Page() {
             <div className="scheduleFormat">{item.format}</div>
 
             <div className="teeTimeGrid">
-              {item.times.map((time, index) => (
-                <div className="teeTimeRow" key={time}>
-                  <span>Match {index + 1}</span>
-                  <strong>{formatTime(time)}</strong>
+              {matches.map((match) => (
+                <div className="teeTimeRow teeTimeRowDetailed" key={match.matchNumber}>
+                  <div className="teeTimeMatch">
+                    <span>Match {match.matchNumber}</span>
+                    <strong>{match.teeTime ? formatTime(match.teeTime) : "Continues after front nine"}</strong>
+                  </div>
+
+                  <div className="teeTimeNames">
+                    <div>
+                      <span>TEAM LUKE</span>
+                      <strong>
+                        {match.lukePlayer1}
+                        {match.lukePlayer2 ? ` & ${match.lukePlayer2}` : ""}
+                      </strong>
+                    </div>
+                    <div className="teeTimeVs">VS</div>
+                    <div>
+                      <span>TEAM SAM</span>
+                      <strong>
+                        {match.samPlayer1}
+                        {match.samPlayer2 ? ` & ${match.samPlayer2}` : ""}
+                      </strong>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
@@ -83,7 +108,8 @@ export default function Page() {
               </div>
             )}
           </article>
-        ))}
+          );
+        })}
       </section>
 
       <section className="scheduleSummaryCard">
