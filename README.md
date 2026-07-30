@@ -134,3 +134,29 @@ Version 5 adds a Supabase-backed Friday live scoreboard. It awards one point for
 - `/api/friday/results` — authenticated JSON results feed
 
 The scoreboard refreshes every 15 seconds and can also be refreshed manually.
+
+
+# Version 6 — Friday Tournament Board
+
+Spreadsheet-inspired Friday board with live hole scores, match points, field rankings, $450 payouts, validated $200 skins, expandable match detail, and navy/gold styling.
+
+
+# Version 6A — Tournament Hub
+
+Version 6A establishes the permanent information architecture before additional tournament modules are built.
+
+## Home destinations
+
+1. Overall Scoreboard
+2. Friday
+3. Saturday
+4. Sunday
+5. Player Guide
+6. Teams & Pairings
+7. Schedule & Tee Times
+8. Prize Money
+9. Final Results
+
+Administration remains a smaller protected destination rather than a player-facing home tile.
+
+All routes are present. Friday links to the existing live board and score-entry system; unfinished modules use polished route shells so future functionality can be added without redesigning navigation.

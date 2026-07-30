@@ -1,0 +1,21 @@
+{
+  "version": "6A",
+  "purpose": "Tournament hub, permanent navigation and route shells",
+  "home_blocks": [
+    "Overall Scoreboard",
+    "Friday",
+    "Saturday",
+    "Sunday",
+    "Player Guide",
+    "Teams & Pairings",
+    "Schedule & Tee Times",
+    "Prize Money",
+    "Final Results"
+  ],
+  "admin": "Separate protected destination",
+  "preserves": [
+    "Friday score entry",
+    "Friday live results",
+    "Supabase scoring"
+  ]
+}

@@ -1,51 +1,72 @@
 import Link from "next/link";
+import { tournamentHubGroups } from "@/data/tournament-hub";
 
 export default function HomePage() {
   return (
     <>
-      <section className="hero">
-        <h1>Cubby Cup 2026</h1>
-        <p>Private tournament-management prototype</p>
-        <div className="grid">
+      <section className="hubHero">
+        <div className="hubHeroCopy">
+          <div className="smallLabel hubEdition">CRYSTAL MOUNTAIN · AUGUST 28–30, 2026</div>
+          <h1>Cubby Cup Tournament Hub</h1>
+          <p>
+            One private home for player information, live competition,
+            prize money and final results.
+          </p>
+        </div>
+        <div className="hubHeroScore">
           <div>
-            <div className="kpi" style={{ color: "#e3b414" }}>8</div>
-            <div>TEAM LUKE — Friday fixture</div>
+            <span>TEAM LUKE</span>
+            <strong>8</strong>
           </div>
+          <div className="hubScoreDivider">FRIDAY</div>
           <div>
-            <div className="kpi" style={{ color: "white" }}>10</div>
-            <div>TEAM SAM — Friday fixture</div>
-          </div>
-          <div>
-            <div className="kpi" style={{ color: "#e3b414" }}>$650</div>
-            <div>Friday money validation</div>
+            <span>TEAM SAM</span>
+            <strong>10</strong>
           </div>
         </div>
       </section>
 
-      <section className="grid">
-        <article className="card gold">
-          <h2>Players Guide</h2>
-          <p>12-page pre-tournament publication generated from approved setup data.</p>
-          <span className="statusGood">Specification locked</span>
-        </article>
-        <article className="card">
-          <h2>Friday scoring</h2>
-          <p>Enter each two-man team’s NET score once, by hole.</p>
-          <Link className="button" href="/score/friday">Open score entry</Link>
-        </article>
-        <article className="card gold">
-          <h2>Friday live results</h2>
-          <p>See every match, front/back/overall points and the Team Luke vs. Team Sam total.</p>
-          <Link className="button" href="/results/friday">Open live scoreboard</Link>
-        </article>
-        <article className="card">
-          <h2>Administration</h2>
-          <p>Review setup, missing scores, reconciliation and publication readiness.</p>
-          <Link className="button" href="/admin">Open dashboard</Link>
-        </article>
+      {tournamentHubGroups.map((group) => (
+        <section className="hubGroup" key={group.title}>
+          <div className="hubGroupHeader">
+            <div>
+              <h2>{group.title}</h2>
+              <p>{group.description}</p>
+            </div>
+          </div>
+
+          <div className="hubTileGrid">
+            {group.items.map((item) => (
+              <Link
+                className={item.featured ? "hubTile hubTileFeatured" : "hubTile"}
+                href={item.href}
+                key={item.title}
+              >
+                <div className="hubTileTop">
+                  <span className="hubIcon">{item.icon}</span>
+                  <span className={`hubStatus hubStatus${item.status.replace(" ", "")}`}>
+                    {item.status}
+                  </span>
+                </div>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+                <span className="hubOpen">Open section →</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      ))}
+
+      <section className="hubAdminBar">
+        <div>
+          <strong>Tournament Administration</strong>
+          <span>Score entry, corrections, setup, audit history and exports.</span>
+        </div>
+        <Link className="secondaryButton" href="/admin">Open Admin</Link>
       </section>
+
       <div className="notice">
-        Prototype rule: team-format scores are already NET and are never handicapped again.
+        Team-format scores are entered once as NET scores and are never handicapped again.
       </div>
     </>
   );
