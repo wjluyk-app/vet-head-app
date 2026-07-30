@@ -12,7 +12,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <header className="appHeader">
           <div className="brand">CUBBY CUP</div>
-          <div className="edition">2026 APP PROTOTYPE</div>
+          <div className="edition">2026 · VERSION 5</div>
         </header>
         <main>{children}</main>
       </body>

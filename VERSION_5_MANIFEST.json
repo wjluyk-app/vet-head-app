@@ -1,0 +1,14 @@
+{
+  "version": "5.0.0-alpha.1",
+  "created": "2026-07-30",
+  "scope": "Friday live head-to-head results and overall team scoreboard",
+  "features": [
+    "Supabase-backed Friday results API",
+    "Front-nine, back-nine and overall point calculation",
+    "Team Luke vs. Team Sam aggregate scoreboard",
+    "Automatic 15-second refresh",
+    "Partial-round status without prematurely awarding points",
+    "Authenticated results access",
+    "Responsive match-by-match results interface"
+  ]
+}

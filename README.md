@@ -122,3 +122,15 @@ Version 4 changes the operating model from a workbook-seed display prototype to 
 - Friday hole scores: 216
 
 The app remains governed by the non-negotiable rule that team-format entries are already NET and are never handicapped again.
+
+
+# Version 5 — Friday Live Results
+
+Version 5 adds a Supabase-backed Friday live scoreboard. It awards one point for the front nine, one for the back nine, and one for the 18-hole overall result. Ties split the available point. Incomplete segments remain pending and receive no points until both scorecards contain all required NET hole scores.
+
+## New routes
+
+- `/results/friday` — authenticated live scoreboard
+- `/api/friday/results` — authenticated JSON results feed
+
+The scoreboard refreshes every 15 seconds and can also be refreshed manually.
