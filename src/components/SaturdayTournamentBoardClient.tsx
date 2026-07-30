@@ -1,0 +1,21 @@
+"use client";
+import { Fragment, useEffect, useMemo, useState } from "react";
+import type { SaturdayTournamentBoard } from "@/lib/saturday-tournament-board";
+const money=(n:number)=>n?`$${n.toFixed(n%1?2:0)}`:"—";
+const points=(n:number)=>Number.isInteger(n)?String(n):n.toFixed(1);
+const rank=(n:number|null)=>n?`#${n}`:"—";
+export default function SaturdayTournamentBoardClient({initial}:{initial:SaturdayTournamentBoard}){
+ const [board,setBoard]=useState(initial),[full,setFull]=useState(true),[error,setError]=useState<string|null>(null),[busy,setBusy]=useState(false),[open,setOpen]=useState<number|null>(null);
+ async function refresh(){setBusy(true);try{const r=await fetch("/api/saturday/board",{cache:"no-store"});const b=await r.json();if(!r.ok||!b.ok)throw new Error(b.error);setBoard(b.board);setError(null)}catch(e){setError(e instanceof Error?e.message:"Refresh failed")}finally{setBusy(false)}}
+ useEffect(()=>{const id=window.setInterval(refresh,15000);return()=>window.clearInterval(id)},[]);
+ const groups=useMemo(()=>{const m=new Map<number,typeof board.teams>();board.teams.forEach(t=>m.set(t.matchNumber,[...(m.get(t.matchNumber)??[]),t]));return [...m.entries()].sort((a,b)=>a[0]-b[0])},[board]);
+ const leaders=(key:"front"|"back"|"total")=>board.teams.filter(t=>t[key]!==null&&t[`${key}Rank` as "frontRank"]===1);
+ return <>
+  <section className="resultsScoreboard"><div className="teamTotal lukeTotal"><span>TEAM LUKE</span><strong>{points(board.matchPlay.lukePoints)}</strong></div><div className="resultsCenter"><div>SATURDAY POINTS</div><small>{board.matchPlay.completedMatches} of 6 matches final</small><button className="refreshButton" onClick={refresh} disabled={busy}>{busy?"Refreshing…":"Refresh now"}</button></div><div className="teamTotal samTotal"><span>TEAM SAM</span><strong>{points(board.matchPlay.samPoints)}</strong></div></section>
+  {error&&<div className="errorNotice">{error}</div>}
+  <section className="boardKpiGrid boardKpiGridThree">{(["front","back","total"] as const).map((k,i)=>{const x=leaders(k);return <article className="boardKpi" key={k}><span>{["FRONT 9","BACK 9","OVERALL"][i]} LEADER</span><strong>{x.length?`${x[0][k]} · ${x.map(t=>t.players).join(" / ")}`:"Pending"}</strong><small>Live field standing</small></article>})}</section>
+  <section className="tournamentBoardSection"><div className="boardSectionHeader"><div><div className="smallLabel">LIVE TOURNAMENT BOARD</div><h2>Saturday Net Scramble Scores</h2><p>Workbook structure, Cubby Cup navy and gold.</p></div><button className="secondaryButton" onClick={()=>setFull(v=>!v)}>{full?"Compact view":"Show all holes"}</button></div>
+  <div className={full?"boardTableWrap holesVisible":"boardTableWrap"}><table className="fridayBoardTable"><thead><tr><th>Match</th><th>Team</th><th>Players</th>{full&&Array.from({length:18},(_,i)=><th key={i}>{i+1}</th>)}<th>OUT</th><th>IN</th><th>Total</th><th>Pts</th></tr></thead><tbody>{groups.map(([match,teams])=><Fragment key={match}>{teams.map((t,i)=><tr className={t.captainTeam==="LUKE"?"boardLukeRow":"boardSamRow"} key={t.scorecardId}>{i===0&&<td className="matchNumberCell" rowSpan={2}>{match}</td>}<td className="captainCell">{t.captainLabel}</td><td className="playersCell">{t.players}</td>{full&&t.scores.map((s,h)=><td className="" key={h}>{s??"—"}</td>)}<td className={t.frontRank===1?"segmentWinnerCell":""}>{t.front??"—"}<small>{rank(t.frontRank)}</small></td><td className={t.backRank===1?"segmentWinnerCell":""}>{t.back??"—"}<small>{rank(t.backRank)}</small></td><td className={t.totalRank===1?"totalWinnerCell":""}>{t.total??"—"}<small>{rank(t.totalRank)}</small></td><td className="pointsCell">{points(t.matchPoints)}</td></tr>)}<tr className="matchStatusRow"><td colSpan={full?26:8}><button className="matchExpandButton" onClick={()=>setOpen(open===match?null:match)}>Match {match} details {open===match?"▲":"▼"}</button></td></tr>{open===match&&<tr className="expandedMatchRow"><td colSpan={full?26:8}><div className="expandedMatchGrid">{board.matchPlay.matches.find(m=>m.matchNumber===match)?.components.map(c=><div key={c.component}><strong>{c.label}</strong><span>Luke {c.lukeScore??"—"} · Sam {c.samScore??"—"}</span><em>{c.winner}</em></div>)}</div></td></tr>}</Fragment>)}</tbody></table></div></section>
+
+ </>
+}
