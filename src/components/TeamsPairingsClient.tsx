@@ -26,6 +26,12 @@ function teamLabel(shortName: string): string {
   return shortName === "L. Swardo" ? "Team Luke" : "Team Sam";
 }
 
+function teeAssignment(mountainTee: string, betsieTee: string): string {
+  return mountainTee === betsieTee
+    ? mountainTee
+    : `${mountainTee} / ${betsieTee}`;
+}
+
 function TeamRosterCard({ team }: { team: TeamRoster }) {
   return (
     <article className={team.shortName === "L. Swardo" ? "rosterCard rosterLuke" : "rosterCard rosterSam"}>
@@ -45,9 +51,7 @@ function TeamRosterCard({ team }: { team: TeamRoster }) {
               <th>Index</th>
               <th>Friday</th>
               <th>Saturday</th>
-              <th>Mountain Tee</th>
-              <th>Betsie Tee</th>
-              <th>Housing</th>
+              <th>Tee</th>
             </tr>
           </thead>
           <tbody>
@@ -60,9 +64,7 @@ function TeamRosterCard({ team }: { team: TeamRoster }) {
                 <td>{player.handicapIndex.toFixed(1)}</td>
                 <td>{handicap(player.fridayPlayingHandicap)}</td>
                 <td>{handicap(player.betsieHandicap)}</td>
-                <td>{player.mountainTee}</td>
-                <td>{player.betsieTee}</td>
-                <td>{player.housingUnit}</td>
+                <td>{teeAssignment(player.mountainTee, player.betsieTee)}</td>
               </tr>
             ))}
           </tbody>
