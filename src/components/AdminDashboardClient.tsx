@@ -14,11 +14,21 @@ type SessionStatus = {
   expectedResults: number;
 };
 
+type RecentActivity = {
+  id: string;
+  sessionName: string;
+  oldStatus: string;
+  newStatus: string;
+  reason: string | null;
+  createdAt: string;
+};
+
 type AdminStatus = {
   ok: boolean;
   players: number;
   openConflicts: number;
   sessions: SessionStatus[];
+  recentActivity: RecentActivity[];
   error?: string;
 };
 
@@ -40,6 +50,7 @@ export default function AdminDashboardClient() {
         players: 0,
         openConflicts: 0,
         sessions: [],
+        recentActivity: [],
         error: "Administrator status could not be loaded.",
       });
     }
@@ -114,6 +125,30 @@ export default function AdminDashboardClient() {
 
       {actionError && (
         <div className="errorNotice">{actionError}</div>
+      )}
+
+      {status.recentActivity.length > 0 && (
+        <section className="tournamentBoardSection">
+          <div className="boardSectionHeader">
+            <div>
+              <div className="smallLabel">AUDIT LOG</div>
+              <h2>Recent Admin Activity</h2>
+              <p>Latest session status changes.</p>
+            </div>
+          </div>
+
+          <div className="card">
+            {status.recentActivity.map((entry) => (
+              <p key={entry.id}>
+                <strong>{entry.sessionName}</strong>:{" "}
+                {String(entry.oldStatus).replaceAll('"', "")} →{" "}
+                {String(entry.newStatus).replaceAll('"', "")}
+                {" · "}
+                {new Date(entry.createdAt).toLocaleString()}
+              </p>
+            ))}
+          </div>
+        </section>
       )}
 
       <section className="grid">

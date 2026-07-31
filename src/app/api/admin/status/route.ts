@@ -112,10 +112,33 @@ export async function GET() {
     }),
   );
 
+  const { data: recentActivity } = await supabase
+    .from("audit_record")
+    .select(
+      "id, entity_id, old_value, new_value, reason, created_at",
+    )
+    .eq("entity_type", "session")
+    .eq("field_name", "status")
+    .order("created_at", { ascending: false })
+    .limit(8);
+
+  const sessionNames = new Map(
+    sessions.map((session) => [session.id, session.name]),
+  );
+
   return Response.json({
     ok: true,
     players: playerCount ?? 0,
     openConflicts: conflictCount ?? 0,
     sessions: sessionStatus,
+    recentActivity: (recentActivity ?? []).map((entry) => ({
+      id: entry.id,
+      sessionName:
+        sessionNames.get(entry.entity_id ?? "") ?? "Unknown session",
+      oldStatus: entry.old_value,
+      newStatus: entry.new_value,
+      reason: entry.reason,
+      createdAt: entry.created_at,
+    })),
   });
 }
