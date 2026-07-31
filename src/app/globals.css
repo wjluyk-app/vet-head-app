@@ -1297,3 +1297,8 @@ main { width: min(1100px, 94vw); margin: 30px auto 60px; }
     grid-template-columns:1fr;
   }
 }
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
