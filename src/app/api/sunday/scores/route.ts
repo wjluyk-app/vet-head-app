@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
+import { getBillAdminUser } from "@/lib/auth/admin";
 
 const scoreInput = z.object({
   scorecardId: z.string().uuid(),
@@ -10,6 +11,15 @@ const scoreInput = z.object({
 });
 
 export async function POST(request: Request) {
+  const adminUser = await getBillAdminUser();
+
+  if (!adminUser) {
+    return Response.json(
+      { ok: false, error: "Administrator access required" },
+      { status: 403 },
+    );
+  }
+
   const parsed = scoreInput.safeParse(await request.json());
 
   if (!parsed.success) {

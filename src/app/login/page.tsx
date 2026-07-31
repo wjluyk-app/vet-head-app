@@ -9,8 +9,8 @@ export default async function LoginPage({
 
   return (
     <section className="card loginCard">
-      <h1>Private Cubby Cup Access</h1>
-      <p>Approved administrators and scorekeepers can sign in below.</p>
+      <h1>Administrator Sign In</h1>
+      <p>Score entry and tournament setup are restricted to Bill.</p>
 
       {params.error && (
         <div className="errorNotice">{params.error}</div>
