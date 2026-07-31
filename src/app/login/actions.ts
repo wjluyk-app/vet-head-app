@@ -28,3 +28,10 @@ export async function signIn(formData: FormData): Promise<void> {
 
   redirect("/admin");
 }
+
+
+export async function signOut(): Promise<void> {
+  const supabase = await createClient();
+  await supabase.auth.signOut();
+  redirect("/");
+}

@@ -8,5 +8,5 @@ export async function GET(request: Request) {
     const supabase = await createClient();
     await supabase.auth.exchangeCodeForSession(code);
   }
-  return NextResponse.redirect(new URL("/score/friday", url.origin));
+  return NextResponse.redirect(new URL("/admin", url.origin));
 }

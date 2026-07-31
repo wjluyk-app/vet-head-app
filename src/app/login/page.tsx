@@ -1,4 +1,5 @@
-import { signIn } from "./actions";
+import { getBillAdminUser } from "@/lib/auth/admin";
+import { signIn, signOut } from "./actions";
 
 export default async function LoginPage({
   searchParams,
@@ -6,6 +7,22 @@ export default async function LoginPage({
   searchParams: Promise<{ error?: string }>;
 }) {
   const params = await searchParams;
+  const adminUser = await getBillAdminUser();
+
+  if (adminUser) {
+    return (
+      <section className="card loginCard">
+        <h1>Administrator Account</h1>
+        <p>Signed in as {adminUser.email}</p>
+
+        <form action={signOut}>
+          <button className="button" type="submit">
+            Sign out
+          </button>
+        </form>
+      </section>
+    );
+  }
 
   return (
     <section className="card loginCard">
