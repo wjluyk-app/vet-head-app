@@ -20,6 +20,7 @@ export interface LiveFridayMatch {
   teeTime: string | null;
   course: string;
   format: string;
+  sessionStatus?: string;
   luke: LiveTeamScorecard;
   sam: LiveTeamScorecard;
 }
