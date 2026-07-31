@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 type SessionStatus = {
@@ -253,6 +254,19 @@ export default function AdminDashboardClient() {
               {updatingSessionId === session.id && (
                 <p>Updating status…</p>
               )}
+
+              <Link
+                className="button"
+                href={
+                  session.name === "Friday"
+                    ? "/score/friday"
+                    : session.name === "Saturday"
+                      ? "/score/saturday"
+                      : "/score/sunday"
+                }
+              >
+                Open score entry
+              </Link>
             </article>
           );
         })}
