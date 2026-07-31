@@ -1,4 +1,5 @@
 export const dynamic = "force-dynamic";
+import { requireBillAdmin } from "@/lib/auth/admin";
 
 import SundayPinehurstScorecardClient from "@/components/SundayPinehurstScorecardClient";
 import { getSundayDataFromDatabase } from "@/lib/repositories/sunday-db";
@@ -9,6 +10,7 @@ export default async function SundayPinehurstMatchPage({
 }: {
   params: Promise<{ matchNumber: string }>;
 }) {
+  await requireBillAdmin();
   const matchNumber = Number((await params).matchNumber);
   const sunday = await getSundayDataFromDatabase(createAdminClient());
   const match = sunday.pinehurst.find(

@@ -1,4 +1,5 @@
 export const dynamic = "force-dynamic";
+import { requireBillAdmin } from "@/lib/auth/admin";
 
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getSaturdayMatchesFromDatabase } from "@/lib/repositories/saturday-db";
@@ -9,6 +10,7 @@ export default async function SaturdayMatchPage({
 }: {
   params: Promise<{ matchNumber: string }>;
 }) {
+  await requireBillAdmin();
   const matchNumber = Number((await params).matchNumber);
   const matches = await getSaturdayMatchesFromDatabase(createAdminClient());
   const match = matches.find((item) => item.matchNumber === matchNumber);

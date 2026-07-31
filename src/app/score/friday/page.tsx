@@ -1,10 +1,12 @@
 export const dynamic = "force-dynamic";
+import { requireBillAdmin } from "@/lib/auth/admin";
 
 import Link from "next/link";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getFridayMatchesFromDatabase } from "@/lib/repositories/friday-db";
 
 export default async function FridayMatchesPage() {
+  await requireBillAdmin();
   const matches = await getFridayMatchesFromDatabase(createAdminClient());
 
   return (
