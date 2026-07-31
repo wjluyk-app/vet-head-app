@@ -24,21 +24,67 @@ type AdminStatus = {
 
 export default function AdminDashboardClient() {
   const [status, setStatus] = useState<AdminStatus | null>(null);
+  const [updatingSessionId, setUpdatingSessionId] = useState<string | null>(null);
+  const [actionError, setActionError] = useState<string | null>(null);
+
+  async function loadStatus() {
+    try {
+      const response = await fetch("/api/admin/status", {
+        cache: "no-store",
+      });
+      const data = await response.json();
+      setStatus(data);
+    } catch {
+      setStatus({
+        ok: false,
+        players: 0,
+        openConflicts: 0,
+        sessions: [],
+        error: "Administrator status could not be loaded.",
+      });
+    }
+  }
 
   useEffect(() => {
-    fetch("/api/admin/status", { cache: "no-store" })
-      .then((response) => response.json())
-      .then(setStatus)
-      .catch(() =>
-        setStatus({
-          ok: false,
-          players: 0,
-          openConflicts: 0,
-          sessions: [],
-          error: "Administrator status could not be loaded.",
-        }),
-      );
+    void loadStatus();
   }, []);
+
+  async function updateSessionStatus(
+    sessionId: string,
+    nextStatus: string,
+  ) {
+    setUpdatingSessionId(sessionId);
+    setActionError(null);
+
+    try {
+      const response = await fetch("/api/admin/session-status", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          sessionId,
+          status: nextStatus,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.ok) {
+        throw new Error(data.error ?? "Session status update failed.");
+      }
+
+      await loadStatus();
+    } catch (error) {
+      setActionError(
+        error instanceof Error
+          ? error.message
+          : "Session status update failed.",
+      );
+    } finally {
+      setUpdatingSessionId(null);
+    }
+  }
 
   if (!status) {
     return <div className="notice">Loading tournament status…</div>;
@@ -66,6 +112,10 @@ export default function AdminDashboardClient() {
         </article>
       </section>
 
+      {actionError && (
+        <div className="errorNotice">{actionError}</div>
+      )}
+
       <section className="grid">
         {status.sessions.map((session) => {
           const scoreProgress =
@@ -87,6 +137,32 @@ export default function AdminDashboardClient() {
                   ? "Hole scores entered"
                   : "Match results entered"}
               </p>
+
+              <label>
+                Session Status
+                <select
+                  className="textInput"
+                  value={session.status}
+                  disabled={updatingSessionId === session.id}
+                  onChange={(event) =>
+                    void updateSessionStatus(
+                      session.id,
+                      event.target.value,
+                    )
+                  }
+                >
+                  <option value="setup">Setup</option>
+                  <option value="open">Open</option>
+                  <option value="submitted">Submitted</option>
+                  <option value="review">Review</option>
+                  <option value="locked">Locked</option>
+                  <option value="published">Published</option>
+                </select>
+              </label>
+
+              {updatingSessionId === session.id && (
+                <p>Updating status…</p>
+              )}
             </article>
           );
         })}
