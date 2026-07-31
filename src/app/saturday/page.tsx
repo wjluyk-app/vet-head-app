@@ -1,7 +1,9 @@
 import Link from "next/link";
 import TournamentSectionShell from "@/components/TournamentSectionShell";
+import { getBillAdminUser } from "@/lib/auth/admin";
 
-export default function SaturdayPage() {
+export default async function SaturdayPage() {
+  const adminUser = await getBillAdminUser();
   return (
     <TournamentSectionShell
       eyebrow="DAY 2 · BETSIE VALLEY"
@@ -17,12 +19,14 @@ export default function SaturdayPage() {
           <strong>Open results →</strong>
         </Link>
 
-        <Link className="sectionActionCard" href="/score/saturday">
-          <span>ADMIN</span>
-          <h2>Saturday Score Entry</h2>
-          <p>Enter or correct each team’s NET scramble score by hole.</p>
-          <strong>Open scoring →</strong>
-        </Link>
+        {adminUser && (
+          <Link className="sectionActionCard" href="/score/saturday">
+            <span>ADMIN</span>
+            <h2>Saturday Score Entry</h2>
+            <p>Enter or correct each team’s NET scramble score by hole.</p>
+            <strong>Open scoring →</strong>
+          </Link>
+        )}
 
         <Link className="sectionActionCard" href="/prize-money">
           <span>MONEY</span>

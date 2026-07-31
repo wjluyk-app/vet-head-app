@@ -1,7 +1,9 @@
 import Link from "next/link";
 import TournamentSectionShell from "@/components/TournamentSectionShell";
+import { getBillAdminUser } from "@/lib/auth/admin";
 
-export default function SundayPage() {
+export default async function SundayPage() {
+  const adminUser = await getBillAdminUser();
   return (
     <TournamentSectionShell
       eyebrow="DAY 3 · MOUNTAIN COURSE"
@@ -17,12 +19,14 @@ export default function SundayPage() {
           <strong>Open results →</strong>
         </Link>
 
-        <Link className="sectionActionCard" href="/score/sunday">
-          <span>ADMIN</span>
-          <h2>Sunday Score Entry</h2>
-          <p>Enter Pinehurst team scores and Sunday singles results.</p>
-          <strong>Open scoring →</strong>
-        </Link>
+        {adminUser && (
+          <Link className="sectionActionCard" href="/score/sunday">
+            <span>ADMIN</span>
+            <h2>Sunday Score Entry</h2>
+            <p>Enter Pinehurst team scores and Sunday singles results.</p>
+            <strong>Open scoring →</strong>
+          </Link>
+        )}
 
         <Link className="sectionActionCard" href="/final-results">
           <span>CHAMPIONS</span>
