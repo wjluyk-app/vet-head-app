@@ -1,6 +1,16 @@
 import { createAdminClient } from "@/lib/supabase/admin";
+import { getBillAdminUser } from "@/lib/auth/admin";
 
 export async function GET() {
+  const adminUser = await getBillAdminUser();
+
+  if (!adminUser) {
+    return Response.json(
+      { ok: false, error: "Administrator access required" },
+      { status: 403 },
+    );
+  }
+
   const supabase = createAdminClient();
   const { data: tournament, error } = await supabase.from("tournament")
     .select("id").eq("year", 2026).single();
