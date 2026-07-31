@@ -1,4 +1,7 @@
-export default function AdminPage() {
+import { requireBillAdmin } from "@/lib/auth/admin";
+
+export default async function AdminPage() {
+  await requireBillAdmin();
   const checks = [
     ["Players imported", "24 / 24"],
     ["Friday pairings", "6 / 6"],
