@@ -109,6 +109,39 @@ export default function AdminDashboardClient() {
     );
   }
 
+  const readiness = status.sessions.map((session) => {
+    const pairingsReady =
+      session.name === "Sunday Singles"
+        ? session.pairings === 12
+        : session.pairings === 6;
+
+    const scorecardsReady =
+      session.name === "Sunday Singles"
+        ? true
+        : session.scorecards === 12;
+
+    const setupReady =
+      status.players === 24 &&
+      status.openConflicts === 0 &&
+      pairingsReady &&
+      scorecardsReady;
+
+    const action =
+      !setupReady
+        ? "Setup requires attention"
+        : session.status === "setup"
+          ? "Ready to open when play begins"
+          : session.status === "open"
+            ? "Open for scoring"
+            : `Current status: ${session.status}`;
+
+    return {
+      ...session,
+      setupReady,
+      action,
+    };
+  });
+
   return (
     <>
       <section className="grid">
@@ -126,6 +159,28 @@ export default function AdminDashboardClient() {
       {actionError && (
         <div className="errorNotice">{actionError}</div>
       )}
+
+      <section className="tournamentBoardSection">
+        <div className="boardSectionHeader">
+          <div>
+            <div className="smallLabel">READINESS</div>
+            <h2>Tournament Readiness</h2>
+            <p>Setup checks and current scoring availability.</p>
+          </div>
+        </div>
+
+        <section className="grid">
+          {readiness.map((session) => (
+            <article className="card" key={`readiness-${session.id}`}>
+              <span className="smallLabel">
+                {session.setupReady ? "READY" : "ACTION NEEDED"}
+              </span>
+              <h3>{session.name}</h3>
+              <p>{session.action}</p>
+            </article>
+          ))}
+        </section>
+      </section>
 
       {status.recentActivity.length > 0 && (
         <section className="tournamentBoardSection">
