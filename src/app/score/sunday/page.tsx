@@ -49,7 +49,7 @@ export default async function SundayScoreEntryPage() {
           <div>
             <div className="smallLabel">BACK NINE</div>
             <h2>Singles Result Entry</h2>
-            <p>Record the winner, a halved match, and the final result.</p>
+            <p>Select the winner or record a halved match.</p>
           </div>
         </div>
 

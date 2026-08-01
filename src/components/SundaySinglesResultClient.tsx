@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import type { LiveSundaySinglesMatch } from "@/lib/live-types";
 
 type WinnerChoice = "LUKE" | "SAM" | "HALVED";
@@ -21,15 +22,10 @@ export default function SundaySinglesResultClient({
   const [winner, setWinner] = useState<WinnerChoice | null>(
     initialWinner,
   );
-  const [closedOnHole, setClosedOnHole] = useState<number | null>(
-    match.closedOnHole,
-  );
-  const [resultText, setResultText] = useState(
-    match.resultText ?? "",
-  );
   const [message, setMessage] = useState("Ready");
   const [busy, setBusy] = useState(false);
   const scoringOpen = match.sessionStatus === "open";
+  const router = useRouter();
 
   async function saveResult() {
     if (!scoringOpen) {
@@ -60,8 +56,8 @@ export default function SundaySinglesResultClient({
           pairingId: match.pairingId,
           winnerTeamId,
           halved: winner === "HALVED",
-          closedOnHole,
-          resultText: resultText.trim() || null,
+          closedOnHole: null,
+          resultText: null,
         }),
       });
 
@@ -72,6 +68,12 @@ export default function SundaySinglesResultClient({
       }
 
       setMessage("Singles result saved");
+
+      if (match.matchNumber < 12) {
+        router.push(`/score/sunday/singles/${match.matchNumber + 1}`);
+      } else {
+        router.push("/score/sunday");
+      }
     } catch (error) {
       setMessage(
         error instanceof Error
@@ -135,54 +137,13 @@ export default function SundaySinglesResultClient({
         </button>
       </div>
 
-      <label className="scoreFieldLabel" htmlFor="closedOnHole">
-        Match ended on hole
-      </label>
-
-      <select
-        id="closedOnHole"
-        className="scoreSelect"
-        value={closedOnHole ?? ""}
-        disabled={!scoringOpen}
-        onChange={(event) =>
-          setClosedOnHole(
-            event.target.value
-              ? Number(event.target.value)
-              : null,
-          )
-        }
-      >
-        <option value="">Not specified</option>
-        {Array.from({ length: 9 }, (_, index) => index + 10).map(
-          (hole) => (
-            <option key={hole} value={hole}>
-              Hole {hole}
-            </option>
-          ),
-        )}
-      </select>
-
-      <label className="scoreFieldLabel" htmlFor="resultText">
-        Final result
-      </label>
-
-      <input
-        id="resultText"
-        className="scoreTextInput"
-        value={resultText}
-        onChange={(event) => setResultText(event.target.value)}
-        disabled={!scoringOpen}
-        placeholder="Example: 2 & 1"
-        maxLength={100}
-      />
-
       <button
         className="button"
         type="button"
         onClick={saveResult}
         disabled={busy || !scoringOpen}
       >
-        {busy ? "Saving…" : "Save singles result"}
+        {busy ? "Saving…" : "Save & Next Match"}
       </button>
 
       <p className="statusGood">{message}</p>
