@@ -18,6 +18,7 @@ export default function FridayScorecardClient({ match }: { match: LiveFridayMatc
   const [pending, setPending] = useState(0);
 
   const card = selectedTeam === "L. Swardo" ? match.luke : match.sam;
+  const scoringOpen = match.sessionStatus === "open";
 
   function refreshPending(): void {
     setPending(getPendingFridayScores().filter((item) => item.syncStatus !== "synced").length);
@@ -28,6 +29,12 @@ export default function FridayScorecardClient({ match }: { match: LiveFridayMatc
     refreshPending();
     const onOnline = async () => {
       setOnline(true);
+
+      if (!scoringOpen) {
+        setMessage("Friday scoring is not open.");
+        return;
+      }
+
       setMessage("Connection restored; syncing…");
       const result = await syncPendingFridayScores();
       refreshPending();
@@ -54,6 +61,11 @@ export default function FridayScorecardClient({ match }: { match: LiveFridayMatc
   const players = useMemo(() => `${card.player1} / ${card.player2}`, [card]);
 
   async function save(): Promise<void> {
+    if (!scoringOpen) {
+      setMessage("Friday scoring is not open.");
+      return;
+    }
+
     if (score === null) return;
     const server = card.scores[hole - 1];
     saveLocalFridayScore({
@@ -107,6 +119,14 @@ export default function FridayScorecardClient({ match }: { match: LiveFridayMatc
       </div>
 
       <h2>{players}</h2>
+
+      {!scoringOpen && (
+        <div className="errorNotice">
+          Friday scoring is currently closed. Open the Friday
+          session from the Administrator Dashboard before entering scores.
+        </div>
+      )}
+
       <p>Enter the team’s NET score for Hole {hole}.</p>
       <div className="scoreGrid">
         {[2,3,4,5,6,7,8,9,10].map((value) => (
@@ -114,6 +134,7 @@ export default function FridayScorecardClient({ match }: { match: LiveFridayMatc
             className={score === value ? "scoreButton selectedScore" : "scoreButton"}
             key={value}
             onClick={() => setScore(value)}
+            disabled={!scoringOpen}
             type="button"
           >
             {value}
@@ -124,7 +145,12 @@ export default function FridayScorecardClient({ match }: { match: LiveFridayMatc
         <button className="secondaryButton" type="button" onClick={() => setHole((h) => Math.max(1, h - 1))}>
           Previous
         </button>
-        <button className="button" type="button" onClick={saveAndNext}>
+        <button
+          className="button"
+          type="button"
+          onClick={saveAndNext}
+          disabled={!scoringOpen}
+        >
           Save & Next
         </button>
       </div>
