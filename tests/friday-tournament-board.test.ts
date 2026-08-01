@@ -3,4 +3,69 @@ import seed from "../src/data/2026-workbook-seed.json";
 import type { LiveFridayMatch } from "../src/lib/live-types";
 import { calculateFridayTournamentBoard } from "../src/lib/friday-tournament-board";
 function matches():LiveFridayMatch[]{const m=new Map<number,any[]>();for(const c of seed.friday.scorecards)m.set(c.matchNumber,[...(m.get(c.matchNumber)??[]),c]);return [...m].map(([n,cards])=>{const cv=(c:any)=>({id:`${n}-${c.teamShortName}`,sourceKey:`${n}-${c.teamShortName}`,teamShortName:c.teamShortName,player1:c.player1,player2:c.player2,scores:c.scores.map((netScore:number,i:number)=>({holeNumber:i+1,netScore,version:1,updatedAt:"2026-08-28T18:00:00Z"}))});return{pairingId:`p-${n}`,matchNumber:n,teeTime:null,course:"Mountain Course",format:"1 Best Ball of 2",luke:cv(cards.find(c=>c.teamShortName==="L. Swardo")),sam:cv(cards.find(c=>c.teamShortName==="S. Swardo"))}})}
-describe("Friday tournament board",()=>{it("reconciles $650",()=>{const b=calculateFridayTournamentBoard(matches());expect(b.fieldDistributed).toBe(450);expect(b.skinsDistributed).toBe(200);expect(b.moneyDistributed).toBe(650)});it("matches field payouts",()=>{const b=calculateFridayTournamentBoard(matches());expect(b.teams.find(t=>t.players==="R. Walls / M. Hammonds")?.fieldPayout).toBe(250);expect(b.teams.find(t=>t.players==="B. Luyk / B. Walls")?.fieldPayout).toBe(150);expect(b.teams.find(t=>t.players==="L. Swardo / C. Mead")?.fieldPayout).toBe(50)});it("finds skins on 6 and 14",()=>{expect(calculateFridayTournamentBoard(matches()).skins.map(s=>s.hole)).toEqual([6,14])});it("holds payouts until complete",()=>{const x=matches();x[0].luke.scores[0]=null;const b=calculateFridayTournamentBoard(x);expect(b.fieldDistributed).toBe(0);expect(b.skins).toHaveLength(0)})});
+describe("Friday tournament board",()=>{it("reconciles $650",()=>{const b=calculateFridayTournamentBoard(matches());expect(b.fieldDistributed).toBe(450);expect(b.skinsDistributed).toBe(200);expect(b.moneyDistributed).toBe(650)});it("matches field payouts",()=>{const b=calculateFridayTournamentBoard(matches());expect(b.teams.find(t=>t.players==="R. Walls / M. Hammonds")?.fieldPayout).toBe(250);expect(b.teams.find(t=>t.players==="B. Luyk / B. Walls")?.fieldPayout).toBe(150);expect(b.teams.find(t=>t.players==="L. Swardo / C. Mead")?.fieldPayout).toBe(50)});it("finds skins on 6 and 14",()=>{expect(calculateFridayTournamentBoard(matches()).skins.map(s=>s.hole)).toEqual([6,14])});it("holds payouts until complete",()=>{const x=matches();x[0].luke.scores[0]=null;const b=calculateFridayTournamentBoard(x);expect(b.fieldDistributed).toBe(0);expect(b.skins).toHaveLength(0)})
+
+it("splits a first-place tie across the full $150 segment pot", () => {
+  const x = matches();
+
+  for (const match of x) {
+    for (const card of [match.luke, match.sam]) {
+      card.scores = card.scores.map((score, index) => ({
+        ...score!,
+        netScore: index < 9 ? 5 : 6,
+      }));
+    }
+  }
+
+  x[0].luke.scores = x[0].luke.scores.map((score, index) => ({
+    ...score!,
+    netScore: index < 9 ? 4 : 6,
+  }));
+  x[0].sam.scores = x[0].sam.scores.map((score, index) => ({
+    ...score!,
+    netScore: index < 9 ? 4 : 6,
+  }));
+
+  const board = calculateFridayTournamentBoard(x);
+  const luke = board.teams.find((team) => team.scorecardId === x[0].luke.id);
+  const sam = board.teams.find((team) => team.scorecardId === x[0].sam.id);
+
+  expect(luke?.frontRank).toBe(1);
+  expect(sam?.frontRank).toBe(1);
+  expect(luke?.fieldPayout).toBeGreaterThanOrEqual(75);
+  expect(sam?.fieldPayout).toBeGreaterThanOrEqual(75);
+});
+
+it("uses competition ranking when scores are tied", () => {
+  const x = matches();
+
+  for (const match of x) {
+    for (const card of [match.luke, match.sam]) {
+      card.scores = card.scores.map((score, index) => ({
+        ...score!,
+        netScore: index < 9 ? 6 : 6,
+      }));
+    }
+  }
+
+  x[0].luke.scores = x[0].luke.scores.map((score, index) => ({
+    ...score!,
+    netScore: index < 9 ? 4 : 6,
+  }));
+  x[0].sam.scores = x[0].sam.scores.map((score, index) => ({
+    ...score!,
+    netScore: index < 9 ? 4 : 6,
+  }));
+  x[1].luke.scores = x[1].luke.scores.map((score, index) => ({
+    ...score!,
+    netScore: index < 9 ? 5 : 6,
+  }));
+
+  const board = calculateFridayTournamentBoard(x);
+
+  expect(board.teams.find((team) => team.scorecardId === x[0].luke.id)?.frontRank).toBe(1);
+  expect(board.teams.find((team) => team.scorecardId === x[0].sam.id)?.frontRank).toBe(1);
+  expect(board.teams.find((team) => team.scorecardId === x[1].luke.id)?.frontRank).toBe(3);
+});
+
+});
