@@ -10,7 +10,7 @@ type PairingRow = {
   id: string;
   match_number: number;
   tee_time: string | null;
-  session: { course: string; format: string; name: string } | null;
+  session: { course: string; format: string; name: string; status: string } | null;
   scorecard: Array<{
     id: string;
     source_key: string;
@@ -79,7 +79,7 @@ export async function getSundayDataFromDatabase(
       id,
       match_number,
       tee_time,
-      session:session_id!inner(course, format, name),
+      session:session_id!inner(course, format, name, status),
       scorecard(
         id,
         source_key,
@@ -154,6 +154,7 @@ export async function getSundayDataFromDatabase(
       teeTime: pairing.tee_time,
       course: pairing.session?.course ?? "Mountain Course",
       format: pairing.session?.format ?? "Pinehurst",
+      sessionStatus: pairing.session?.status ?? "setup",
       luke,
       sam,
     };
