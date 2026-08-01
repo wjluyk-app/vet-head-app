@@ -1302,3 +1302,24 @@ button:disabled {
   opacity: 0.45;
   cursor: not-allowed;
 }
+
+
+/* Keep tournament hub hero score clean and readable */
+.hubHeroScore > div {
+  min-width: 0;
+}
+
+.hubHeroScore span {
+  display: block;
+  white-space: nowrap;
+}
+
+.hubHeroScore strong {
+  display: block;
+  line-height: 1;
+}
+
+.hubScoreDivider {
+  white-space: nowrap;
+  text-align: center;
+}
