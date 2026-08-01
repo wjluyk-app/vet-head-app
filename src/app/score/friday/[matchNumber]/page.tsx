@@ -4,6 +4,7 @@ import { requireBillAdmin } from "@/lib/auth/admin";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getFridayMatchesFromDatabase } from "@/lib/repositories/friday-db";
 import FridayScorecardClient from "@/components/FridayScorecardClient";
+import MatchNavigation from "@/components/MatchNavigation";
 
 export default async function FridayMatchPage({
   params,
@@ -22,6 +23,12 @@ export default async function FridayMatchPage({
         <h1>Friday Match {match.matchNumber}</h1>
         <p>{match.course} · {match.teeTime?.slice(0, 5) ?? "TBD"}</p>
       </section>
+      <MatchNavigation
+        matchNumber={match.matchNumber}
+        totalMatches={matches.length}
+        basePath="/score/friday"
+        allMatchesPath="/score/friday"
+      />
       <FridayScorecardClient match={match} />
     </>
   );

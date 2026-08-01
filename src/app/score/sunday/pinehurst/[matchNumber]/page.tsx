@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic";
 import { requireBillAdmin } from "@/lib/auth/admin";
 
 import SundayPinehurstScorecardClient from "@/components/SundayPinehurstScorecardClient";
+import MatchNavigation from "@/components/MatchNavigation";
 import { getSundayDataFromDatabase } from "@/lib/repositories/sunday-db";
 import { createAdminClient } from "@/lib/supabase/admin";
 
@@ -30,6 +31,12 @@ export default async function SundayPinehurstMatchPage({
         </p>
       </section>
 
+      <MatchNavigation
+        matchNumber={match.matchNumber}
+        totalMatches={sunday.pinehurst.length}
+        basePath="/score/sunday/pinehurst"
+        allMatchesPath="/score/sunday"
+      />
       <SundayPinehurstScorecardClient match={match} />
     </>
   );
