@@ -8,6 +8,7 @@ import { calculateFridayTournamentBoard } from "@/lib/friday-tournament-board";
 import { calculateSaturdayTournamentBoard } from "@/lib/saturday-tournament-board";
 import { calculateSundayTournamentBoard } from "@/lib/sunday-tournament-board";
 import { calculateOverallTournamentBoard } from "@/lib/overall-tournament-board";
+import { calculatePlayerAwards } from "@/lib/player-awards";
 
 export const dynamic = "force-dynamic";
 
@@ -31,6 +32,13 @@ export default async function PrizeMoneyPage() {
     friday,
     saturday,
     sunday,
+  );
+
+  const playerAwards = calculatePlayerAwards(
+    friday,
+    saturday,
+    sunday,
+    overall,
   );
 
   const winningTeam =
@@ -91,8 +99,12 @@ export default async function PrizeMoneyPage() {
     {
       title: "MVP",
       amount: 70,
-      description: "Most points earned by a player on the winning team",
-      status: overall.complete ? "Calculating" : "Pending",
+      description: playerAwards.complete
+        ? `${playerAwards.leaders
+            .map((leader) => `${leader.player} (${leader.points} pts)`)
+            .join(" / ")} · ${money(playerAwards.mvpPayoutEach)} each`
+        : "Most points earned by a player on the winning team",
+      status: playerAwards.complete ? "Final" : "Pending",
       href: "/final-results",
     },
   ];
@@ -103,7 +115,9 @@ export default async function PrizeMoneyPage() {
     sunday.pinehurstFieldDistributed;
 
   const totalDistributed =
-    competitiveDistributed + (overall.complete ? 480 : 0);
+    competitiveDistributed +
+    (overall.complete ? 480 : 0) +
+    (playerAwards.complete ? 70 : 0);
 
   return (
     <TournamentSectionShell
