@@ -29,8 +29,14 @@ export default function SundaySinglesResultClient({
   );
   const [message, setMessage] = useState("Ready");
   const [busy, setBusy] = useState(false);
+  const scoringOpen = match.sessionStatus === "open";
 
   async function saveResult() {
+    if (!scoringOpen) {
+      setMessage("Sunday Singles scoring is not open.");
+      return;
+    }
+
     if (!winner) {
       setMessage("Choose a winner or select Halved.");
       return;
@@ -81,6 +87,13 @@ export default function SundaySinglesResultClient({
     <section className="card scoreEntryCard">
       <div className="smallLabel">SINGLES MATCH {match.matchNumber}</div>
 
+      {!scoringOpen && (
+        <div className="errorNotice">
+          Sunday Singles scoring is currently closed. Open the Sunday
+          Singles session from the Administrator Dashboard before entering results.
+        </div>
+      )}
+
       <div className="teamTabs">
         <button
           type="button"
@@ -90,6 +103,7 @@ export default function SundaySinglesResultClient({
               : "teamTab"
           }
           onClick={() => setWinner("LUKE")}
+          disabled={!scoringOpen}
         >
           {match.lukePlayer}
         </button>
@@ -102,6 +116,7 @@ export default function SundaySinglesResultClient({
               : "teamTab"
           }
           onClick={() => setWinner("SAM")}
+          disabled={!scoringOpen}
         >
           {match.samPlayer}
         </button>
@@ -114,6 +129,7 @@ export default function SundaySinglesResultClient({
               : "teamTab"
           }
           onClick={() => setWinner("HALVED")}
+          disabled={!scoringOpen}
         >
           HALVED
         </button>
@@ -127,6 +143,7 @@ export default function SundaySinglesResultClient({
         id="closedOnHole"
         className="scoreSelect"
         value={closedOnHole ?? ""}
+        disabled={!scoringOpen}
         onChange={(event) =>
           setClosedOnHole(
             event.target.value
@@ -154,6 +171,7 @@ export default function SundaySinglesResultClient({
         className="scoreTextInput"
         value={resultText}
         onChange={(event) => setResultText(event.target.value)}
+        disabled={!scoringOpen}
         placeholder="Example: 2 & 1"
         maxLength={100}
       />
@@ -162,7 +180,7 @@ export default function SundaySinglesResultClient({
         className="button"
         type="button"
         onClick={saveResult}
-        disabled={busy}
+        disabled={busy || !scoringOpen}
       >
         {busy ? "Saving…" : "Save singles result"}
       </button>

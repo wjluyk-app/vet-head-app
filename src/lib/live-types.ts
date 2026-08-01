@@ -57,6 +57,7 @@ export interface LiveSundaySinglesMatch {
   resultText: string | null;
   closedOnHole: number | null;
   status: string;
+  sessionStatus?: string;
 }
 
 export interface LiveSundayData {

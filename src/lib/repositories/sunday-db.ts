@@ -177,7 +177,7 @@ export async function getSundayDataFromDatabase(
         closed_on_hole,
         status
       ),
-      session:session_id!inner(name)
+      session:session_id!inner(name, status)
     `)
     .eq("session.name", "Sunday Singles")
     .order("match_number");
@@ -226,6 +226,9 @@ export async function getSundayDataFromDatabase(
         resultText: result?.result_text ?? null,
         closedOnHole: result?.closed_on_hole ?? null,
         status: result?.status ?? "in_progress",
+        sessionStatus: Array.isArray(pairing.session)
+          ? pairing.session[0]?.status ?? "setup"
+          : pairing.session?.status ?? "setup",
       };
     },
   );
