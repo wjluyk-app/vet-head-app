@@ -4,6 +4,8 @@ import type {
   LiveSundaySinglesMatch,
 } from "@/lib/live-types";
 
+export const SUNDAY_PINEHURST_POT = 150;
+
 export interface SundayPinehurstMatch {
   pairingId: string;
   matchNumber: number;
@@ -16,6 +18,10 @@ export interface SundayPinehurstMatch {
   samScore: number | null;
   lukePoints: number;
   samPoints: number;
+  lukeFieldRank: number | null;
+  samFieldRank: number | null;
+  lukeFieldPayout: number;
+  samFieldPayout: number;
   status: string;
   lastUpdatedAt: string | null;
 }
@@ -52,6 +58,9 @@ export interface SundayTournamentBoard {
   sundaySamPoints: number;
   completedPinehurstMatches: number;
   completedSinglesMatches: number;
+  pinehurstFieldComplete: boolean;
+  pinehurstFieldDistributed: number;
+  pinehurstMoneyAvailable: number;
 }
 
 function cardTotal(
@@ -120,6 +129,10 @@ function calculatePinehurstMatch(
     samScore,
     lukePoints,
     samPoints,
+    lukeFieldRank: null,
+    samFieldRank: null,
+    lukeFieldPayout: 0,
+    samFieldPayout: 0,
     status,
     lastUpdatedAt: latestUpdate(match),
   };
@@ -158,6 +171,84 @@ function calculateSinglesMatch(
   };
 }
 
+type PinehurstFieldEntry = {
+  pairingId: string;
+  team: "LUKE" | "SAM";
+  score: number;
+};
+
+function calculatePinehurstField(
+  matches: SundayPinehurstMatch[],
+): {
+  ranks: Map<string, number>;
+  payouts: Map<string, number>;
+} {
+  const entries: PinehurstFieldEntry[] = [];
+
+  for (const match of matches) {
+    if (match.lukeScore !== null) {
+      entries.push({
+        pairingId: match.pairingId,
+        team: "LUKE",
+        score: match.lukeScore,
+      });
+    }
+
+    if (match.samScore !== null) {
+      entries.push({
+        pairingId: match.pairingId,
+        team: "SAM",
+        score: match.samScore,
+      });
+    }
+  }
+
+  const key = (entry: PinehurstFieldEntry) =>
+    `${entry.pairingId}:${entry.team}`;
+
+  const sorted = [...entries].sort(
+    (a, b) => a.score - b.score || key(a).localeCompare(key(b)),
+  );
+
+  const ranks = new Map<string, number>();
+  let priorScore: number | null = null;
+  let priorRank = 0;
+
+  sorted.forEach((entry, index) => {
+    const rank =
+      priorScore === entry.score ? priorRank : index + 1;
+
+    ranks.set(key(entry), rank);
+    priorScore = entry.score;
+    priorRank = rank;
+  });
+
+  const payouts = new Map<string, number>(
+    entries.map((entry) => [key(entry), 0]),
+  );
+
+  const first = sorted.filter((entry) => ranks.get(key(entry)) === 1);
+
+  if (first.length > 1) {
+    const share = SUNDAY_PINEHURST_POT / first.length;
+    first.forEach((entry) => payouts.set(key(entry), share));
+    return { ranks, payouts };
+  }
+
+  if (first.length === 1) {
+    payouts.set(key(first[0]), 100);
+  }
+
+  const second = sorted.filter((entry) => ranks.get(key(entry)) === 2);
+
+  if (second.length > 0) {
+    const share = 50 / second.length;
+    second.forEach((entry) => payouts.set(key(entry), share));
+  }
+
+  return { ranks, payouts };
+}
+
 export function calculateSundayTournamentBoard(
   data: LiveSundayData,
 ): SundayTournamentBoard {
@@ -177,6 +268,30 @@ export function calculateSundayTournamentBoard(
   const completedPinehurstMatches = pinehurstMatches.filter(
     (match) => match.complete,
   ).length;
+
+  const pinehurstFieldComplete =
+    pinehurstMatches.length === 6 &&
+    completedPinehurstMatches === 6;
+
+  if (pinehurstFieldComplete) {
+    const field = calculatePinehurstField(pinehurstMatches);
+
+    for (const match of pinehurstMatches) {
+      const lukeKey = `${match.pairingId}:LUKE`;
+      const samKey = `${match.pairingId}:SAM`;
+
+      match.lukeFieldRank = field.ranks.get(lukeKey) ?? null;
+      match.samFieldRank = field.ranks.get(samKey) ?? null;
+      match.lukeFieldPayout = field.payouts.get(lukeKey) ?? 0;
+      match.samFieldPayout = field.payouts.get(samKey) ?? 0;
+    }
+  }
+
+  const pinehurstFieldDistributed = pinehurstMatches.reduce(
+    (sum, match) =>
+      sum + match.lukeFieldPayout + match.samFieldPayout,
+    0,
+  );
 
   const pinehurst: SundayPinehurstResults = {
     lukePoints: pinehurstLukePoints,
@@ -212,5 +327,8 @@ export function calculateSundayTournamentBoard(
     sundaySamPoints: pinehurstSamPoints + singlesSamPoints,
     completedPinehurstMatches,
     completedSinglesMatches,
+    pinehurstFieldComplete,
+    pinehurstFieldDistributed,
+    pinehurstMoneyAvailable: SUNDAY_PINEHURST_POT,
   };
 }
