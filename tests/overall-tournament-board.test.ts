@@ -32,6 +32,7 @@ function sundayBoard(
     sundaySamPoints: sam,
     completedPinehurstMatches,
     completedSinglesMatches,
+    singles: [],
   } as any;
 }
 
@@ -71,15 +72,22 @@ describe("Overall tournament board", () => {
     expect(board.winner).toBe("SAM");
   });
 
-  it("supports a tied final score", () => {
+  it("uses the Sunday Singles tiebreak order for a 27-27 finish", () => {
+    const sunday = sundayBoard(9, 9);
+    sunday.singles = [
+      { matchNumber: 1, winner: "SAM" },
+      { matchNumber: 11, winner: "LUKE" },
+      { matchNumber: 12, winner: "HALVED" },
+    ];
+
     const board = calculateOverallTournamentBoard(
       fridayBoard(9, 9),
       saturdayBoard(9, 9),
-      sundayBoard(9, 9),
+      sunday,
     );
 
     expect(board.complete).toBe(true);
-    expect(board.winner).toBe("TIED");
+    expect(board.winner).toBe("LUKE");
   });
 
   it("does not declare a winner before every match is final", () => {

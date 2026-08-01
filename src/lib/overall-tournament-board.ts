@@ -56,12 +56,28 @@ export function calculateOverallTournamentBoard(
   let winner: OverallTournamentBoard["winner"] = "PENDING";
 
   if (complete) {
-    winner =
-      overallLukePoints > overallSamPoints
-        ? "LUKE"
-        : overallSamPoints > overallLukePoints
-          ? "SAM"
-          : "TIED";
+    if (overallLukePoints > overallSamPoints) {
+      winner = "LUKE";
+    } else if (overallSamPoints > overallLukePoints) {
+      winner = "SAM";
+    } else {
+      const tiebreakOrder = [12, 11, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+      for (const matchNumber of tiebreakOrder) {
+        const match = sunday.singles.find(
+          (single) => single.matchNumber === matchNumber,
+        );
+
+        if (match?.winner === "LUKE" || match?.winner === "SAM") {
+          winner = match.winner;
+          break;
+        }
+      }
+
+      if (winner === "PENDING") {
+        winner = "TIED";
+      }
+    }
   }
 
   return {
