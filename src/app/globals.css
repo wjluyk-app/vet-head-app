@@ -2016,3 +2016,26 @@ button:disabled {
     height:58px;
   }
 }
+
+
+/* Four Putt Productions welcome-column image */
+.fourPuttContactImage {
+  padding:0 !important;
+  overflow:hidden;
+  border:1px solid #d9dee5;
+  background:white !important;
+}
+
+.fourPuttContactLogo {
+  display:block;
+  width:100%;
+  height:auto;
+  max-height:330px;
+  object-fit:contain;
+}
+
+@media (max-width:650px) {
+  .fourPuttContactLogo {
+    max-height:280px;
+  }
+}

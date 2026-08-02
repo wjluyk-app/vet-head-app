@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import TournamentSectionShell from "@/components/TournamentSectionShell";
 
@@ -135,11 +136,22 @@ export default function Page() {
           </article>
 
           <article className="playerGuideContacts">
+            <div className="fourPuttContactImage">
+              <Image
+                src="/images/four-putt-productions.png"
+                alt="Four Putt Productions"
+                width={700}
+                height={700}
+                className="fourPuttContactLogo"
+              />
+            </div>
+
             <div>
               <span className="smallLabel">FOUR PUTT PRODUCTIONS</span>
               <strong>Randy Walls</strong>
               <a href="tel:16163287006">616.328.7006</a>
             </div>
+
             <div>
               <span className="smallLabel">FOUR PUTT PRODUCTIONS</span>
               <strong>Bill Luyk</strong>
