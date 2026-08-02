@@ -2377,3 +2377,133 @@ table {
     padding-top: 14px;
   }
 }
+
+/* =========================================================
+   PLAYER GUIDE — MOBILE REFINEMENT
+   ========================================================= */
+
+@media (max-width: 760px) {
+  .playerGuideActions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .playerGuideActions a {
+    width: 100%;
+    text-align: center;
+  }
+
+  .playerGuideSnapshot {
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .playerGuideSnapshot div {
+    padding: 15px 10px;
+  }
+
+  .playerGuideSnapshot div:nth-child(1),
+  .playerGuideSnapshot div:nth-child(2) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  }
+
+  .playerGuideSnapshot div:nth-child(2),
+  .playerGuideSnapshot div:nth-child(4) {
+    border-right: 0;
+  }
+
+  .playerGuideSnapshot strong {
+    font-size: 24px;
+  }
+
+  .playerGuideNav {
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+
+  .playerGuideNavCard {
+    padding: 13px 14px;
+  }
+
+  .playerGuideNavCard strong {
+    margin-bottom: 3px;
+  }
+
+  .playerGuideWelcomeGrid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .playerGuideTextCard {
+    order: 1;
+    padding: 17px;
+  }
+
+  .playerGuideContacts {
+    order: 2;
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .fourPuttContactImage {
+    width: 100%;
+    max-width: 340px;
+    margin: 0 auto;
+  }
+
+  .fourPuttContactLogo {
+    width: 100%;
+    max-height: 230px;
+  }
+
+  .playerGuideContacts > div:not(.fourPuttContactImage) {
+    text-align: center;
+    padding: 13px;
+  }
+
+  .playerGuideDayGrid,
+  .playerGuideFormatGrid,
+  .playerGuideRuleGrid,
+  .playerGuideHousingGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .playerGuideDayGrid article,
+  .playerGuideFormatGrid article,
+  .playerGuideRuleGrid article,
+  .playerGuideHousingGrid article {
+    padding: 15px;
+  }
+
+  .playerGuideSectionHeader h2 {
+    font-size: 27px;
+    line-height: 1.1;
+  }
+}
+
+@media (max-width: 420px) {
+  .playerGuideSnapshot span {
+    font-size: 8px;
+  }
+
+  .playerGuideSnapshot strong {
+    font-size: 22px;
+  }
+
+  .playerGuideTextCard p {
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .playerGuideSteps article {
+    grid-template-columns: 34px 1fr;
+    gap: 10px;
+    padding: 13px;
+  }
+
+  .playerGuideSteps article > strong {
+    width: 30px;
+    height: 30px;
+  }
+}
