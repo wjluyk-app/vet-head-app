@@ -15,7 +15,7 @@ import type { SundayTournamentBoard } from "@/lib/sunday-tournament-board";
 const points = (value: number) =>
   Number.isInteger(value) ? String(value) : value.toFixed(1);
 
-type Day = "friday" | "saturday" | "sunday";
+type Day = "friday" | "saturday" | "sunday-pinehurst" | "sunday-singles";
 type TeamRow = FridayBoardTeam | SaturdayBoardTeam;
 type TeamBoard = FridayTournamentBoard | SaturdayTournamentBoard;
 
@@ -139,11 +139,15 @@ function TeamMatchCards({
   );
 }
 
-function SundayCards({ board }: { board: SundayTournamentBoard }) {
+function SundayPinehurstCards({
+  board,
+}: {
+  board: SundayTournamentBoard;
+}) {
   return (
     <>
       <div className="mobileSectionTitle">
-        <span>FRONT NINE</span>
+        <span>SUNDAY FRONT NINE</span>
         <h2>Pinehurst Matches</h2>
       </div>
 
@@ -179,9 +183,19 @@ function SundayCards({ board }: { board: SundayTournamentBoard }) {
           </article>
         ))}
       </div>
+    </>
+  );
+}
 
+function SundaySinglesCards({
+  board,
+}: {
+  board: SundayTournamentBoard;
+}) {
+  return (
+    <>
       <div className="mobileSectionTitle">
-        <span>BACK NINE</span>
+        <span>SUNDAY BACK NINE</span>
         <h2>Singles Matches</h2>
       </div>
 
@@ -343,15 +357,28 @@ export default function OverallTournamentBoardClient({
         </button>
 
         <button
-          className={day === "sunday" ? "activeMobileDay" : ""}
+          className={day === "sunday-pinehurst" ? "activeMobileDay" : ""}
           onClick={() => {
-            setDay("sunday");
+            setDay("sunday-pinehurst");
             setOpen(null);
           }}
         >
-          <span>SUNDAY</span>
+          <span>SUN PINEHURST</span>
           <strong>
-            {points(board.sundayLukePoints)}–{points(board.sundaySamPoints)}
+            {points(sunday.pinehurstLukePoints)}–{points(sunday.pinehurstSamPoints)}
+          </strong>
+        </button>
+
+        <button
+          className={day === "sunday-singles" ? "activeMobileDay" : ""}
+          onClick={() => {
+            setDay("sunday-singles");
+            setOpen(null);
+          }}
+        >
+          <span>SUN SINGLES</span>
+          <strong>
+            {points(sunday.singlesLukePoints)}–{points(sunday.singlesSamPoints)}
           </strong>
         </button>
       </nav>
@@ -375,7 +402,13 @@ export default function OverallTournamentBoardClient({
         />
       )}
 
-      {day === "sunday" && sunday && <SundayCards board={sunday} />}
+      {day === "sunday-pinehurst" && sunday && (
+        <SundayPinehurstCards board={sunday} />
+      )}
+
+      {day === "sunday-singles" && sunday && (
+        <SundaySinglesCards board={sunday} />
+      )}
     </>
   );
 }

@@ -576,7 +576,7 @@ main { width: min(1100px, 94vw); margin: 30px auto 60px; }
 .scheduleOverview {
   margin-top:22px;
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+  grid-template-columns:repeat(4,1fr);
   background:var(--navy);
   color:white;
   border-radius:15px;
