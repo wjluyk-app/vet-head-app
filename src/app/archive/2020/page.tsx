@@ -139,7 +139,7 @@ function MatchTable({ matches }: { matches: TeamMatch[] }) {
             <th>Match</th>
             <th>Team Walls</th>
             <th>Pts</th>
-            <th>Team Bones</th>
+            <th>Team Luyk</th>
             <th>Pts</th>
           </tr>
         </thead>
@@ -172,7 +172,7 @@ export default function Archive2020Page() {
 
         <div className="archiveChampion">
           <span>CHAMPION</span>
-          <strong>Team Bones</strong>
+          <strong>Team Luyk</strong>
           <small>23.5–21.5</small>
         </div>
       </section>
@@ -187,7 +187,7 @@ export default function Archive2020Page() {
         <article>
           <span>SATURDAY AUDI</span>
           <strong>10–5</strong>
-          <small>Team Bones</small>
+          <small>Team Luyk</small>
         </article>
 
         <article>
@@ -199,13 +199,13 @@ export default function Archive2020Page() {
         <article>
           <span>SUNDAY SINGLES</span>
           <strong>6–4</strong>
-          <small>Team Bones</small>
+          <small>Team Luyk</small>
         </article>
 
         <article className="archiveProgressFinal">
           <span>FINAL</span>
           <strong>23.5–21.5</strong>
-          <small>Team Bones</small>
+          <small>Team Luyk</small>
         </article>
       </section>
 
@@ -218,7 +218,7 @@ export default function Archive2020Page() {
           </div>
 
           <div className="archiveDayScore">
-            <span>BONES 6</span>
+            <span>LUYK 6</span>
             <strong>WALLS 9</strong>
           </div>
         </header>
@@ -236,7 +236,7 @@ export default function Archive2020Page() {
 
           <div className="archiveDayScore">
             <span>WALLS 5</span>
-            <strong>BONES 10</strong>
+            <strong>LUYK 10</strong>
           </div>
         </header>
 
@@ -252,7 +252,7 @@ export default function Archive2020Page() {
           </div>
 
           <div className="archiveDayScore">
-            <span>BONES 1.5</span>
+            <span>LUYK 1.5</span>
             <strong>WALLS 3.5</strong>
           </div>
         </header>
@@ -262,7 +262,7 @@ export default function Archive2020Page() {
         <div className="archiveSourceNote">
           Four Sunday scramble matches were readable in the surviving board.
           The fifth match was not clear enough to reproduce without guessing.
-          The official session total was Team Walls 3.5, Team Bones 1.5.
+          The official session total was Team Walls 3.5, Team Luyk 1.5.
         </div>
       </section>
 
@@ -276,7 +276,7 @@ export default function Archive2020Page() {
 
           <div className="archiveDayScore">
             <span>WALLS 4</span>
-            <strong>BONES 6</strong>
+            <strong>LUYK 6</strong>
           </div>
         </header>
 
@@ -287,7 +287,7 @@ export default function Archive2020Page() {
                 <th>Match</th>
                 <th>Team Walls</th>
                 <th>Pts</th>
-                <th>Team Bones</th>
+                <th>Team Luyk</th>
                 <th>Pts</th>
               </tr>
             </thead>

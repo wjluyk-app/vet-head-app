@@ -45,7 +45,7 @@ const archiveYears = [
     year: 2020,
     subtitle: "Mostly Verified Historical Record",
     captains: "Randy Walls vs. Bill Luyk",
-    champion: "Team Bones",
+    champion: "Team Luyk",
     finalScore: "23.5–21.5",
     href: "/archive/2020",
   },
