@@ -54,6 +54,9 @@ export default function MobileHeaderNav({ isAdmin }: MobileHeaderNavProps) {
           <Link href="/archive/2025" onClick={closeMenu}>
             2025 Archive
           </Link>
+          <Link href="/upcoming-years" onClick={closeMenu}>
+            Upcoming Years
+          </Link>
           {isAdmin ? (
             <>
               <Link href="/admin" onClick={closeMenu}>

@@ -4304,3 +4304,141 @@ table {
     min-width: 620px;
   }
 }
+
+/* =========================================================
+   UPCOMING CUBBY CUP YEARS
+   ========================================================= */
+
+.upcomingYearsHero {
+  margin-top: 24px;
+  padding: 36px 38px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, var(--navy), #214a6d);
+  color: white;
+}
+
+.upcomingYearsHero h1 {
+  margin: 8px 0;
+  font-size: clamp(38px, 6vw, 60px);
+  line-height: 1;
+}
+
+.upcomingYearsHero p {
+  margin: 0;
+  max-width: 680px;
+  color: #d9e3ec;
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.upcomingYearsGrid {
+  margin: 24px 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.upcomingYearCard {
+  border: 1px solid #d6dee6;
+  border-radius: 18px;
+  background: white;
+  overflow: hidden;
+}
+
+.upcomingYearCardHeader {
+  padding: 18px 22px;
+  background: var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.upcomingYearNumber {
+  color: var(--gold);
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.upcomingYearDates {
+  color: white;
+  font-size: 14px;
+  font-weight: 900;
+  text-align: right;
+}
+
+.upcomingYearMatchup {
+  padding: 26px 22px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 18px;
+}
+
+.upcomingYearMatchup > div:not(.upcomingYearVersus) {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.upcomingYearMatchup span,
+.upcomingYearVenue span {
+  color: #68798a;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .1em;
+}
+
+.upcomingYearMatchup strong {
+  color: var(--navy);
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.upcomingYearVersus {
+  color: #9a7600;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.upcomingYearVenue {
+  padding: 17px 22px;
+  border-top: 1px solid #e0e5ea;
+  background: #f6f8fa;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.upcomingYearVenue strong {
+  color: var(--navy);
+}
+
+@media (max-width: 760px) {
+  .upcomingYearsHero {
+    padding: 28px 20px;
+  }
+
+  .upcomingYearsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .upcomingYearCardHeader {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .upcomingYearDates {
+    text-align: left;
+  }
+
+  .upcomingYearMatchup {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .upcomingYearVersus {
+    text-align: left;
+  }
+}

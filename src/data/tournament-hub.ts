@@ -83,6 +83,13 @@ export const tournamentHubGroups: HubGroup[] = [
         status: "Available",
         icon: "AR",
       },
+      {
+        title: "Upcoming Years",
+        description: "Future Cubby Cup dates, captain matchups and venues as they are confirmed.",
+        href: "/upcoming-years",
+        status: "Available",
+        icon: "UP",
+      },
     ],
   },
   {

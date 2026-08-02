@@ -26,6 +26,7 @@ function hubActionLabel(href: string): string {
     "/prize-money": "View prize structure →",
     "/final-results": "View final payouts →",
     "/archive/2025": "View 2025 archive →",
+    "/upcoming-years": "View upcoming years →",
   };
 
   return labels[href] ?? "Open section →";
