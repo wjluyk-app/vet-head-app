@@ -15,7 +15,12 @@ import type { SundayTournamentBoard } from "@/lib/sunday-tournament-board";
 const points = (value: number) =>
   Number.isInteger(value) ? String(value) : value.toFixed(1);
 
-type Day = "friday" | "saturday" | "sunday-pinehurst" | "sunday-singles";
+type Day =
+  | "friday"
+  | "saturday"
+  | "sunday-pinehurst"
+  | "sunday-singles"
+  | "skins";
 type TeamRow = FridayBoardTeam | SaturdayBoardTeam;
 type TeamBoard = FridayTournamentBoard | SaturdayTournamentBoard;
 
@@ -136,6 +141,145 @@ function TeamMatchCards({
         );
       })}
     </div>
+  );
+}
+
+function FridaySkinsBoard({
+  board,
+}: {
+  board: FridayTournamentBoard;
+}) {
+  const holes = Array.from({ length: 18 }, (_, index) => {
+    const hole = index + 1;
+    const completed = board.teams.every(
+      (team) => team.scores[index] !== null,
+    );
+
+    if (!completed) {
+      return {
+        hole,
+        lowScore: null,
+        players: "Awaiting scores",
+        status: "Pending",
+        payout: 0,
+      };
+    }
+
+    const lowScore = Math.min(
+      ...board.teams.map((team) => team.scores[index] as number),
+    );
+
+    const lowTeams = board.teams.filter(
+      (team) => team.scores[index] === lowScore,
+    );
+
+    const winner = board.skins.find((skin) => skin.hole === hole);
+
+    if (winner) {
+      return {
+        hole,
+        lowScore,
+        players: winner.players,
+        status: "Skin Winner",
+        payout: winner.teamPayout,
+      };
+    }
+
+    if (lowTeams.length > 1) {
+      return {
+        hole,
+        lowScore,
+        players: lowTeams.map((team) => team.players).join(" / "),
+        status: "Tied Low — No Skin",
+        payout: 0,
+      };
+    }
+
+    return {
+      hole,
+      lowScore,
+      players: lowTeams[0]?.players ?? "—",
+      status: hole === 18
+        ? "No Skin"
+        : "Not Validated",
+      payout: 0,
+    };
+  });
+
+  const money = (value: number) =>
+    new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: value % 1 === 0 ? 0 : 2,
+      maximumFractionDigits: 2,
+    }).format(value);
+
+  return (
+    <section className="skinsScoreboardSection">
+      <div className="skinsScoreboardHeader">
+        <div>
+          <span className="smallLabel">FRIDAY SKINS</span>
+          <h2>18-Hole Skins Board</h2>
+          <p>Unique low NET score with next-hole validation.</p>
+        </div>
+
+        <div className="skinsSummary">
+          <div>
+            <span>SKINS POT</span>
+            <strong>{money(200)}</strong>
+          </div>
+          <div>
+            <span>WINNING SKINS</span>
+            <strong>{board.skins.length}</strong>
+          </div>
+          <div>
+            <span>PER SKIN</span>
+            <strong>
+              {board.skins.length
+                ? money(200 / board.skins.length)
+                : "—"}
+            </strong>
+          </div>
+        </div>
+      </div>
+
+      <div className="skinsHoleGrid">
+        {holes.map((item) => (
+          <article
+            className={
+              item.status === "Skin Winner"
+                ? "skinsHoleCard skinsHoleWinner"
+                : "skinsHoleCard"
+            }
+            key={item.hole}
+          >
+            <div className="skinsHoleTop">
+              <span>HOLE</span>
+              <strong>{item.hole}</strong>
+            </div>
+
+            <div className="skinsHoleScore">
+              <span>LOW NET</span>
+              <strong>{item.lowScore ?? "—"}</strong>
+            </div>
+
+            <div className="skinsHolePlayers">
+              {item.players}
+            </div>
+
+            <div className="skinsHoleStatus">
+              <span>{item.status}</span>
+              {item.payout > 0 && <strong>{money(item.payout)}</strong>}
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div className="skinsScoreboardFooter">
+        <span>Total Distributed</span>
+        <strong>{money(board.skinsDistributed)}</strong>
+      </div>
+    </section>
   );
 }
 
@@ -381,6 +525,17 @@ export default function OverallTournamentBoardClient({
             {points(sunday.singlesLukePoints)}–{points(sunday.singlesSamPoints)}
           </strong>
         </button>
+
+        <button
+          className={day === "skins" ? "activeMobileDay" : ""}
+          onClick={() => {
+            setDay("skins");
+            setOpen(null);
+          }}
+        >
+          <span>FRIDAY SKINS</span>
+          <strong>{friday.skins.length}</strong>
+        </button>
       </nav>
       )}
 
@@ -408,6 +563,10 @@ export default function OverallTournamentBoardClient({
 
       {day === "sunday-singles" && sunday && (
         <SundaySinglesCards board={sunday} />
+      )}
+
+      {day === "skins" && friday && (
+        <FridaySkinsBoard board={friday} />
       )}
     </>
   );

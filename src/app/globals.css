@@ -1726,3 +1726,177 @@ button:disabled {
     border-right:0;
   }
 }
+
+
+/* Friday skins scoreboard */
+.skinsScoreboardSection {
+  overflow:hidden;
+  border:1px solid #d6dde4;
+  border-radius:18px;
+  background:white;
+}
+.skinsScoreboardHeader {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  padding:20px 22px;
+  border-bottom:1px solid #d6dde4;
+}
+.skinsScoreboardHeader h2 {
+  margin:4px 0;
+  color:var(--navy);
+}
+.skinsScoreboardHeader p {
+  margin:0;
+  color:#66788a;
+}
+.skinsSummary {
+  display:grid;
+  grid-template-columns:repeat(3,auto);
+  gap:18px;
+  text-align:center;
+}
+.skinsSummary div {
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+}
+.skinsSummary span {
+  color:#66788a;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.07em;
+}
+.skinsSummary strong {
+  color:var(--navy);
+  font-size:20px;
+}
+.skinsHoleGrid {
+  display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:10px;
+  padding:14px;
+}
+.skinsHoleCard {
+  overflow:hidden;
+  border:1px solid #d6dde4;
+  border-radius:12px;
+  background:#f7f8f9;
+}
+.skinsHoleWinner {
+  border:2px solid var(--gold);
+  background:#fff9d9;
+}
+.skinsHoleTop {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:8px 10px;
+  background:var(--navy);
+  color:white;
+}
+.skinsHoleTop span {
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.08em;
+}
+.skinsHoleTop strong {
+  color:var(--gold);
+  font-size:20px;
+}
+.skinsHoleScore {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px;
+}
+.skinsHoleScore span {
+  color:#66788a;
+  font-size:9px;
+  font-weight:900;
+}
+.skinsHoleScore strong {
+  color:var(--navy);
+  font-size:25px;
+}
+.skinsHolePlayers {
+  min-height:48px;
+  padding:0 10px 10px;
+  color:var(--navy);
+  font-size:11px;
+  font-weight:800;
+  line-height:1.25;
+}
+.skinsHoleStatus {
+  min-height:38px;
+  padding:8px 10px;
+  border-top:1px solid #d6dde4;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:6px;
+}
+.skinsHoleStatus span {
+  color:#66788a;
+  font-size:9px;
+  font-weight:900;
+}
+.skinsHoleStatus strong {
+  color:#17663a;
+  font-size:12px;
+}
+.skinsHoleWinner .skinsHoleStatus span {
+  color:#17663a;
+}
+.skinsScoreboardFooter {
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  gap:15px;
+  padding:14px 18px;
+  background:var(--navy);
+  color:white;
+  font-weight:900;
+}
+.skinsScoreboardFooter strong {
+  color:var(--gold);
+  font-size:22px;
+}
+
+@media (max-width:900px) {
+  .skinsHoleGrid {
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+}
+
+@media (max-width:650px) {
+  .mobileDayTabs {
+    display:flex;
+    overflow-x:auto;
+    padding-bottom:4px;
+    scroll-snap-type:x proximity;
+  }
+  .mobileDayTabs button {
+    flex:0 0 112px;
+    scroll-snap-align:start;
+  }
+  .skinsScoreboardHeader {
+    align-items:flex-start;
+    flex-direction:column;
+    padding:17px;
+  }
+  .skinsSummary {
+    width:100%;
+    grid-template-columns:repeat(3,1fr);
+    gap:7px;
+  }
+  .skinsHoleGrid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+    padding:10px;
+  }
+  .skinsHolePlayers {
+    min-height:56px;
+  }
+}
