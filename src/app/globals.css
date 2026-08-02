@@ -4608,3 +4608,35 @@ table {
     grid-column: auto;
   }
 }
+
+/* Keep archive years intact on narrow mobile screens */
+.archiveYearCardTop {
+  gap: 16px;
+}
+
+.archiveYearCardTop span {
+  min-width: 0;
+  flex: 1;
+}
+
+.archiveYearCardTop strong {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  word-break: keep-all;
+  line-height: 1;
+}
+
+@media (max-width: 760px) {
+  .archiveYearCardTop {
+    align-items: flex-start;
+  }
+
+  .archiveYearCardTop span {
+    max-width: calc(100% - 92px);
+    line-height: 1.35;
+  }
+
+  .archiveYearCardTop strong {
+    font-size: 28px;
+  }
+}
