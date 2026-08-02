@@ -13,7 +13,7 @@ export default async function SaturdayMatchesPage() {
     <>
       <section className="hero">
         <h1>Saturday Score Entry</h1>
-        <p>Betsie Valley · Two-Man Scramble · NET team scores</p>
+        <p>Betsie Valley · 2-Man Scramble · NET team scores</p>
       </section>
       <section className="grid">
         {matches.map((match) => (

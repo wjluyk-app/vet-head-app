@@ -21,7 +21,7 @@ const schedule = [
     sourceDay: "Saturday",
     date: "August 29",
     course: "Betsie Valley",
-    format: "18-Hole Two-Man Scramble",
+    format: "18-Hole 2-Man Scramble",
   },
   {
     day: "Sunday",

@@ -14,6 +14,22 @@ export const dynamic = "force-dynamic";
 const points = (value: number) =>
   Number.isInteger(value) ? String(value) : value.toFixed(1);
 
+function hubActionLabel(href: string): string {
+  const labels: Record<string, string> = {
+    "/scoreboard": "View overall score →",
+    "/friday": "View Friday competition →",
+    "/saturday": "View Saturday competition →",
+    "/sunday": "View Sunday competition →",
+    "/player-guide": "Read Player Guide →",
+    "/teams": "Find my team →",
+    "/schedule": "View tee times →",
+    "/prize-money": "View prize structure →",
+    "/final-results": "View final payouts →",
+  };
+
+  return labels[href] ?? "Open section →";
+}
+
 export default async function HomePage() {
   const supabase = createAdminClient();
 
@@ -40,7 +56,7 @@ export default async function HomePage() {
           <h1>Cubby Cup Tournament Hub</h1>
           <p>
             One private home for player information, tournament scoring,
-            prize money and payouts.
+            prize structure and final payouts.
           </p>
         </div>
 
@@ -127,7 +143,7 @@ export default async function HomePage() {
 
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
-                <span className="hubOpen">Open section →</span>
+                <span className="hubOpen">{hubActionLabel(item.href)}</span>
               </Link>
             ))}
           </div>

@@ -8,7 +8,7 @@ export default async function FridayPage() {
     <TournamentSectionShell
       eyebrow="DAY 1 · MOUNTAIN COURSE"
       title="Friday"
-      description="One Best Ball of Two — live match play, field competition, skins and scoring."
+      description="1 Best Ball of 2 — match play, field competition, skins and results."
       status="Live"
     >
       <section className="sectionActionGrid">
@@ -28,9 +28,9 @@ export default async function FridayPage() {
         )}
         <Link className="sectionActionCard" href="/prize-money">
           <span>MONEY</span>
-          <h2>Friday Payouts</h2>
-          <p>Front, back, total, skins and per-player payment summary.</p>
-          <strong>Open prize money →</strong>
+          <h2>Friday Prize Structure</h2>
+          <p>Front, back, total and skins awards available on Friday.</p>
+          <strong>View Friday prize structure →</strong>
         </Link>
       </section>
     </TournamentSectionShell>

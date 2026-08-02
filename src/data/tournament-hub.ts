@@ -37,7 +37,7 @@ export const tournamentHubGroups: HubGroup[] = [
       },
       {
         title: "Saturday",
-        description: "Scramble scoring, match points and field results.",
+        description: "2-Man Scramble scoring, match points and field results.",
         href: "/saturday",
         status: "Live",
         icon: "SA",
@@ -80,13 +80,13 @@ export const tournamentHubGroups: HubGroup[] = [
   },
   {
     title: "Results & Money",
-    description: "Tournament payouts, final standings and permanent records.",
+    description: "Prize structure, final payouts, standings and permanent records.",
     items: [
       {
         title: "Prize Structure",
         description: "What is available to win across fields, skins, team awards and MVP.",
         href: "/prize-money",
-        status: "Coming Soon",
+        status: "Available",
         icon: "$",
       },
       {

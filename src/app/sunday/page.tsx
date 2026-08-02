@@ -30,9 +30,9 @@ export default async function SundayPage() {
 
         <Link className="sectionActionCard" href="/final-results">
           <span>CHAMPIONS</span>
-          <h2>Final Results</h2>
-          <p>Winning team, MVP, final payouts and tournament journal.</p>
-          <strong>Open final results →</strong>
+          <h2>Final Payouts</h2>
+          <p>Winning team, MVP and the complete player payment summary.</p>
+          <strong>View final payouts →</strong>
         </Link>
       </section>
 

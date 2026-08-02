@@ -12,7 +12,7 @@ export default async function SaturdayResultsPage() {
     <>
       <section className="hero fridayResultsHero">
         <h1>Saturday Tournament Board</h1>
-        <p>Betsie Valley · Two-Man Scramble · NET team scores</p>
+        <p>Betsie Valley · 2-Man Scramble · NET team scores</p>
       </section>
 
       <SaturdayTournamentBoardClient

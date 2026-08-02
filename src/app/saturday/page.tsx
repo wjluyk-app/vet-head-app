@@ -8,7 +8,7 @@ export default async function SaturdayPage() {
     <TournamentSectionShell
       eyebrow="DAY 2 · BETSIE VALLEY"
       title="Saturday"
-      description="Two-Man Scramble — match play, field competition, payouts and scoring."
+      description="2-Man Scramble — match play, field competition, payouts and results."
       status="Available"
     >
       <section className="sectionActionGrid">
@@ -30,16 +30,16 @@ export default async function SaturdayPage() {
 
         <Link className="sectionActionCard" href="/prize-money">
           <span>MONEY</span>
-          <h2>Saturday Payouts</h2>
-          <p>Front, back, total and per-player payment summary.</p>
-          <strong>Open prize money →</strong>
+          <h2>Saturday Prize Structure</h2>
+          <p>Front, back and total field awards available on Saturday.</p>
+          <strong>View Saturday prize structure →</strong>
         </Link>
       </section>
 
       <section className="saturdayFormatCard">
         <div>
           <span className="smallLabel">FORMAT</span>
-          <h2>18-Hole Two-Man Scramble</h2>
+          <h2>18-Hole 2-Man Scramble</h2>
           <p>35% of the low handicap plus 15% of the high handicap.</p>
         </div>
 

@@ -111,7 +111,7 @@ export default function Page() {
               The competition begins Friday on the Mountain Course with 1 Best Ball of 2, moves
               Saturday to Betsie Valley for an 18-hole 2-Man Scramble, and concludes Sunday on the
               Mountain Course with Pinehurst—new for 2026—on the Front Nine and Singles on the Back
-              Nine. The first team to 27.5 points wins the Cubby Cup.
+              Nine. There are 54 total points available. A 27–27 result is a tie, while 27.5 points guarantees the Cubby Cup.
             </p>
 
             <p>
@@ -126,7 +126,7 @@ export default function Page() {
             </p>
 
             <p>
-              Please review your unit assignment, match time, format, and handicap reference before
+              Please review your unit assignment, tee time, format, and handicap reference before
               the weekend begins.
             </p>
 
@@ -177,7 +177,7 @@ export default function Page() {
           <article>
             <span>SATURDAY</span>
             <h3>Betsie Valley</h3>
-            <strong>Two-Man Scramble</strong>
+            <strong>2-Man Scramble</strong>
             <p>11:20 AM · 18 points · All groups start on Hole 1</p>
           </article>
           <article>
@@ -204,7 +204,7 @@ export default function Page() {
           </article>
           <article>
             <span>SATURDAY</span>
-            <h3>Two-Man Scramble</h3>
+            <h3>2-Man Scramble</h3>
             <strong>35% low + 15% high</strong>
             <p>Six two-man matches. Front, back and total are worth one point each.</p>
           </article>
