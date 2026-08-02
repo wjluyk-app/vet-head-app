@@ -98,17 +98,39 @@ export default function Page() {
             <p>
               On behalf of Four Putt Productions, welcome to the 2026 Cubby Cup at Crystal Mountain.
             </p>
+
             <p>
-              For the first time in Cubby Cup history, two brothers go head-to-head as captains:
-              Team Luke Swardenski versus Team Sam Swardenski.
+              For the first time since 2009, two brothers will go head-to-head as captains, with Team
+              Luke Swardenski taking on Team Sam Swardenski over three days of match play. Over the
+              years, these two have dropped the gloves a few times, but now it is time to settle things
+              once and for all on the golf course.
             </p>
+
             <p>
-              The competition begins Friday on the Mountain Course, moves Saturday to Betsie Valley,
-              and concludes Sunday back on the Mountain Course. The first team to 27.5 points wins.
+              The competition begins Friday on the Mountain Course with 1 Best Ball of 2, moves
+              Saturday to Betsie Valley for an 18-hole 2-Man Scramble, and concludes Sunday on the
+              Mountain Course with Pinehurst—new for 2026—on the Front Nine and Singles on the Back
+              Nine. The first team to 27.5 points wins the Cubby Cup.
             </p>
+
             <p>
-              Please review your unit assignment, match time, format and handicap reference before
+              We are also pleased to welcome our newest Cubbie, Matt Parks, a friend of Scott Morgan
+              and Eric Blanding. We are glad to have him joining the group and look forward to his first
+              Cubby Cup weekend.
+            </p>
+
+            <p>
+              A special thank-you also goes to Mr. Hiotas, Mayor of Crystal, for working with the onsite
+              staff to help make this venue and weekend possible.
+            </p>
+
+            <p>
+              Please review your unit assignment, match time, format, and handicap reference before
               the weekend begins.
+            </p>
+
+            <p>
+              Good luck, play hard, and enjoy the weekend.
             </p>
           </article>
 
