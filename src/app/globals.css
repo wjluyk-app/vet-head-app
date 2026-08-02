@@ -1607,3 +1607,7 @@ button:disabled {
     grid-template-columns:repeat(3,37px);
   }
 }
+
+.hubTileTopNoIcon {
+  justify-content: flex-end;
+}

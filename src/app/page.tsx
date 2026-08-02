@@ -81,8 +81,7 @@ export default async function HomePage() {
                 href={item.href}
                 key={item.title}
               >
-                <div className="hubTileTop">
-                  <span className="hubIcon">{item.icon}</span>
+                <div className="hubTileTop hubTileTopNoIcon">
                   <span
                     className={`hubStatus hubStatus${item.status.replace(
                       " ",
