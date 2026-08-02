@@ -350,7 +350,6 @@ export default function Archive2025Page() {
             <div className="smallLabel">FINAL INDIVIDUAL PAYOUTS</div>
             <h2>2025 Payment Record</h2>
           </div>
-          <strong>{money(payouts.reduce((sum, [, amount]) => sum + amount, 0))}</strong>
         </div>
 
         <div className="archivePayoutGrid">
