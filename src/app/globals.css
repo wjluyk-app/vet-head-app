@@ -3936,3 +3936,24 @@ table {
     text-align: center;
   }
 }
+
+/* =========================================================
+   MOBILE MENU — CONSISTENT ITEM STYLING
+   Remove solid-blue highlighted menu items.
+   ========================================================= */
+
+@media (max-width: 760px) {
+  .mobileHeaderMenu a,
+  .mobileHeaderMenu a:first-child,
+  .mobileHeaderMenu a:nth-child(5) {
+    background: #f3f6f8;
+    color: var(--navy);
+    border: 1px solid transparent;
+  }
+
+  .mobileHeaderMenu a:hover,
+  .mobileHeaderMenu a:focus-visible {
+    background: white;
+    border-color: #cfd7df;
+  }
+}
