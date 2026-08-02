@@ -1611,3 +1611,118 @@ button:disabled {
 .hubTileTopNoIcon {
   justify-content: flex-end;
 }
+
+
+/* Final player payout summary */
+.finalPayoutSection {
+  margin-top:24px;
+  background:white;
+  border:1px solid #d9dee5;
+  border-radius:18px;
+  overflow:hidden;
+}
+.finalPayoutHeader {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  padding:22px 24px;
+  border-bottom:1px solid #d9dee5;
+}
+.finalPayoutHeader h2 {
+  margin:4px 0;
+  color:var(--navy);
+}
+.finalPayoutHeader p {
+  margin:0;
+  color:#66788a;
+}
+.finalPayoutTotal {
+  flex:0 0 auto;
+  text-align:right;
+}
+.finalPayoutTotal span {
+  display:block;
+  color:#66788a;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.08em;
+}
+.finalPayoutTotal strong {
+  color:var(--navy);
+  font-size:30px;
+}
+.finalPayoutList {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:14px;
+  padding:18px;
+}
+.finalPayoutCard {
+  border:1px solid #d9dee5;
+  border-radius:14px;
+  overflow:hidden;
+}
+.finalPayoutPlayer {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  padding:14px 15px;
+  background:var(--navy);
+  color:white;
+}
+.finalPayoutPlayer span {
+  color:var(--gold);
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.08em;
+}
+.finalPayoutPlayer h3 {
+  margin:3px 0 0;
+  font-size:17px;
+}
+.finalPayoutPlayer > strong {
+  color:var(--gold);
+  font-size:23px;
+}
+.finalPayoutBreakdown {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+}
+.finalPayoutBreakdown div {
+  padding:10px 12px;
+  border-right:1px solid #e2e6ea;
+  border-bottom:1px solid #e2e6ea;
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+}
+.finalPayoutBreakdown span {
+  color:#66788a;
+  font-size:11px;
+}
+.finalPayoutBreakdown strong {
+  color:var(--navy);
+  font-size:12px;
+}
+
+@media (max-width:650px) {
+  .finalPayoutHeader {
+    align-items:flex-start;
+    padding:18px;
+  }
+  .finalPayoutTotal strong {
+    font-size:24px;
+  }
+  .finalPayoutList {
+    grid-template-columns:1fr;
+    padding:12px;
+  }
+  .finalPayoutBreakdown {
+    grid-template-columns:1fr;
+  }
+  .finalPayoutBreakdown div {
+    border-right:0;
+  }
+}
