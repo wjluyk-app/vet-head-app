@@ -138,7 +138,7 @@ export default function Archive2024Page() {
             VERIFIED HISTORICAL RECORD
           </div>
           <h1>2024 Cubby Cup</h1>
-          <p>Team Stone vs. Team Bush</p>
+          <p>Mike Stone vs. Lou Bush</p>
         </div>
 
         <div className="archiveChampion">

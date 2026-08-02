@@ -79,7 +79,7 @@ export default function Archive2021Page() {
         <div>
           <div className="smallLabel">VERIFIED HISTORICAL RECORD</div>
           <h1>2021 Cubby Cup</h1>
-          <p>Team Mead vs. Team Roth</p>
+          <p>Cohen Mead vs. Mike Roth</p>
         </div>
 
         <div className="archiveChampion">

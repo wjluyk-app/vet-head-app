@@ -12,7 +12,7 @@ const archiveYears = [
   {
     year: 2024,
     subtitle: "Verified Historical Record",
-    captains: "Team Stone vs. Team Bush",
+    captains: "Mike Stone vs. Lou Bush",
     champion: "Team Stone",
     finalScore: "34.5–19.5",
     href: "/archive/2024",
@@ -20,7 +20,7 @@ const archiveYears = [
   {
     year: 2023,
     subtitle: "Mostly Verified Historical Record",
-    captains: "Team Bainbridge vs. Team Mogg",
+    captains: "Jeremy Bainbridge vs. Brian Mogg",
     champion: "Team Mogg",
     finalScore: "31–23",
     href: "/archive/2023",
@@ -36,7 +36,7 @@ const archiveYears = [
   {
     year: 2021,
     subtitle: "Verified Historical Record",
-    captains: "Team Mead vs. Team Roth",
+    captains: "Cohen Mead vs. Mike Roth",
     champion: "Team Mead",
     finalScore: "20–16",
     href: "/archive/2021",
@@ -44,7 +44,7 @@ const archiveYears = [
   {
     year: 2020,
     subtitle: "Mostly Verified Historical Record",
-    captains: "Team Walls vs. Team Bones",
+    captains: "Randy Walls vs. Bill Luyk",
     champion: "Team Bones",
     finalScore: "23.5–21.5",
     href: "/archive/2020",

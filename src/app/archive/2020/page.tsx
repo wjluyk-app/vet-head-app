@@ -167,7 +167,7 @@ export default function Archive2020Page() {
         <div>
           <div className="smallLabel">MOSTLY VERIFIED HISTORICAL RECORD</div>
           <h1>2020 Cubby Cup</h1>
-          <p>Team Walls vs. Team Bones</p>
+          <p>Randy Walls vs. Bill Luyk</p>
         </div>
 
         <div className="archiveChampion">

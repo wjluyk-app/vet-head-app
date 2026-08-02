@@ -84,7 +84,7 @@ export default function Archive2023Page() {
             MOSTLY VERIFIED HISTORICAL RECORD
           </div>
           <h1>2023 Cubby Cup</h1>
-          <p>Team Bainbridge vs. Team Mogg</p>
+          <p>Jeremy Bainbridge vs. Brian Mogg</p>
         </div>
 
         <div className="archiveChampion">
