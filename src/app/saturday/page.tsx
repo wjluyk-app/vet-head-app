@@ -9,7 +9,7 @@ export default async function SaturdayPage() {
       eyebrow="DAY 2 · BETSIE VALLEY"
       title="Saturday"
       description="2-Man Scramble — match play, field competition, payouts and results."
-      status="Available"
+      status="Live"
     >
       <section className="sectionActionGrid">
         <Link className="sectionActionCard sectionActionPrimary" href="/results/saturday">

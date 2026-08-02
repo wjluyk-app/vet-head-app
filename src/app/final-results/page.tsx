@@ -176,7 +176,7 @@ export default async function FinalResultsPage() {
       : overall.winner === "SAM"
         ? "Team Sam is the 2026 Cubby Cup Champion."
         : "The 2026 Cubby Cup finished tied."
-    : "Final results will be declared after all 54 points are awarded.";
+    : "Final payouts will be available after all 54 points are awarded.";
 
   return (
     <>

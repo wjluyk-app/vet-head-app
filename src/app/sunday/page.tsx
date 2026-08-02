@@ -9,7 +9,7 @@ export default async function SundayPage() {
       eyebrow="DAY 3 · MOUNTAIN COURSE"
       title="Sunday"
       description="Pinehurst, singles, final team score and tournament champions."
-      status="Available"
+      status="Live"
     >
       <section className="sectionActionGrid">
         <Link className="sectionActionCard sectionActionPrimary" href="/results/sunday">

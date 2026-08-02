@@ -181,7 +181,7 @@ export default async function PrizeMoneyPage() {
 
             <Link href={item.href}>
               {item.status === "Final"
-                ? "View final results →"
+                ? "View final payouts →"
                 : "View tournament section →"}
             </Link>
           </article>

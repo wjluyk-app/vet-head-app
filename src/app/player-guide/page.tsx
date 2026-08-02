@@ -18,7 +18,7 @@ const guideSections = [
   {
     title: "Formats & Rules",
     description:
-      "Best Ball, Scramble, Pinehurst, Singles, tee movement, pairing advantage and Friday skins rules.",
+      "1 Best Ball of 2, 2-Man Scramble, Pinehurst, Singles, tee movement, pairing advantage and Friday skins rules.",
     href: "#formats",
   },
   {
