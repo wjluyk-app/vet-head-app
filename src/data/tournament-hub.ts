@@ -76,6 +76,13 @@ export const tournamentHubGroups: HubGroup[] = [
         status: "Available",
         icon: "TT",
       },
+      {
+        title: "2025 Tournament Archive",
+        description: "Final score, match results, MVPs, payouts and the complete 25th-anniversary record.",
+        href: "/archive/2025",
+        status: "Available",
+        icon: "AR",
+      },
     ],
   },
   {
