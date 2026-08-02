@@ -2673,3 +2673,156 @@ table {
     font-size: 11px;
   }
 }
+
+/* =========================================================
+   SCHEDULE & TEE TIMES — MOBILE REFINEMENT
+   ========================================================= */
+
+@media (max-width: 650px) {
+  .scheduleOverview {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .scheduleOverview div {
+    padding: 14px 7px;
+    border-right: 1px solid rgba(255,255,255,.15);
+    border-bottom: 0;
+  }
+
+  .scheduleOverview div:last-child {
+    border-right: 0;
+  }
+
+  .scheduleOverview span {
+    font-size: 8px;
+  }
+
+  .scheduleOverview strong {
+    font-size: 19px;
+  }
+
+  .scheduleGrid {
+    gap: 14px;
+  }
+
+  .scheduleCardHeader {
+    padding: 15px;
+    align-items: center;
+  }
+
+  .scheduleCardHeader h2 {
+    font-size: 25px;
+  }
+
+  .scheduleCardHeader > span {
+    max-width: 130px;
+    font-size: 10px;
+  }
+
+  .scheduleFormat {
+    padding: 10px 15px;
+    font-size: 12px;
+    line-height: 1.35;
+  }
+
+  .teeTimeGrid {
+    padding: 6px 12px 12px;
+  }
+
+  .teeTimeRowDetailed {
+    margin-top: 10px;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #dce3e9;
+    border-radius: 12px;
+    background: #f8fafb;
+  }
+
+  .teeTimeRowDetailed:last-child {
+    border-bottom: 1px solid #dce3e9;
+  }
+
+  .teeTimeMatch {
+    margin: 0;
+    padding: 10px 12px;
+    background: #edf1f4;
+  }
+
+  .teeTimeMatch span {
+    font-size: 10px;
+  }
+
+  .teeTimeMatch strong {
+    font-size: 17px;
+  }
+
+  .teeTimeNames {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .teeTimeNames > div:not(.teeTimeVs) {
+    min-height: 68px;
+    padding: 12px;
+    justify-content: center;
+    text-align: left;
+  }
+
+  .teeTimeNames > div:first-child {
+    background: #f2f7fb;
+  }
+
+  .teeTimeNames > div:last-child {
+    background: #fff9dc;
+    text-align: left;
+  }
+
+  .teeTimeNames span {
+    font-size: 9px;
+  }
+
+  .teeTimeNames strong {
+    margin-top: 3px;
+    font-size: 15px;
+    line-height: 1.35;
+  }
+
+  .teeTimeVs {
+    min-height: 26px;
+    display: grid;
+    place-items: center;
+    background: var(--navy);
+    color: var(--gold);
+    font-size: 10px;
+    font-weight: 900;
+  }
+
+  .scheduleNote {
+    margin: 0 12px 12px;
+    font-size: 12px;
+  }
+
+  .scheduleSummaryCard {
+    padding: 16px;
+  }
+
+  .scheduleSummaryCard h2 {
+    font-size: 23px;
+  }
+}
+
+@media (max-width: 390px) {
+  .scheduleOverview strong {
+    font-size: 17px;
+  }
+
+  .scheduleCardHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .scheduleCardHeader > span {
+    max-width: none;
+    text-align: left;
+  }
+}
