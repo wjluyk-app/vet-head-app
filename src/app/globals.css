@@ -3640,3 +3640,273 @@ table {
     border-right: 0;
   }
 }
+
+/* =========================================================
+   FINAL MOBILE CONTAINMENT PASS
+   Prevent inherited desktop widths from clipping phone views.
+   ========================================================= */
+
+@media (max-width: 760px) {
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  body {
+    position: relative;
+  }
+
+  main {
+    width: calc(100% - 24px) !important;
+    max-width: calc(100% - 24px) !important;
+    margin: 14px 12px 40px !important;
+    overflow: visible;
+  }
+
+  .appHeader {
+    width: 100%;
+    max-width: 100%;
+    padding: 10px 12px;
+    display: grid;
+    grid-template-columns: 118px minmax(0, 1fr);
+    align-items: center;
+    gap: 8px;
+    overflow: visible;
+  }
+
+  .headerLogoLink {
+    width: 118px;
+    min-width: 0;
+    max-width: 118px;
+    padding: 5px 8px;
+  }
+
+  .headerLogoImage {
+    width: 100%;
+    max-width: 102px;
+    height: auto;
+  }
+
+  .mobileHeaderControls {
+    width: 100%;
+    min-width: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    justify-content: stretch;
+    gap: 7px;
+  }
+
+  .mobileScoreboardButton,
+  .mobileMenuButton {
+    min-width: 0;
+    max-width: 100%;
+    padding: 9px 8px;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .mobileHeaderMenu {
+    left: 12px;
+    right: 12px;
+    width: auto;
+    max-width: none;
+  }
+
+  .hero,
+  .sectionHero,
+  .hubHero,
+  .mobileScoreboardHero,
+  .resultsScoreboard,
+  .mobileOverallScore,
+  .teamsSummary,
+  .myWeekendSection,
+  .finalPayoutSection,
+  .mvpFeatureCard {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .hubHero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  .hubHero > *,
+  .sectionHero > *,
+  .finalPayoutHeader > *,
+  .myWeekendHeader > * {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .hubHero h1,
+  .sectionHero h1,
+  .mobileScoreboardHero h1 {
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+
+  .hubHero h1 {
+    font-size: clamp(34px, 10vw, 44px);
+    line-height: 1.02;
+  }
+
+  .hubHeroScore {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    grid-template-columns: minmax(0, 1fr) 58px minmax(0, 1fr);
+  }
+
+  .resultsScoreboard,
+  .mobileOverallScore {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .resultsCenter,
+  .mobileOverallScore .resultsCenter {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .teamTotal {
+    min-width: 0;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .mobileScoreboardTabs,
+  .sectionTabs,
+  .dayTabs,
+  .finalPayoutTeamFilter {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .mobileScoreboardTabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mobileScoreboardTabs > *,
+  .sectionTabs > *,
+  .dayTabs > *,
+  .finalPayoutTeamFilter > * {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .teamsSummary {
+    grid-template-columns: minmax(0, 1fr) 96px minmax(0, 1fr);
+    overflow: hidden;
+  }
+
+  .teamsSummary > * {
+    min-width: 0;
+  }
+
+  .teamsSummaryCenter {
+    width: 96px;
+    max-width: 96px;
+  }
+
+  .rosterGrid,
+  .pairingsGrid,
+  .finalPayoutList,
+  .myWeekendRounds {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .rosterCard,
+  .pairingCard,
+  .finalPayoutCard,
+  .myWeekendRoundCard,
+  .matchCard,
+  .mobileMatchCard {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .finalPayoutTools {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .finalPayoutTeamFilter {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .finalPayoutBreakdown {
+    width: 100%;
+    max-width: 100%;
+    grid-template-columns: 1fr !important;
+  }
+
+  .finalPayoutBreakdown > div {
+    width: 100%;
+    min-width: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .finalPayoutBreakdown strong {
+    flex: 0 0 auto;
+    margin-left: auto;
+    text-align: right;
+  }
+
+  .myWeekendSelector,
+  .myWeekendSelector select,
+  .finalPayoutTools input {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 390px) {
+  .appHeader {
+    grid-template-columns: 110px minmax(0, 1fr);
+  }
+
+  .headerLogoLink {
+    width: 110px;
+    max-width: 110px;
+  }
+
+  .mobileScoreboardButton,
+  .mobileMenuButton {
+    font-size: 12px;
+    padding-left: 7px;
+    padding-right: 7px;
+  }
+
+  .hubHero,
+  .sectionHero,
+  .mobileScoreboardHero,
+  .hero {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .hubHero h1 {
+    font-size: 36px;
+  }
+}
