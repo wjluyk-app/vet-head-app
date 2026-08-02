@@ -90,7 +90,7 @@ export const tournamentHubGroups: HubGroup[] = [
         icon: "$",
       },
       {
-        title: "Final Results",
+        title: "Payouts",
         description: "Champions, final team score, complete results and journal.",
         href: "/final-results",
         status: "Available",
