@@ -33,6 +33,14 @@ const archiveYears = [
     finalScore: "23.5–12.5",
     href: "/archive/2022",
   },
+  {
+    year: 2021,
+    subtitle: "Verified Historical Record",
+    captains: "Team Mead vs. Team Roth",
+    champion: "Team Mead",
+    finalScore: "20–16",
+    href: "/archive/2021",
+  },
 ];
 
 export default function TournamentArchivePage() {
