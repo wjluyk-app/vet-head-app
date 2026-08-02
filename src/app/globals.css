@@ -1964,3 +1964,25 @@ button:disabled {
     padding:22px 16px;
   }
 }
+
+
+/* Tournament Hub header and home logo */
+.hubLogoPanel {
+  width:min(100%, 520px);
+  margin:14px 0 16px;
+  padding:16px 20px;
+  border-radius:16px;
+  background:rgba(255,255,255,.94);
+  box-shadow:0 6px 20px rgba(0,0,0,.12);
+}
+.hubLogoImage {
+  display:block;
+  width:100%;
+  height:auto;
+  object-fit:contain;
+}
+@media (max-width:650px) {
+  .hubLogoPanel {
+    padding:12px 14px;
+  }
+}

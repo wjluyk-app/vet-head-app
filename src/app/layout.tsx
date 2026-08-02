@@ -18,8 +18,8 @@ export default async function RootLayout({
       <body>
         <header className="appHeader">
           <Link className="brandLink" href="/">
-            <div className="brand">CUBBY CUP</div>
-            <div className="edition">2026 · TOURNAMENT HUB</div>
+            <div className="brand">TOURNAMENT HUB</div>
+            <div className="edition">2026 · CUBBY CUP</div>
           </Link>
 
           <nav className="headerNav">

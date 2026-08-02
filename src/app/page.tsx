@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { tournamentHubGroups } from "@/data/tournament-hub";
 import { createAdminClient } from "@/lib/supabase/admin";
@@ -37,10 +38,19 @@ export default async function HomePage() {
           <div className="smallLabel hubEdition">
             CRYSTAL MOUNTAIN · AUGUST 28–30, 2026
           </div>
-          <h1>Cubby Cup Tournament Hub</h1>
+          <div className="hubLogoPanel">
+            <Image
+              src="/images/cubby-cup-logo.png"
+              alt="Cubby Cup"
+              width={520}
+              height={260}
+              priority
+              className="hubLogoImage"
+            />
+          </div>
           <p>
-            One private home for player information, live competition,
-            prize money and final results.
+            One private home for player information, tournament scoring,
+            prize money and payouts.
           </p>
         </div>
 
