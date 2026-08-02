@@ -1986,3 +1986,33 @@ button:disabled {
     padding:12px 14px;
   }
 }
+
+
+/* Header Cubby Cup logo */
+.headerLogoLink {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:180px;
+  min-width:180px;
+  padding:6px 10px;
+  border-radius:12px;
+  background:white;
+}
+.headerLogoImage {
+  display:block;
+  width:100%;
+  height:72px;
+  object-fit:contain;
+}
+
+@media (max-width:650px) {
+  .headerLogoLink {
+    width:130px;
+    min-width:130px;
+  }
+
+  .headerLogoImage {
+    height:58px;
+  }
+}

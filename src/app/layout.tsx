@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { getBillAdminUser } from "@/lib/auth/admin";
 import "./globals.css";
@@ -17,12 +18,19 @@ export default async function RootLayout({
     <html lang="en">
       <body>
         <header className="appHeader">
-          <Link className="brandLink" href="/">
-            <div className="brand">TOURNAMENT HUB</div>
-            <div className="edition">2026 · CUBBY CUP</div>
+          <Link className="brandLink headerLogoLink" href="/">
+            <Image
+              src="/images/cubby-cup-logo.png"
+              alt="Cubby Cup"
+              width={180}
+              height={100}
+              priority
+              className="headerLogoImage"
+            />
           </Link>
 
           <nav className="headerNav">
+            <Link href="/">Tournament Hub</Link>
             <Link href="/scoreboard">Scoreboard</Link>
             <Link href="/final-results">Payouts</Link>
             <Link href="/schedule">Schedule</Link>
