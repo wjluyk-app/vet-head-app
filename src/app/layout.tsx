@@ -24,7 +24,7 @@ export default async function RootLayout({
 
           <nav className="headerNav">
             <Link href="/scoreboard">Scoreboard</Link>
-            <Link href="/final-results">Final Results</Link>
+            <Link href="/final-results">Payouts</Link>
             <Link href="/schedule">Schedule</Link>
             {adminUser ? (
               <>
