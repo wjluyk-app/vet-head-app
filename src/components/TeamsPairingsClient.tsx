@@ -70,6 +70,36 @@ function TeamRosterCard({ team }: { team: TeamRoster }) {
           </tbody>
         </table>
       </div>
+
+      <div className="rosterMobileList">
+        {team.players.map((player) => (
+          <article className="rosterMobilePlayer" key={`mobile-${player.sourcePlayerId}`}>
+            <div className="rosterMobilePlayerHeader">
+              <strong>{player.displayName}</strong>
+              {player.captain && <span className="captainBadge">Captain</span>}
+            </div>
+
+            <div className="rosterMobileStats">
+              <div>
+                <span>INDEX</span>
+                <strong>{player.handicapIndex.toFixed(1)}</strong>
+              </div>
+              <div>
+                <span>FRIDAY HCP</span>
+                <strong>{handicap(player.fridayPlayingHandicap)}</strong>
+              </div>
+              <div>
+                <span>SATURDAY HCP</span>
+                <strong>{handicap(player.betsieHandicap)}</strong>
+              </div>
+              <div>
+                <span>TEE</span>
+                <strong>{teeAssignment(player.mountainTee, player.betsieTee)}</strong>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
     </article>
   );
 }

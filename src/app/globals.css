@@ -2507,3 +2507,169 @@ table {
     height: 30px;
   }
 }
+
+/* =========================================================
+   TEAMS & PAIRINGS — MOBILE PLAYER CARDS
+   ========================================================= */
+
+.rosterMobileList {
+  display: none;
+}
+
+@media (max-width: 650px) {
+  .teamsPairingsControls {
+    gap: 10px;
+  }
+
+  .sectionTabs,
+  .dayTabs {
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dayTabs {
+    gap: 7px;
+  }
+
+  .sectionTab,
+  .dayTab {
+    min-height: 44px;
+    padding: 9px 8px;
+    font-size: 13px;
+  }
+
+  .teamsSummary {
+    padding: 13px 9px;
+  }
+
+  .teamsSummary strong {
+    font-size: 27px;
+  }
+
+  .teamsSummaryCenter {
+    max-width: 92px;
+    padding: 0 7px;
+    line-height: 1.3;
+  }
+
+  .rosterCardHeader {
+    padding: 15px;
+  }
+
+  .rosterCardHeader h2 {
+    font-size: 22px;
+  }
+
+  .rosterTableWrap {
+    display: none;
+  }
+
+  .rosterMobileList {
+    display: grid;
+    gap: 9px;
+    padding: 0 12px 12px;
+  }
+
+  .rosterMobilePlayer {
+    overflow: hidden;
+    border: 1px solid #dce3e9;
+    border-radius: 11px;
+    background: #f8fafb;
+  }
+
+  .rosterMobilePlayerHeader {
+    min-height: 45px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    background: white;
+    color: var(--navy);
+  }
+
+  .rosterMobilePlayerHeader > strong {
+    font-size: 15px;
+  }
+
+  .rosterMobileStats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .rosterMobileStats > div {
+    min-height: 58px;
+    padding: 9px 11px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-top: 1px solid #e1e6eb;
+  }
+
+  .rosterMobileStats > div:nth-child(odd) {
+    border-right: 1px solid #e1e6eb;
+  }
+
+  .rosterMobileStats span {
+    font-size: 8px;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    color: #68798a;
+  }
+
+  .rosterMobileStats strong {
+    margin-top: 3px;
+    color: var(--navy);
+    font-size: 14px;
+  }
+
+  .pairingDayHeader {
+    padding: 15px;
+  }
+
+  .pairingDayHeader h2 {
+    font-size: 25px;
+  }
+
+  .pairingCardTop {
+    padding: 11px 12px;
+  }
+
+  .pairingCardTop > div {
+    flex-wrap: wrap;
+    gap: 5px 10px;
+  }
+
+  .pairingCardTop strong {
+    font-size: 17px;
+  }
+
+  .pairingStatus {
+    flex: 0 0 auto;
+  }
+
+  .pairingMatchup {
+    grid-template-columns: 1fr;
+  }
+
+  .pairingSide {
+    padding: 14px;
+    text-align: left;
+  }
+
+  .pairingSide strong {
+    font-size: 16px;
+  }
+
+  .pairingVersus {
+    min-height: 27px;
+  }
+
+  .pairingMeta {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding: 11px 14px;
+    font-size: 11px;
+  }
+}
