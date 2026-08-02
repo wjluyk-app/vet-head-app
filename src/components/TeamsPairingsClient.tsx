@@ -14,7 +14,9 @@ function handicap(value: number): string {
   return value > 0 ? String(value) : value === 0 ? "0" : `+${Math.abs(value)}`;
 }
 
-function time(value: string): string {
+function time(value: string | null, singles: boolean): string {
+  if (!value) return singles ? "Back Nine" : "TBD";
+
   const [hourText, minute] = value.split(":");
   const hour = Number(hourText);
   const suffix = hour >= 12 ? "PM" : "AM";
@@ -111,7 +113,7 @@ function PairingCard({ pairing }: { pairing: TournamentPairing }) {
       <div className="pairingCardTop">
         <div>
           <span>Match {pairing.matchNumber}</span>
-          <strong>{time(pairing.teeTime)}</strong>
+          <strong>{time(pairing.teeTime, singles)}</strong>
         </div>
         <span className="pairingStatus">{pairing.status}</span>
       </div>

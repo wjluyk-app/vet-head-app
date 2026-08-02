@@ -34,7 +34,7 @@ export interface TournamentPairing {
   format: string;
   matchNumber: number;
   throwsFirst: string | null;
-  teeTime: string;
+  teeTime: string | null;
   lukePlayer1: string;
   lukePlayer2: string | null;
   lukeHandicapReference: string | number | null;
