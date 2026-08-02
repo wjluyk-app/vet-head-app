@@ -2826,3 +2826,269 @@ table {
     text-align: left;
   }
 }
+
+/* =========================================================
+   LIVE SCOREBOARD — MOBILE REFINEMENT
+   ========================================================= */
+
+@media (max-width: 650px) {
+  .mobileScoreboardHero {
+    padding: 20px 17px;
+  }
+
+  .mobileScoreboardHero h1 {
+    margin-bottom: 6px;
+    font-size: 31px;
+    line-height: 1.05;
+  }
+
+  .mobileScoreboardHero p {
+    font-size: 14px;
+  }
+
+  .mobileOverallScore {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(92px, auto) minmax(0, 1fr);
+    overflow: hidden;
+    border-radius: 14px;
+  }
+
+  .mobileOverallScore .teamTotal {
+    min-width: 0;
+    padding: 14px 6px;
+  }
+
+  .mobileOverallScore .teamTotal span {
+    font-size: 9px;
+    line-height: 1.2;
+  }
+
+  .mobileOverallScore .teamTotal strong {
+    font-size: 39px;
+    line-height: 1;
+  }
+
+  .mobileOverallScore .resultsCenter {
+    min-width: 92px;
+    padding: 10px 5px;
+  }
+
+  .mobileOverallScore .resultsCenter > div {
+    font-size: 9px;
+    line-height: 1.2;
+  }
+
+  .mobileOverallScore .resultsCenter small {
+    display: block;
+    margin-top: 4px;
+    font-size: 8px;
+    line-height: 1.25;
+  }
+
+  .mobileOverallScore .refreshButton {
+    margin-top: 7px;
+    padding: 6px 7px;
+    font-size: 9px;
+  }
+
+  .mobileDayTabs {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    overflow: visible;
+    margin: 15px 0;
+    padding: 0;
+  }
+
+  .mobileDayTabs button {
+    width: 100%;
+    min-width: 0;
+    min-height: 62px;
+    padding: 9px 5px;
+  }
+
+  .mobileDayTabs button:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .mobileDayTabs button span {
+    font-size: 9px;
+    line-height: 1.15;
+  }
+
+  .mobileDayTabs button strong {
+    font-size: 18px;
+  }
+
+  .mobileMatchList {
+    width: 100%;
+    grid-template-columns: 1fr;
+    gap: 11px;
+  }
+
+  .mobileMatchCard {
+    width: 100%;
+    border-radius: 13px;
+  }
+
+  .mobileMatchHeader {
+    padding: 11px 12px;
+  }
+
+  .mobileMatchHeader strong {
+    font-size: 13px;
+  }
+
+  .mobileMatchPoints {
+    gap: 3px;
+  }
+
+  .mobileMatchPoints span {
+    font-size: 9px;
+  }
+
+  .mobileTeamRow {
+    min-height: 67px;
+    padding: 10px 11px;
+  }
+
+  .mobileTeamRow > div:first-child {
+    padding-right: 5px;
+  }
+
+  .mobileTeamRow strong {
+    font-size: 13px;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+
+  .mobileTeamRow > b {
+    flex: 0 0 auto;
+    font-size: 22px;
+  }
+
+  .mobileTotals {
+    grid-template-columns: repeat(3, 35px);
+    gap: 2px;
+  }
+
+  .mobileTotals span {
+    font-size: 8px;
+  }
+
+  .mobileTotals strong {
+    font-size: 16px;
+  }
+
+  .mobileExpandButton {
+    min-height: 43px;
+    padding: 10px;
+    font-size: 11px;
+  }
+
+  .mobileSectionTitle {
+    margin-top: 18px;
+  }
+
+  .mobileSectionTitle h2 {
+    font-size: 25px;
+  }
+
+  .skinsScoreboardSection {
+    width: 100%;
+    border-radius: 14px;
+  }
+
+  .skinsScoreboardHeader {
+    gap: 14px;
+    padding: 15px;
+  }
+
+  .skinsScoreboardHeader h2 {
+    font-size: 24px;
+  }
+
+  .skinsScoreboardHeader p {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .skinsSummary {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .skinsSummary div {
+    min-width: 0;
+    padding: 8px 4px;
+    border-radius: 8px;
+    background: #f3f6f8;
+  }
+
+  .skinsSummary span {
+    font-size: 7px;
+    line-height: 1.2;
+  }
+
+  .skinsSummary strong {
+    font-size: 16px;
+  }
+
+  .skinsHoleGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+    padding: 9px;
+  }
+
+  .skinsHoleTop,
+  .skinsHoleScore {
+    padding: 8px;
+  }
+
+  .skinsHoleTop strong {
+    font-size: 18px;
+  }
+
+  .skinsHoleScore strong {
+    font-size: 22px;
+  }
+
+  .skinsHolePlayers {
+    min-height: 52px;
+    padding: 0 8px 8px;
+    font-size: 10px;
+  }
+
+  .skinsHoleStatus {
+    min-height: 40px;
+    padding: 7px 8px;
+  }
+
+  .skinsHoleStatus span {
+    font-size: 8px;
+  }
+
+  .skinsScoreboardFooter {
+    justify-content: space-between;
+    padding: 13px 14px;
+  }
+}
+
+@media (max-width: 370px) {
+  .mobileOverallScore {
+    grid-template-columns: minmax(0, 1fr) 82px minmax(0, 1fr);
+  }
+
+  .mobileOverallScore .teamTotal strong {
+    font-size: 35px;
+  }
+
+  .mobileOverallScore .resultsCenter {
+    min-width: 82px;
+  }
+
+  .mobileTotals {
+    grid-template-columns: repeat(3, 32px);
+  }
+}
