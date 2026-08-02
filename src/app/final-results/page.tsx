@@ -181,7 +181,7 @@ export default async function FinalResultsPage() {
     <>
       <section className="hero fridayResultsHero">
         <div className="smallLabel">PERMANENT RECORD</div>
-        <h1>Final Results</h1>
+        <h1>Payouts</h1>
         <p>{championshipMessage}</p>
       </section>
 
