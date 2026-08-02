@@ -25,7 +25,7 @@ function hubActionLabel(href: string): string {
     "/schedule": "View tee times →",
     "/prize-money": "View prize structure →",
     "/final-results": "View final payouts →",
-    "/archive/2025": "View 2025 archive →",
+    "/archive": "View tournament archive →",
     "/upcoming-years": "View upcoming years →",
   };
 

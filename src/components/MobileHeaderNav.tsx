@@ -51,8 +51,8 @@ export default function MobileHeaderNav({ isAdmin }: MobileHeaderNavProps) {
           <Link href="/final-results" onClick={closeMenu}>
             Final Payouts
           </Link>
-          <Link href="/archive/2025" onClick={closeMenu}>
-            2025 Archive
+          <Link href="/archive" onClick={closeMenu}>
+            Tournament Archive
           </Link>
           <Link href="/upcoming-years" onClick={closeMenu}>
             Upcoming Years
