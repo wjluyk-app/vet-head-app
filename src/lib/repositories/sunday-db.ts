@@ -167,8 +167,15 @@ export async function getSundayDataFromDatabase(
       match_number,
       pairing_participant(
         team_id,
+        player_id,
         participant_order,
         player:player_id(display_name)
+      ),
+      scorecard(
+        id,
+        player_id,
+        subject_type,
+        hole_score(hole_number, net_score, version, updated_at)
       ),
       match_result(
         winner_team_id,
@@ -214,6 +221,41 @@ export async function getSundayDataFromDatabase(
         ? samParticipant.player[0]?.display_name
         : samParticipant?.player?.display_name;
 
+      const scorecards = pairing.scorecard ?? [];
+      const lukeCard = scorecards.find(
+        (card: any) =>
+          card.subject_type === "player" &&
+          card.player_id === lukeParticipant?.player_id,
+      );
+      const samCard = scorecards.find(
+        (card: any) =>
+          card.subject_type === "player" &&
+          card.player_id === samParticipant?.player_id,
+      );
+
+      if (!lukeCard || !samCard) {
+        throw new Error(
+          `Missing player scorecards for Sunday Singles match ${pairing.match_number}`,
+        );
+      }
+
+      const normalizeSinglesScores = (rows: any[]) => {
+        const scores: Array<LiveHoleScore | null> = Array(9).fill(null);
+
+        for (const row of rows ?? []) {
+          if (row.hole_number < 10 || row.hole_number > 18) continue;
+
+          scores[row.hole_number - 10] = {
+            holeNumber: row.hole_number,
+            netScore: row.net_score,
+            version: row.version,
+            updatedAt: row.updated_at,
+          };
+        }
+
+        return scores;
+      };
+
       return {
         pairingId: pairing.id,
         matchNumber: pairing.match_number,
@@ -221,6 +263,10 @@ export async function getSundayDataFromDatabase(
         samTeamId,
         lukePlayer: lukePlayer ?? "Unknown",
         samPlayer: samPlayer ?? "Unknown",
+        lukeScorecardId: lukeCard.id,
+        samScorecardId: samCard.id,
+        lukeScores: normalizeSinglesScores(lukeCard.hole_score),
+        samScores: normalizeSinglesScores(samCard.hole_score),
         winnerTeamId: result?.winner_team_id ?? null,
         halved: result?.halved ?? false,
         resultText: result?.result_text ?? null,

@@ -141,20 +141,61 @@ function calculatePinehurstMatch(
 function calculateSinglesMatch(
   match: LiveSundaySinglesMatch,
 ): SundaySinglesBoardMatch {
+  let margin = 0;
+  let holesComplete = 0;
+  let closedOnHole: number | null = null;
+
+  for (let index = 0; index < 9; index += 1) {
+    const luke = match.lukeScores[index];
+    const sam = match.samScores[index];
+
+    if (!luke || !sam) break;
+
+    holesComplete += 1;
+
+    if (luke.netScore < sam.netScore) margin += 1;
+    if (sam.netScore < luke.netScore) margin -= 1;
+
+    const holesRemaining = 9 - holesComplete;
+
+    if (Math.abs(margin) > holesRemaining) {
+      closedOnHole = holesComplete + 9;
+      break;
+    }
+  }
+
   let winner: SundaySinglesBoardMatch["winner"] = "PENDING";
   let lukePoints = 0;
   let samPoints = 0;
+  let resultText: string | null = null;
+  let status = `Pending · ${holesComplete}/9`;
 
-  if (match.halved) {
-    winner = "HALVED";
-    lukePoints = 0.5;
-    samPoints = 0.5;
-  } else if (match.winnerTeamId === match.lukeTeamId) {
-    winner = "LUKE";
-    lukePoints = 1;
-  } else if (match.winnerTeamId === match.samTeamId) {
-    winner = "SAM";
-    samPoints = 1;
+  if (closedOnHole !== null) {
+    const holesRemaining = 18 - closedOnHole;
+    winner = margin > 0 ? "LUKE" : "SAM";
+    lukePoints = winner === "LUKE" ? 1 : 0;
+    samPoints = winner === "SAM" ? 1 : 0;
+    resultText = `${Math.abs(margin)} & ${holesRemaining}`;
+    status = resultText;
+  } else if (holesComplete === 9) {
+    if (margin === 0) {
+      winner = "HALVED";
+      lukePoints = 0.5;
+      samPoints = 0.5;
+      resultText = "Halved";
+      status = "Halved";
+    } else {
+      winner = margin > 0 ? "LUKE" : "SAM";
+      lukePoints = winner === "LUKE" ? 1 : 0;
+      samPoints = winner === "SAM" ? 1 : 0;
+      resultText = "1 UP";
+      status = "1 UP";
+    }
+  } else if (holesComplete > 0) {
+    status =
+      margin === 0
+        ? `All square through ${holesComplete}`
+        : `${margin > 0 ? "Luke" : "Sam"} ${Math.abs(margin)} UP through ${holesComplete}`;
   }
 
   return {
@@ -165,9 +206,9 @@ function calculateSinglesMatch(
     winner,
     lukePoints,
     samPoints,
-    resultText: match.resultText,
-    closedOnHole: match.closedOnHole,
-    status: match.status,
+    resultText,
+    closedOnHole,
+    status,
   };
 }
 

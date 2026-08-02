@@ -52,6 +52,10 @@ export interface LiveSundaySinglesMatch {
   samTeamId: string;
   lukePlayer: string;
   samPlayer: string;
+  lukeScorecardId: string;
+  samScorecardId: string;
+  lukeScores: Array<LiveHoleScore | null>;
+  samScores: Array<LiveHoleScore | null>;
   winnerTeamId: string | null;
   halved: boolean;
   resultText: string | null;

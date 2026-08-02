@@ -48,8 +48,8 @@ export default async function SundayScoreEntryPage() {
         <div className="boardSectionHeader">
           <div>
             <div className="smallLabel">BACK NINE</div>
-            <h2>Singles Result Entry</h2>
-            <p>Select the winner or record a halved match.</p>
+            <h2>Singles Score Entry</h2>
+            <p>Enter each player’s NET score for Holes 10–18.</p>
           </div>
         </div>
 
@@ -64,7 +64,7 @@ export default async function SundayScoreEntryPage() {
                 className="button"
                 href={`/score/sunday/singles/${match.matchNumber}`}
               >
-                Enter singles result
+                Enter singles scores
               </Link>
             </article>
           ))}
