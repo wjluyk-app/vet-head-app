@@ -9,6 +9,14 @@ const archiveYears = [
     finalScore: "36–18",
     href: "/archive/2025",
   },
+  {
+    year: 2024,
+    subtitle: "Verified Historical Record",
+    captains: "Team Stone vs. Team Bush",
+    champion: "Team Stone",
+    finalScore: "34.5–19.5",
+    href: "/archive/2024",
+  },
 ];
 
 export default function TournamentArchivePage() {
