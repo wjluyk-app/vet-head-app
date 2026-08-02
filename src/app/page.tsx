@@ -61,6 +61,39 @@ export default async function HomePage() {
         </Link>
       </section>
 
+      <section className="hubStartHere" aria-labelledby="start-here-heading">
+        <div className="hubStartHereCopy">
+          <span className="smallLabel">NEW PLAYER?</span>
+          <h2 id="start-here-heading">Start Here</h2>
+          <p>
+            Review the Player Guide, find your team and tee times, then use the
+            Scoreboard during the tournament.
+          </p>
+        </div>
+
+        <div className="hubStartHereActions">
+          <Link href="/player-guide">
+            <span>1</span>
+            <strong>Read Player Guide</strong>
+          </Link>
+
+          <Link href="/teams">
+            <span>2</span>
+            <strong>Find Teams &amp; Pairings</strong>
+          </Link>
+
+          <Link href="/schedule">
+            <span>3</span>
+            <strong>View Tee Times</strong>
+          </Link>
+
+          <Link href="/scoreboard">
+            <span>4</span>
+            <strong>Open Scoreboard</strong>
+          </Link>
+        </div>
+      </section>
+
       {tournamentHubGroups.map((group) => (
         <section className="hubGroup" key={group.title}>
           <div className="hubGroupHeader">

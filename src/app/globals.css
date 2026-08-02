@@ -2237,3 +2237,143 @@ table {
     color: white;
   }
 }
+
+/* =========================================================
+   TOURNAMENT HUB — START HERE
+   ========================================================= */
+
+.hubStartHere {
+  margin-top: 22px;
+  padding: 22px;
+  display: grid;
+  grid-template-columns: minmax(220px, 0.8fr) minmax(0, 2fr);
+  gap: 22px;
+  align-items: center;
+  border: 1px solid #d6dee5;
+  border-left: 6px solid var(--gold);
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 5px 18px rgba(16, 42, 67, 0.07);
+}
+
+.hubStartHereCopy .smallLabel {
+  color: #9a7600;
+}
+
+.hubStartHereCopy h2 {
+  margin: 5px 0 6px;
+  color: var(--navy);
+  font-size: 27px;
+}
+
+.hubStartHereCopy p {
+  margin: 0;
+  color: #68798a;
+  line-height: 1.5;
+}
+
+.hubStartHereActions {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.hubStartHereActions a {
+  min-height: 92px;
+  padding: 13px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 9px;
+  border: 1px solid #d8e0e7;
+  border-radius: 12px;
+  background: #f5f7f9;
+  color: var(--navy);
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.hubStartHereActions a:hover {
+  border-color: var(--gold);
+  background: #fff8d6;
+}
+
+.hubStartHereActions span {
+  width: 27px;
+  height: 27px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--navy);
+  color: white;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.hubStartHereActions strong {
+  line-height: 1.25;
+}
+
+@media (max-width: 900px) {
+  .hubStartHere {
+    grid-template-columns: 1fr;
+  }
+
+  .hubStartHereActions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 650px) {
+  .hubHero {
+    gap: 20px;
+  }
+
+  .hubHero h1 {
+    font-size: 38px;
+    line-height: 1.03;
+  }
+
+  .hubHeroScore {
+    grid-template-columns: 1fr auto 1fr;
+    padding: 14px 10px;
+  }
+
+  .hubHeroScore strong {
+    font-size: 32px;
+  }
+
+  .hubScoreDivider {
+    padding: 0 7px;
+  }
+
+  .hubStartHere {
+    margin-top: 16px;
+    padding: 18px 15px;
+    gap: 17px;
+  }
+
+  .hubStartHereActions {
+    grid-template-columns: 1fr;
+  }
+
+  .hubStartHereActions a {
+    min-height: 64px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .hubTile {
+    min-height: 0;
+    padding: 17px;
+  }
+
+  .hubTile h3 {
+    margin-top: 15px;
+  }
+
+  .hubOpen {
+    padding-top: 14px;
+  }
+}
