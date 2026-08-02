@@ -83,15 +83,15 @@ export const tournamentHubGroups: HubGroup[] = [
     description: "Tournament payouts, final standings and permanent records.",
     items: [
       {
-        title: "Prize Money",
-        description: "Payout structure, skins, team totals and player payment summary.",
+        title: "Prize Structure",
+        description: "What is available to win across fields, skins, team awards and MVP.",
         href: "/prize-money",
         status: "Coming Soon",
         icon: "$",
       },
       {
-        title: "Payouts",
-        description: "Champions, final team score, complete results and journal.",
+        title: "Final Payouts",
+        description: "What each player actually earned after all results are complete.",
         href: "/final-results",
         status: "Available",
         icon: "🏆",

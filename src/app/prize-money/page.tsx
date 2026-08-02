@@ -122,10 +122,25 @@ export default async function PrizeMoneyPage() {
   return (
     <TournamentSectionShell
       eyebrow="RESULTS & MONEY"
-      title="Prize Money"
-      description="Live payout structure, daily winnings, skins and team awards."
+      title="Prize Structure"
+      description="What is available to win across daily field payouts, skins, team awards and MVP."
       status="Live"
     >
+      <section className="prizeStructureIntro">
+        <div>
+          <span className="smallLabel">HOW TO READ THIS PAGE</span>
+          <h2>Prize Structure vs. Final Payouts</h2>
+          <p>
+            Prize Structure shows what is available to win. Final Payouts shows
+            what each player actually earned after all results are complete.
+          </p>
+        </div>
+
+        <Link className="secondaryButton" href="/final-results">
+          View Final Payouts
+        </Link>
+      </section>
+
       <section className="prizePoolHero">
         <div>
           <span className="smallLabel">TOTAL EVENT PRIZE POOL</span>
@@ -138,7 +153,7 @@ export default async function PrizeMoneyPage() {
         </div>
 
         <div>
-          <span>Competition Complete</span>
+          <span>Points Awarded</span>
           <strong>
             {overall.totalPointsAwarded} / {overall.maximumPoints}
           </strong>

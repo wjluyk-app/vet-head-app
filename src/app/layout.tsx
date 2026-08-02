@@ -33,7 +33,7 @@ export default async function RootLayout({
           <nav className="headerNav">
             <Link href="/">Tournament Hub</Link>
             <Link href="/scoreboard">Scoreboard</Link>
-            <Link href="/final-results">Payouts</Link>
+            <Link href="/final-results">Final Payouts</Link>
             <Link href="/schedule">Schedule</Link>
             {adminUser ? (
               <>

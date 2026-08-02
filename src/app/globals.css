@@ -3092,3 +3092,126 @@ table {
     grid-template-columns: repeat(3, 32px);
   }
 }
+
+/* =========================================================
+   PRIZE STRUCTURE — CLARITY AND MOBILE REFINEMENT
+   ========================================================= */
+
+.prizeStructureIntro {
+  margin-top: 20px;
+  padding: 19px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border: 1px solid #d8e0e7;
+  border-left: 6px solid var(--gold);
+  border-radius: 15px;
+  background: white;
+}
+
+.prizeStructureIntro h2 {
+  margin: 4px 0 6px;
+  color: var(--navy);
+}
+
+.prizeStructureIntro p {
+  margin: 0;
+  max-width: 720px;
+  color: #68798a;
+  line-height: 1.5;
+}
+
+.prizeStructureIntro .secondaryButton {
+  flex: 0 0 auto;
+  text-align: center;
+}
+
+@media (max-width: 620px) {
+  .prizeStructureIntro {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 16px;
+  }
+
+  .prizeStructureIntro .secondaryButton {
+    width: 100%;
+  }
+
+  .prizePoolHero {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .prizePoolHero > div {
+    min-width: 0;
+    padding: 14px 8px;
+    border-right: 1px solid rgba(255,255,255,.14);
+    border-bottom: 1px solid rgba(255,255,255,.14);
+    text-align: center;
+  }
+
+  .prizePoolHero > div:first-child {
+    text-align: center;
+  }
+
+  .prizePoolHero > div:nth-child(2),
+  .prizePoolHero > div:nth-child(4) {
+    border-right: 0;
+  }
+
+  .prizePoolHero > div:nth-child(3),
+  .prizePoolHero > div:nth-child(4) {
+    border-bottom: 0;
+  }
+
+  .prizePoolHero span {
+    font-size: 8px;
+    line-height: 1.2;
+  }
+
+  .prizePoolHero strong,
+  .prizePoolHero > div:first-child strong {
+    font-size: 23px;
+  }
+
+  .prizeMoneyGrid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .prizeMoneyCard {
+    padding: 16px;
+  }
+
+  .prizeMoneyCardTop h2 {
+    font-size: 22px;
+  }
+
+  .prizeMoneyCardTop > strong {
+    font-size: 25px;
+  }
+
+  .prizeMoneyCard p {
+    min-height: 0;
+    font-size: 13px;
+  }
+
+  .prizeMoneyRules {
+    gap: 12px;
+  }
+
+  .prizeMoneyBreakdown {
+    grid-template-columns: 1fr;
+  }
+
+  .prizeMoneyBreakdown div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .prizeMoneyBreakdown strong {
+    margin-top: 0;
+  }
+}
