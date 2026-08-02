@@ -147,13 +147,14 @@ export default function SundaySinglesResultClient({
       setMessage("NET score saved");
 
       if (goNext) {
-        if (side === "LUKE") {
-          setSide("SAM");
-        } else if (hole < 18) {
-          setSide("LUKE");
+        if (hole < 18) {
           setHole((current) => current + 1);
+        } else if (side === "LUKE") {
+          setSide("SAM");
+          setHole(10);
+          setMessage("Luke player complete. Enter Sam player.");
         } else {
-          setMessage("Final NET score saved");
+          setMessage("Both players complete");
         }
       }
     } catch (error) {
