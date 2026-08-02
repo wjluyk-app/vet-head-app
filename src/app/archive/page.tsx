@@ -25,6 +25,14 @@ const archiveYears = [
     finalScore: "31–23",
     href: "/archive/2023",
   },
+  {
+    year: 2022,
+    subtitle: "Mostly Verified Historical Record",
+    captains: "Blue Team vs. Green Team",
+    champion: "Green Team",
+    finalScore: "23.5–12.5",
+    href: "/archive/2022",
+  },
 ];
 
 export default function TournamentArchivePage() {
