@@ -3215,3 +3215,156 @@ table {
     margin-top: 0;
   }
 }
+
+/* =========================================================
+   FINAL PAYOUTS — SEARCH, FILTERS AND MOBILE REFINEMENT
+   ========================================================= */
+
+.finalPayoutTools {
+  padding: 16px 18px;
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) auto auto;
+  gap: 14px;
+  align-items: end;
+  border-bottom: 1px solid #d9dee5;
+  background: #f5f7f9;
+}
+
+.finalPayoutTools label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.finalPayoutTools label span {
+  color: #66788a;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+.finalPayoutTools input {
+  min-height: 44px;
+  width: 100%;
+  border: 1px solid #cfd7df;
+  border-radius: 10px;
+  padding: 9px 12px;
+  background: white;
+  color: var(--navy);
+  font-size: 15px;
+}
+
+.finalPayoutTeamFilter {
+  display: flex;
+  gap: 7px;
+}
+
+.finalPayoutTeamFilter button {
+  min-height: 44px;
+  padding: 9px 12px;
+  border: 1px solid #cfd7df;
+  border-radius: 10px;
+  background: white;
+  color: var(--navy);
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.finalPayoutTeamFilter .activePayoutFilter {
+  border-color: var(--navy);
+  background: var(--navy);
+  color: var(--gold);
+}
+
+.finalPayoutCount {
+  color: #66788a;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.finalPayoutEmpty {
+  margin: 0 18px 18px;
+  padding: 22px;
+  text-align: center;
+  border: 1px dashed #cfd7df;
+  border-radius: 12px;
+  color: #66788a;
+  background: #f8fafb;
+}
+
+@media (max-width: 760px) {
+  .finalPayoutHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .finalPayoutTotal {
+    text-align: left;
+  }
+
+  .finalPayoutTotal strong {
+    font-size: 29px;
+  }
+
+  .finalPayoutTools {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+    padding: 13px;
+  }
+
+  .finalPayoutTeamFilter {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .finalPayoutTeamFilter button {
+    min-width: 0;
+    padding: 8px 5px;
+    font-size: 11px;
+  }
+
+  .finalPayoutCount {
+    white-space: normal;
+  }
+
+  .finalPayoutList {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .finalPayoutCard {
+    width: 100%;
+    border-radius: 12px;
+  }
+
+  .finalPayoutPlayer {
+    padding: 12px 13px;
+  }
+
+  .finalPayoutPlayer h3 {
+    font-size: 16px;
+  }
+
+  .finalPayoutPlayer > strong {
+    font-size: 22px;
+  }
+
+  .finalPayoutBreakdown {
+    grid-template-columns: 1fr;
+  }
+
+  .finalPayoutBreakdown div {
+    min-height: 42px;
+    padding: 9px 12px;
+    border-right: 0;
+  }
+
+  .finalPayoutBreakdown span,
+  .finalPayoutBreakdown strong {
+    font-size: 12px;
+  }
+}

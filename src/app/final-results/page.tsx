@@ -1,4 +1,5 @@
 import OverallTournamentBoardClient from "@/components/OverallTournamentBoardClient";
+import FinalPayoutsClient from "@/components/FinalPayoutsClient";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getFridayMatchesFromDatabase } from "@/lib/repositories/friday-db";
 import { getSaturdayMatchesFromDatabase } from "@/lib/repositories/saturday-db";
@@ -171,9 +172,9 @@ export default async function FinalResultsPage() {
 
   const championshipMessage = overall.complete
     ? overall.winner === "LUKE"
-      ? "Team Luke are the 2026 Cubby Cup Champions."
+      ? "Team Luke is the 2026 Cubby Cup Champion."
       : overall.winner === "SAM"
-        ? "Team Sam are the 2026 Cubby Cup Champions."
+        ? "Team Sam is the 2026 Cubby Cup Champion."
         : "The 2026 Cubby Cup finished tied."
     : "Final results will be declared after all 54 points are awarded.";
 
@@ -181,7 +182,7 @@ export default async function FinalResultsPage() {
     <>
       <section className="hero fridayResultsHero">
         <div className="smallLabel">PERMANENT RECORD</div>
-        <h1>Payouts</h1>
+        <h1>Final Payouts</h1>
         <p>{championshipMessage}</p>
       </section>
 
@@ -205,67 +206,10 @@ export default async function FinalResultsPage() {
         </section>
       )}
 
-      <section className="finalPayoutSection">
-        <div className="finalPayoutHeader">
-          <div>
-            <div className="smallLabel">FINAL PLAYER PAYOUTS</div>
-            <h2>Player Payment Summary</h2>
-            <p>
-              All field awards, skins, team bonuses and MVP money.
-            </p>
-          </div>
-
-          <div className="finalPayoutTotal">
-            <span>TOTAL PAID</span>
-            <strong>{money(totalPaid)}</strong>
-          </div>
-        </div>
-
-        <div className="finalPayoutList">
-          {playerPayouts.map((player) => (
-            <article
-              className="finalPayoutCard"
-              key={`${player.team}:${player.player}`}
-            >
-              <div className="finalPayoutPlayer">
-                <div>
-                  <span>TEAM {player.team}</span>
-                  <h3>{player.player}</h3>
-                </div>
-
-                <strong>{money(player.total)}</strong>
-              </div>
-
-              <div className="finalPayoutBreakdown">
-                <div>
-                  <span>Friday Field</span>
-                  <strong>{money(player.fridayField)}</strong>
-                </div>
-                <div>
-                  <span>Friday Skins</span>
-                  <strong>{money(player.fridaySkins)}</strong>
-                </div>
-                <div>
-                  <span>Saturday Field</span>
-                  <strong>{money(player.saturdayField)}</strong>
-                </div>
-                <div>
-                  <span>Sunday Pinehurst</span>
-                  <strong>{money(player.sundayPinehurst)}</strong>
-                </div>
-                <div>
-                  <span>Winning Team</span>
-                  <strong>{money(player.winningTeamBonus)}</strong>
-                </div>
-                <div>
-                  <span>MVP</span>
-                  <strong>{money(player.mvpBonus)}</strong>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
+      <FinalPayoutsClient
+        payouts={playerPayouts}
+        totalPaid={totalPaid}
+      />
     </>
   );
 }
