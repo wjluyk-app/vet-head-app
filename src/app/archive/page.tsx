@@ -28,8 +28,8 @@ const archiveYears = [
   {
     year: 2022,
     subtitle: "Mostly Verified Historical Record",
-    captains: "Blue Team vs. Green Team",
-    champion: "Green Team",
+    captains: "Brian Walls vs. Charlie Olszewski",
+    champion: "Team Olszewski",
     finalScore: "23.5–12.5",
     href: "/archive/2022",
   },

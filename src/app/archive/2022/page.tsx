@@ -154,12 +154,12 @@ export default function Archive2022Page() {
             MOSTLY VERIFIED HISTORICAL RECORD
           </div>
           <h1>2022 Cubby Cup</h1>
-          <p>Blue Team vs. Green Team</p>
+          <p>Brian Walls vs. Charlie Olszewski</p>
         </div>
 
         <div className="archiveChampion">
           <span>CHAMPION</span>
-          <strong>Green Team</strong>
+          <strong>Team Olszewski</strong>
           <small>23.5–12.5</small>
         </div>
       </section>
@@ -179,25 +179,25 @@ export default function Archive2022Page() {
         <article>
           <span>SATURDAY SCRAMBLE</span>
           <strong>5–1</strong>
-          <small>Green Team</small>
+          <small>Team Olszewski</small>
         </article>
 
         <article>
           <span>THROUGH SATURDAY</span>
           <strong>14–10</strong>
-          <small>Green Team</small>
+          <small>Team Olszewski</small>
         </article>
 
         <article>
           <span>SUNDAY SINGLES</span>
           <strong>9.5–2.5</strong>
-          <small>Green Team</small>
+          <small>Team Olszewski</small>
         </article>
 
         <article className="archiveProgressFinal">
           <span>FINAL</span>
           <strong>23.5–12.5</strong>
-          <small>Green Team</small>
+          <small>Team Olszewski</small>
         </article>
       </section>
 
@@ -211,7 +211,7 @@ export default function Archive2022Page() {
 
           <div className="archiveDayScore">
             <span>BLUE 9</span>
-            <strong>GREEN 9</strong>
+            <strong>OLSZEWSKI 9</strong>
           </div>
         </header>
 
@@ -228,7 +228,7 @@ export default function Archive2022Page() {
 
           <div className="archiveDayScore">
             <span>BLUE 1</span>
-            <strong>GREEN 5</strong>
+            <strong>OLSZEWSKI 5</strong>
           </div>
         </header>
 
@@ -245,7 +245,7 @@ export default function Archive2022Page() {
 
           <div className="archiveDayScore">
             <span>BLUE 2.5</span>
-            <strong>GREEN 9.5</strong>
+            <strong>OLSZEWSKI 9.5</strong>
           </div>
         </header>
 
@@ -253,19 +253,19 @@ export default function Archive2022Page() {
           <article>
             <span>ENTERING SINGLES</span>
             <strong>14–10</strong>
-            <small>Green Team</small>
+            <small>Team Olszewski</small>
           </article>
 
           <article>
             <span>SINGLES</span>
             <strong>9.5–2.5</strong>
-            <small>Green Team</small>
+            <small>Team Olszewski</small>
           </article>
 
           <article className="archiveProgressFinal">
             <span>FINAL</span>
             <strong>23.5–12.5</strong>
-            <small>Green Team</small>
+            <small>Team Olszewski</small>
           </article>
         </section>
 
