@@ -53,12 +53,14 @@ export default function SundaySinglesResultClient({
   const [score, setScore] = useState<number | null>(null);
   const [message, setMessage] = useState("Ready");
   const [busy, setBusy] = useState(false);
+  const [lukeScores, setLukeScores] = useState(match.lukeScores);
+  const [samScores, setSamScores] = useState(match.samScores);
 
   const scoringOpen = match.sessionStatus === "open";
   const selectedScorecardId =
     side === "LUKE" ? match.lukeScorecardId : match.samScorecardId;
   const selectedScores =
-    side === "LUKE" ? match.lukeScores : match.samScores;
+    side === "LUKE" ? lukeScores : samScores;
   const selectedPlayer =
     side === "LUKE" ? match.lukePlayer : match.samPlayer;
 
@@ -66,7 +68,19 @@ export default function SundaySinglesResultClient({
     setScore(selectedScores[hole - 10]?.netScore ?? null);
   }, [hole, selectedScores, side]);
 
-  const matchStatus = useMemo(() => calculateStatus(match), [match]);
+  const liveMatch = useMemo(
+    () => ({
+      ...match,
+      lukeScores,
+      samScores,
+    }),
+    [match, lukeScores, samScores],
+  );
+
+  const matchStatus = useMemo(
+    () => calculateStatus(liveMatch),
+    [liveMatch],
+  );
 
   async function save(goNext: boolean) {
     if (!scoringOpen) {
@@ -108,18 +122,40 @@ export default function SundaySinglesResultClient({
         return;
       }
 
+      const savedScore = {
+        id: payload.score.id,
+        holeNumber: hole,
+        netScore: payload.score.netScore,
+        version: payload.score.version,
+        updatedAt: payload.score.updatedAt,
+      };
+
+      if (side === "LUKE") {
+        setLukeScores((current) => {
+          const next = [...current];
+          next[hole - 10] = savedScore;
+          return next;
+        });
+      } else {
+        setSamScores((current) => {
+          const next = [...current];
+          next[hole - 10] = savedScore;
+          return next;
+        });
+      }
+
       setMessage("NET score saved");
 
       if (goNext) {
         if (side === "LUKE") {
           setSide("SAM");
-        } else {
+        } else if (hole < 18) {
           setSide("LUKE");
-          setHole((current) => Math.min(18, current + 1));
+          setHole((current) => current + 1);
+        } else {
+          setMessage("Final NET score saved");
         }
       }
-
-      window.location.reload();
     } catch (error) {
       setMessage(
         error instanceof Error ? error.message : "Unable to save score",
