@@ -41,6 +41,14 @@ const archiveYears = [
     finalScore: "20–16",
     href: "/archive/2021",
   },
+  {
+    year: 2020,
+    subtitle: "Mostly Verified Historical Record",
+    captains: "Team Walls vs. Team Bones",
+    champion: "Team Bones",
+    finalScore: "23.5–21.5",
+    href: "/archive/2020",
+  },
 ];
 
 export default function TournamentArchivePage() {
