@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { getBillAdminUser } from "@/lib/auth/admin";
+import MobileHeaderNav from "@/components/MobileHeaderNav";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -43,6 +44,8 @@ export default async function RootLayout({
               <Link href="/login">Sign In</Link>
             )}
           </nav>
+
+          <MobileHeaderNav isAdmin={Boolean(adminUser)} />
         </header>
 
         <main>{children}</main>
