@@ -1392,3 +1392,218 @@ button:disabled {
     display: none;
   }
 }
+
+
+/* Mobile-first live scoreboard */
+.mobileDayTabs {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin:18px 0;
+}
+.mobileDayTabs button {
+  min-width:0;
+  border:1px solid #cfd7df;
+  border-radius:12px;
+  background:white;
+  color:var(--navy);
+  padding:11px 5px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:3px;
+}
+.mobileDayTabs button span {
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.06em;
+}
+.mobileDayTabs button strong { font-size:19px; }
+.mobileDayTabs .activeMobileDay {
+  background:var(--navy);
+  color:var(--gold);
+  border-color:var(--navy);
+}
+.mobileMatchList {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:14px;
+}
+.mobileMatchCard {
+  overflow:hidden;
+  border:1px solid #d6dde4;
+  border-radius:16px;
+  background:white;
+  box-shadow:0 4px 14px rgba(16,42,67,.07);
+}
+.mobileMatchHeader {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  padding:13px 14px;
+  background:var(--navy);
+  color:white;
+}
+.mobileMatchHeader > div:first-child {
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+}
+.mobileMatchHeader span {
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.06em;
+}
+.mobileMatchHeader strong {
+  color:var(--gold);
+  font-size:14px;
+  line-height:1.2;
+}
+.mobileMatchPoints {
+  flex:0 0 auto;
+  display:flex;
+  flex-direction:column;
+  text-align:right;
+  gap:2px;
+}
+.mobileTeamRow {
+  min-height:68px;
+  padding:11px 14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+.mobileTeamRow > div:first-child {
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+}
+.mobileTeamRow span {
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.06em;
+}
+.mobileTeamRow strong {
+  color:var(--navy);
+  font-size:14px;
+  line-height:1.25;
+}
+.mobileTeamRow > b {
+  font-size:24px;
+  color:var(--navy);
+}
+.mobileLukeRow { background:#eef5fb; }
+.mobileSamRow {
+  background:#fff8d2;
+  border-top:1px solid rgba(16,42,67,.08);
+}
+.mobileTotals {
+  flex:0 0 auto;
+  display:grid;
+  grid-template-columns:repeat(3,42px);
+  text-align:center;
+  gap:4px;
+}
+.mobileTotals span {
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  color:#66788a;
+}
+.mobileTotals strong {
+  font-size:17px;
+  color:var(--navy);
+}
+.mobileExpandButton {
+  width:100%;
+  border:0;
+  border-top:1px solid #d6dde4;
+  background:#f5f7f8;
+  color:var(--navy);
+  padding:11px;
+  font-weight:900;
+}
+.mobileHoleScroller {
+  overflow-x:auto;
+  overscroll-behavior-inline:contain;
+  border-top:1px solid #d6dde4;
+}
+.mobileHoleTable {
+  width:max-content;
+  min-width:100%;
+  border-collapse:collapse;
+  font-size:12px;
+}
+.mobileHoleTable th,
+.mobileHoleTable td {
+  min-width:38px;
+  padding:8px 7px;
+  border-right:1px solid #dce2e7;
+  border-bottom:1px solid #dce2e7;
+  text-align:center;
+}
+.mobileHoleTable thead th {
+  background:#e9edf1;
+  color:var(--navy);
+}
+.mobileHoleTable th:first-child {
+  position:sticky;
+  left:0;
+  z-index:2;
+  min-width:54px;
+}
+.mobileLukeHoleRow th { background:#dbeaf5; }
+.mobileSamHoleRow th { background:#f5e9a7; }
+.mobileSectionTitle {
+  margin:24px 2px 10px;
+}
+.mobileSectionTitle span {
+  color:#66788a;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.08em;
+}
+.mobileSectionTitle h2 {
+  margin:3px 0 0;
+  color:var(--navy);
+}
+
+@media (max-width:650px) {
+  .mobileScoreboardHero {
+    padding:22px 18px;
+  }
+  .mobileScoreboardHero h1 {
+    font-size:32px;
+  }
+  .mobileOverallScore {
+    border-radius:14px;
+  }
+  .mobileOverallScore .teamTotal {
+    padding:16px 8px;
+  }
+  .mobileOverallScore .teamTotal strong {
+    font-size:42px;
+  }
+  .mobileOverallScore .teamTotal span {
+    font-size:10px;
+  }
+  .mobileOverallScore .resultsCenter {
+    padding:11px 8px;
+  }
+  .mobileMatchList {
+    grid-template-columns:1fr;
+  }
+  .mobileTeamRow {
+    padding:10px 11px;
+  }
+  .mobileTeamRow strong {
+    font-size:13px;
+  }
+  .mobileTotals {
+    grid-template-columns:repeat(3,37px);
+  }
+}

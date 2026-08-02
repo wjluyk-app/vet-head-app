@@ -31,6 +31,9 @@ export async function GET() {
         saturday,
         sunday,
       ),
+      friday,
+      saturday,
+      sunday,
     });
   } catch (error) {
     return Response.json(

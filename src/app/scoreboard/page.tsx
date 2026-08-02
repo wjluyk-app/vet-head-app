@@ -23,20 +23,24 @@ export default async function ScoreboardPage() {
   const friday = calculateFridayTournamentBoard(fridayMatches);
   const saturday = calculateSaturdayTournamentBoard(saturdayMatches);
   const sunday = calculateSundayTournamentBoard(sundayData);
+  const overall = calculateOverallTournamentBoard(
+    friday,
+    saturday,
+    sunday,
+  );
 
   return (
     <>
-      <section className="hero fridayResultsHero">
-        <h1>Overall Scoreboard</h1>
-        <p>Team Luke vs. Team Sam · Friday through Sunday</p>
+      <section className="hero fridayResultsHero mobileScoreboardHero">
+        <h1>Live Scoreboard</h1>
+        <p>Team Luke vs. Team Sam · Match-by-match scoring</p>
       </section>
 
       <OverallTournamentBoardClient
-        initial={calculateOverallTournamentBoard(
-          friday,
-          saturday,
-          sunday,
-        )}
+        initial={overall}
+        initialFriday={friday}
+        initialSaturday={saturday}
+        initialSunday={sunday}
       />
     </>
   );
