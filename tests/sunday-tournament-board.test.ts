@@ -63,6 +63,32 @@ function singlesMatch(
   const lukeTeamId = `luke-team-${matchNumber}`;
   const samTeamId = `sam-team-${matchNumber}`;
 
+  const makeScores = (values: number[]) =>
+    values.map((netScore, index) => ({
+      holeNumber: index + 10,
+      netScore,
+      version: 1,
+      updatedAt: "2026-08-02T12:00:00.000Z",
+    }));
+
+  const lukeScores =
+    result === "LUKE"
+      ? makeScores([4, 4, 4, 4, 4, 4, 4, 4, 4])
+      : result === "SAM"
+        ? makeScores([5, 5, 5, 5, 5, 5, 5, 5, 5])
+        : result === "HALVED"
+          ? makeScores([4, 4, 4, 4, 4, 4, 4, 4, 4])
+          : Array(9).fill(null);
+
+  const samScores =
+    result === "LUKE"
+      ? makeScores([5, 5, 5, 5, 5, 5, 5, 5, 5])
+      : result === "SAM"
+        ? makeScores([4, 4, 4, 4, 4, 4, 4, 4, 4])
+        : result === "HALVED"
+          ? makeScores([4, 4, 4, 4, 4, 4, 4, 4, 4])
+          : Array(9).fill(null);
+
   return {
     pairingId: `singles-${matchNumber}`,
     matchNumber,
@@ -70,6 +96,10 @@ function singlesMatch(
     samTeamId,
     lukePlayer: `Luke Player ${matchNumber}`,
     samPlayer: `Sam Player ${matchNumber}`,
+    lukeScorecardId: `luke-scorecard-${matchNumber}`,
+    samScorecardId: `sam-scorecard-${matchNumber}`,
+    lukeScores,
+    samScores,
     winnerTeamId:
       result === "LUKE"
         ? lukeTeamId
