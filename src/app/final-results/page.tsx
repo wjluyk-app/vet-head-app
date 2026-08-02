@@ -187,6 +187,24 @@ export default async function FinalResultsPage() {
 
       <OverallTournamentBoardClient initial={overall} />
 
+      {playerAwards.complete && playerAwards.leaders.length > 0 && (
+        <section className="mvpFeatureCard">
+          <div className="mvpFeatureLabel">2026 CUBBY CUP MVP</div>
+
+          <div className="mvpFeatureNames">
+            {playerAwards.leaders.map((leader) => (
+              <div key={`${leader.team}:${leader.player}`}>
+                <h2>{leader.player}</h2>
+                <p>
+                  Team {leader.team} · {leader.points} points ·{" "}
+                  {money(playerAwards.mvpPayoutEach)} award
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
       <section className="finalPayoutSection">
         <div className="finalPayoutHeader">
           <div>
