@@ -17,6 +17,14 @@ const archiveYears = [
     finalScore: "34.5–19.5",
     href: "/archive/2024",
   },
+  {
+    year: 2023,
+    subtitle: "Mostly Verified Historical Record",
+    captains: "Team Bainbridge vs. Team Mogg",
+    champion: "Team Mogg",
+    finalScore: "31–23",
+    href: "/archive/2023",
+  },
 ];
 
 export default function TournamentArchivePage() {

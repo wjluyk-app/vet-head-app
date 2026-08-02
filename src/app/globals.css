@@ -4592,3 +4592,19 @@ table {
     grid-template-columns: 1fr;
   }
 }
+
+.archiveSundaySummary {
+  margin: 0;
+  padding: 18px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 760px) {
+  .archiveSundaySummary {
+    grid-template-columns: 1fr;
+  }
+
+  .archiveSundaySummary .archiveProgressFinal {
+    grid-column: auto;
+  }
+}
