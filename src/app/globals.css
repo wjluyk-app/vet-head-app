@@ -4640,3 +4640,13 @@ table {
     font-size: 28px;
   }
 }
+
+/* Improve Upcoming Years heading contrast */
+.upcomingYearsHero .smallLabel {
+  color: var(--gold);
+}
+
+.upcomingYearMatchup span,
+.upcomingYearVenue span {
+  color: var(--navy);
+}
