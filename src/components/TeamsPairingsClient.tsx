@@ -143,12 +143,19 @@ function PairingCard({ pairing }: { pairing: TournamentPairing }) {
       <div className="pairingMeta">
         <span><strong>Course:</strong> {pairing.course}</span>
         <span><strong>Format:</strong> {pairing.format}</span>
-        {pairing.throwsFirst && (
-          <span><strong>Throws first:</strong> {teamLabel(pairing.throwsFirst)}</span>
-        )}
-        {pairing.strokesTo && (
-          <span><strong>Strokes:</strong> {pairing.strokesTo}</span>
-        )}
+        {pairing.day !== "Friday" &&
+          pairing.day !== "Saturday" &&
+          pairing.day !== "Sunday Front" &&
+          pairing.throwsFirst && (
+            <span><strong>Throws first:</strong> {teamLabel(pairing.throwsFirst)}</span>
+          )}
+
+        {pairing.day !== "Saturday" &&
+          pairing.day !== "Sunday Front" &&
+          pairing.day !== "Sunday Back" &&
+          pairing.strokesTo && (
+            <span><strong>Strokes:</strong> {pairing.strokesTo}</span>
+          )}
       </div>
     </article>
   );
