@@ -4650,3 +4650,13 @@ table {
 .upcomingYearVenue span {
   color: var(--navy);
 }
+
+/* Improve Tournament Archive heading contrast */
+.archiveLandingHero .smallLabel {
+  color: var(--gold);
+}
+
+.archiveLandingSection .smallLabel,
+.archiveYearCard span {
+  color: var(--navy);
+}
