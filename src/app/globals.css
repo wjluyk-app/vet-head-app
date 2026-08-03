@@ -4660,3 +4660,14 @@ table {
 .archiveYearCard span {
   color: var(--navy);
 }
+
+/* Improve Final Payouts heading contrast */
+.fridayResultsHero .smallLabel {
+  color: var(--gold);
+}
+
+.finalPayoutsSection .smallLabel,
+.finalPayoutsHeader .smallLabel,
+.finalPayoutsControls .smallLabel {
+  color: var(--navy);
+}
