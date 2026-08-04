@@ -12,11 +12,11 @@ export default async function FridayPage() {
       status="Live"
     >
       <section className="sectionActionGrid">
-        <Link className="sectionActionCard sectionActionPrimary" href="/results/friday">
+        <Link className="sectionActionCard sectionActionPrimary" href="/scoreboard?day=friday">
           <span>LIVE</span>
-          <h2>Friday Tournament Board</h2>
+          <h2>Friday Live Scoreboard</h2>
           <p>Match points, hole scores, field standings, leaders and skins.</p>
-          <strong>Open results →</strong>
+          <strong>Open scoreboard →</strong>
         </Link>
         {adminUser && (
           <Link className="sectionActionCard" href="/score/friday">

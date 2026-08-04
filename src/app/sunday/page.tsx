@@ -12,11 +12,11 @@ export default async function SundayPage() {
       status="Live"
     >
       <section className="sectionActionGrid">
-        <Link className="sectionActionCard sectionActionPrimary" href="/results/sunday">
+        <Link className="sectionActionCard sectionActionPrimary" href="/scoreboard?day=sunday-pinehurst">
           <span>RESULTS</span>
-          <h2>Sunday Tournament Board</h2>
+          <h2>Sunday Live Scoreboard</h2>
           <p>Front-nine Pinehurst, back-nine singles and the final team score.</p>
-          <strong>Open results →</strong>
+          <strong>Open scoreboard →</strong>
         </Link>
 
         {adminUser && (

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import type { OverallTournamentBoard } from "@/lib/overall-tournament-board";
 import type {
   FridayBoardTeam,
@@ -393,11 +394,21 @@ export default function OverallTournamentBoardClient({
   initialSaturday?: SaturdayTournamentBoard;
   initialSunday?: SundayTournamentBoard;
 }) {
+  const searchParams = useSearchParams();
+  const requestedDay = searchParams.get("day");
+  const initialDay: Day =
+    requestedDay === "saturday" ||
+    requestedDay === "sunday-pinehurst" ||
+    requestedDay === "sunday-singles" ||
+    requestedDay === "skins"
+      ? requestedDay
+      : "friday";
+
   const [board, setBoard] = useState(initial);
   const [friday, setFriday] = useState(initialFriday);
   const [saturday, setSaturday] = useState(initialSaturday);
   const [sunday, setSunday] = useState(initialSunday);
-  const [day, setDay] = useState<Day>("friday");
+  const [day, setDay] = useState<Day>(initialDay);
   const [open, setOpen] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
