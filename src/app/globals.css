@@ -4671,3 +4671,90 @@ table {
 .finalPayoutsControls .smallLabel {
   color: var(--navy);
 }
+
+/* Shared mobile cleanup — Friday, Saturday and Sunday tournament boards */
+@media (max-width: 650px) {
+  .fridayResultsHero {
+    padding: 24px 20px;
+    border-radius: 22px;
+    min-height: 0;
+  }
+
+  .fridayResultsHero h1 {
+    margin: 0 0 12px;
+    font-size: clamp(30px, 9vw, 38px);
+    line-height: 1.05;
+  }
+
+  .fridayResultsHero p {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.4;
+  }
+
+  .resultsScoreboard {
+    margin-top: 18px;
+    border-radius: 18px;
+  }
+
+  .resultsScoreboard .teamTotal {
+    padding: 18px 10px;
+  }
+
+  .resultsScoreboard .teamTotal span {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+  }
+
+  .resultsScoreboard .teamTotal strong {
+    font-size: 42px;
+    line-height: 1;
+  }
+
+  .resultsScoreboard .resultsCenter {
+    padding: 16px 12px;
+  }
+
+  .resultsScoreboard .resultsCenter > div {
+    font-size: 18px;
+  }
+
+  .resultsScoreboard .resultsCenter small {
+    margin-top: 6px;
+    font-size: 13px;
+  }
+
+  .resultsScoreboard .refreshButton {
+    margin-top: 10px;
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .boardKpiGridThree {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  .boardKpiGridThree .boardKpi {
+    min-width: 0;
+    padding: 16px 18px;
+    gap: 6px;
+  }
+
+  .boardKpiGridThree .boardKpi span {
+    font-size: 11px;
+  }
+
+  .boardKpiGridThree .boardKpi strong {
+    font-size: 22px;
+    line-height: 1.25;
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
+  }
+
+  .boardKpiGridThree .boardKpi small {
+    font-size: 12px;
+  }
+}
