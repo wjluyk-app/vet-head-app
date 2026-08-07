@@ -30,9 +30,17 @@ export default async function AdminPage() {
         </article>
 
         <article className="card">
+          <h3>Courses / Tees</h3>
+          <p>Course names, tees, Rating, Slope and Par.</p>
+          <Link className="button" href="/admin/courses">
+            Manage courses / tees
+          </Link>
+        </article>
+
+        <article className="card">
           <h3>Rounds</h3>
           <div className="kpi">{data.rounds.length} / 5</div>
-          <p>Dates, formats, courses and tee times.</p>
+          <p>Dates, formats, course assignments and tee times.</p>
           <Link className="button" href="/admin/rounds">
             Manage rounds
           </Link>
