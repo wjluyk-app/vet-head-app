@@ -1,35 +1,5 @@
-export const dynamic = "force-dynamic";
-import { requireBillAdmin } from "@/lib/auth/admin";
+import { redirect } from "next/navigation";
 
-import { createAdminClient } from "@/lib/supabase/admin";
-import { getFridayMatchesFromDatabase } from "@/lib/repositories/friday-db";
-import FridayScorecardClient from "@/components/FridayScorecardClient";
-import MatchNavigation from "@/components/MatchNavigation";
-
-export default async function FridayMatchPage({
-  params,
-}: {
-  params: Promise<{ matchNumber: string }>;
-}) {
-  await requireBillAdmin();
-  const matchNumber = Number((await params).matchNumber);
-  const matches = await getFridayMatchesFromDatabase(createAdminClient());
-  const match = matches.find((item) => item.matchNumber === matchNumber);
-  if (!match) throw new Error("Friday match was not found.");
-
-  return (
-    <>
-      <section className="hero">
-        <h1>Friday Match {match.matchNumber}</h1>
-        <p>{match.course} · {match.teeTime?.slice(0, 5) ?? "TBD"}</p>
-      </section>
-      <MatchNavigation
-        matchNumber={match.matchNumber}
-        totalMatches={matches.length}
-        basePath="/score/friday"
-        allMatchesPath="/score/friday"
-      />
-      <FridayScorecardClient match={match} />
-    </>
-  );
+export default function LegacyFridayMatchScorePage() {
+  redirect("/score");
 }
