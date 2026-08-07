@@ -165,7 +165,6 @@ for (const [importKey, displayName, handicapIndex] of playerSeeds) {
         display_name: displayName,
         handicap_index: handicapIndex,
         active: true,
-        updated_at: new Date().toISOString(),
       })
       .eq("id", existing.id)
       .select("*")
@@ -221,7 +220,6 @@ for (const [
     par,
     course_rating: courseRating,
     slope_rating: slopeRating,
-    updated_at: new Date().toISOString(),
   };
 
   if (existing) {
@@ -271,7 +269,6 @@ for (const [
       format,
       course_tee_id: course.id,
       status: "complete",
-      updated_at: new Date().toISOString(),
     })
     .eq("tournament_id", tournament.id)
     .eq("round_number", roundNumber)
