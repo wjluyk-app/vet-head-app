@@ -1,4 +1,4 @@
-export type HubStatus = "Live" | "Available" | "Coming Soon";
+export type HubStatus = "Available" | "Coming Soon";
 
 export interface HubItem {
   title: string;
@@ -17,98 +17,50 @@ export interface HubGroup {
 
 export const tournamentHubGroups: HubGroup[] = [
   {
-    title: "Live Tournament",
-    description: "Scores, standings and day-by-day competition.",
+    title: "Tournament",
+    description: "Scores, standings, pairings and round-by-round results.",
     items: [
       {
-        title: "Overall Scoreboard",
-        description: "Team Luke vs. Team Sam across the full tournament.",
+        title: "Scoreboard",
+        description: "Vet Head points, Vet Header standings and round results.",
         href: "/scoreboard",
-        status: "Live",
+        status: "Available",
         icon: "SB",
         featured: true,
       },
       {
-        title: "Friday",
-        description: "Live matches, field standings, skins and Friday results.",
-        href: "/friday",
-        status: "Live",
-        icon: "FR",
-      },
-      {
-        title: "Saturday",
-        description: "2-Man Scramble scoring, match points and field results.",
-        href: "/saturday",
-        status: "Live",
-        icon: "SA",
-      },
-      {
-        title: "Sunday",
-        description: "Pinehurst, singles, final team score and champions.",
-        href: "/sunday",
-        status: "Live",
-        icon: "SU",
-      },
-    ],
-  },
-  {
-    title: "Event Information",
-    description: "Everything players need before and during the trip.",
-    items: [
-      {
-        title: "Player Guide",
-        description: "Schedule, formats, rules, lodging, contacts and what to expect.",
-        href: "/player-guide",
-        status: "Available",
-        icon: "PG",
-      },
-      {
-        title: "Teams & Pairings",
-        description: "Rosters, captains, handicaps, pairings and tee assignments.",
+        title: "Pairings",
+        description: "See the preset foursomes and scramble teams for every round.",
         href: "/teams",
         status: "Available",
-        icon: "TP",
+        icon: "PR",
       },
       {
         title: "Schedule & Tee Times",
-        description: "Daily courses, start times, pairings and event schedule.",
+        description: "Thursday through Saturday formats and start times.",
         href: "/schedule",
         status: "Available",
         icon: "TT",
       },
-      {
-        title: "Tournament Archive",
-        description: "Past champions, final scores, match results, MVPs and permanent tournament records.",
-        href: "/archive",
-        status: "Available",
-        icon: "AR",
-      },
-      {
-        title: "Upcoming Years",
-        description: "Future Cubby Cup dates, captain matchups and venues as they are confirmed.",
-        href: "/upcoming-years",
-        status: "Available",
-        icon: "UP",
-      },
     ],
   },
   {
-    title: "Results & Money",
-    description: "Prize structure, final payouts, standings and permanent records.",
+    title: "Tournament Information",
+    description: "The essentials players need for Vet Head.",
     items: [
       {
-        title: "Prize Structure",
-        description: "What is available to win across fields, skins, team awards and MVP.",
-        href: "/prize-money",
+        title: "Players",
+        description: "The 12-player field and handicap indexes.",
+        href: "/teams",
         status: "Available",
-        icon: "$",
+        icon: "PL",
       },
       {
-        title: "Final Payouts",
-        description: "What each player actually earned after all results are complete.",
-        href: "/final-results",
+        title: "Tournament Format",
+        description: "Three individual net rounds, two four-man scrambles and two simultaneous competitions.",
+        href: "/schedule",
         status: "Available",
-        icon: "🏆",
+        icon: "FM",
       },
     ],
   },

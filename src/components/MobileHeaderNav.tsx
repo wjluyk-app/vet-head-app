@@ -33,29 +33,14 @@ export default function MobileHeaderNav({ isAdmin }: MobileHeaderNavProps) {
           <Link href="/" onClick={closeMenu}>
             Tournament Hub
           </Link>
-          <Link href="/player-guide" onClick={closeMenu}>
-            Player Guide
-          </Link>
-          <Link href="/teams" onClick={closeMenu}>
-            Teams &amp; Pairings
-          </Link>
           <Link href="/schedule" onClick={closeMenu}>
             Schedule
           </Link>
+          <Link href="/teams" onClick={closeMenu}>
+            Pairings
+          </Link>
           <Link href="/scoreboard" onClick={closeMenu}>
             Scoreboard
-          </Link>
-          <Link href="/prize-money" onClick={closeMenu}>
-            Prize Structure
-          </Link>
-          <Link href="/final-results" onClick={closeMenu}>
-            Final Payouts
-          </Link>
-          <Link href="/archive" onClick={closeMenu}>
-            Tournament Archive
-          </Link>
-          <Link href="/upcoming-years" onClick={closeMenu}>
-            Upcoming Years
           </Link>
           {isAdmin ? (
             <>

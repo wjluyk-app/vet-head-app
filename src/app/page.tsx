@@ -53,12 +53,12 @@ export default async function HomePage() {
       <section className="hubHero">
         <div className="hubHeroCopy">
           <div className="smallLabel hubEdition">
-            CRYSTAL MOUNTAIN · AUGUST 28–30, 2026
+            AUGUST 13–15, 2026
           </div>
-          <h1>Cubby Cup Tournament Hub</h1>
+          <h1>Vet Head Tournament Hub</h1>
           <p>
-            One private home for player information, tournament scoring,
-            prize structure and final payouts.
+            One home for pairings, tee times, scoring, Vet Head points
+            and the Vet Header race.
           </p>
         </div>
 
@@ -81,32 +81,27 @@ export default async function HomePage() {
 
       <section className="hubStartHere" aria-labelledby="start-here-heading">
         <div className="hubStartHereCopy">
-          <span className="smallLabel">NEW PLAYER?</span>
+          <span className="smallLabel">VET HEAD</span>
           <h2 id="start-here-heading">Start Here</h2>
           <p>
-            Review the Player Guide, find your team and tee times, then use the
-            Scoreboard during the tournament.
+            Check your pairings and tee times, then use the Scoreboard for
+            Vet Head points, Vet Header standings and round results.
           </p>
         </div>
 
         <div className="hubStartHereActions">
-          <Link href="/player-guide">
-            <span>1</span>
-            <strong>Read Player Guide</strong>
-          </Link>
-
           <Link href="/teams">
-            <span>2</span>
-            <strong>Find Teams &amp; Pairings</strong>
+            <span>1</span>
+            <strong>View Pairings</strong>
           </Link>
 
           <Link href="/schedule">
-            <span>3</span>
+            <span>2</span>
             <strong>View Tee Times</strong>
           </Link>
 
           <Link href="/scoreboard">
-            <span>4</span>
+            <span>3</span>
             <strong>Open Scoreboard</strong>
           </Link>
         </div>
@@ -165,10 +160,7 @@ export default async function HomePage() {
         </Link>
       </section>
 
-      <div className="notice">
-        Team-format scores are entered once as NET scores and are never
-        handicapped again.
-      </div>
+
     </>
   );
 }

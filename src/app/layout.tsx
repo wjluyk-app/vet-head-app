@@ -6,8 +6,8 @@ import MobileHeaderNav from "@/components/MobileHeaderNav";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Cubby Cup 2026",
-  description: "Private Cubby Cup tournament hub",
+  title: "Vet Head 2026",
+  description: "Vet Head golf tournament hub",
 };
 
 export default async function RootLayout({
@@ -21,8 +21,8 @@ export default async function RootLayout({
         <header className="appHeader">
           <Link className="brandLink headerLogoLink" href="/">
             <Image
-              src="/images/cubby-cup-logo.png"
-              alt="Cubby Cup"
+              src="/images/vet-head-logo.png"
+              alt="Vet Head"
               width={180}
               height={100}
               priority
@@ -33,8 +33,8 @@ export default async function RootLayout({
           <nav className="headerNav">
             <Link href="/">Tournament Hub</Link>
             <Link href="/schedule">Schedule</Link>
+            <Link href="/teams">Pairings</Link>
             <Link href="/scoreboard">Scoreboard</Link>
-            <Link href="/final-results">Final Payouts</Link>
             {adminUser ? (
               <>
                 <Link href="/admin">Admin</Link>

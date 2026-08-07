@@ -4758,3 +4758,69 @@ table {
     font-size: 12px;
   }
 }
+
+
+/* =========================================================
+   VET HEAD BRAND OVERRIDE
+   ========================================================= */
+
+:root {
+  --navy: #18453B;
+  --gold: #ffffff;
+  --cream: #f5f7f6;
+  --green: #18453B;
+  --gray: #eef1ef;
+  --ink: #12201c;
+}
+
+.appHeader {
+  background: #18453B;
+  border-bottom-color: rgba(255,255,255,.35);
+}
+
+.headerNav a:hover {
+  color: white;
+  border-color: white;
+}
+
+.hubHero,
+.sectionHero,
+.archiveHero {
+  background: linear-gradient(135deg,#18453B,#0f3029);
+}
+
+.hubHeroScore strong,
+.hubTileFeatured .hubOpen {
+  color: white;
+}
+
+.hubTileFeatured {
+  background: linear-gradient(145deg,#18453B,#0f3029);
+  border-color: #18453B;
+}
+
+.hubStartHere {
+  border-left-color: #18453B;
+}
+
+.hubStartHereCopy .smallLabel,
+.hubOpen {
+  color: #18453B;
+}
+
+.mobileScoreboardButton {
+  background: white;
+  color: #18453B;
+  border-color: white;
+}
+
+.mobileHeaderMenu a,
+.mobileHeaderMenu a:first-child,
+.mobileHeaderMenu a:nth-child(5) {
+  color: #18453B;
+}
+
+.headerLogoLink {
+  background: white;
+}
+
