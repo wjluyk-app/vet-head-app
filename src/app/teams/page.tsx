@@ -1,5 +1,9 @@
 import Link from "next/link";
 import { getVetHeadPublicTournamentData } from "@/lib/repositories/vet-head-public";
+import {
+  calculateFourPlayerScrambleHandicap,
+  calculateUnroundedCourseHandicap,
+} from "@/lib/vet-head-scoring";
 
 export const dynamic = "force-dynamic";
 
@@ -78,6 +82,25 @@ export default async function VetHeadPairingsPage() {
                   </strong>
                 </p>
 
+                {round.format === "four_man_scramble" && group.players.length === 4 && (
+                  <p style={{ marginTop: 0, marginBottom: 12 }}>
+                    <strong>
+                      Team Handicap: {
+                        calculateFourPlayerScrambleHandicap(
+                          group.players.map((player) =>
+                            calculateUnroundedCourseHandicap(
+                              Number(player.handicapIndex ?? 0),
+                              Number(round.course_tee?.slope_rating ?? 113),
+                              Number(round.course_tee?.course_rating ?? 72),
+                              Number(round.course_tee?.par ?? 72),
+                            ),
+                          ),
+                        )
+                      }
+                    </strong>
+                  </p>
+                )}
+
                 {group.players.map((player) => (
                   <div
                     key={player.id}
@@ -91,11 +114,13 @@ export default async function VetHeadPairingsPage() {
                   >
                     <strong>{player.name}</strong>
 
-                    <span>
-                      {player.handicapIndex === null
-                        ? "HI —"
-                        : `HI ${player.handicapIndex}`}
-                    </span>
+                    {round.format !== "four_man_scramble" && (
+                      <span>
+                        {player.handicapIndex === null
+                          ? "HI —"
+                          : `HI ${player.handicapIndex}`}
+                      </span>
+                    )}
                   </div>
                 ))}
               </article>
