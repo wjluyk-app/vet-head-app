@@ -90,9 +90,9 @@ export default async function VetHeadPairingsPage() {
                           group.players.map((player) =>
                             calculateUnroundedCourseHandicap(
                               Number(player.handicapIndex ?? 0),
-                              Number(round.course_tee?.slope_rating ?? 113),
-                              Number(round.course_tee?.course_rating ?? 72),
-                              Number(round.course_tee?.par ?? 72),
+                              Number(round.course_tee?.[0]?.slope_rating ?? 113),
+                              Number(round.course_tee?.[0]?.course_rating ?? 72),
+                              Number(round.course_tee?.[0]?.par ?? 72),
                             ),
                           ),
                         )
