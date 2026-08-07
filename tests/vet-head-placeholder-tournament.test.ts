@@ -76,7 +76,7 @@ describe("Vet Head complete placeholder tournament", () => {
     }
   });
 
-  it("produces Player 9 as the placeholder Vet Header champion", () => {
+  it("produces Player 9 as the placeholder Vet Head MVP champion", () => {
     const standings = calculateVetHeaderStandings(
       Object.entries(individualNets).map(([playerId, nets]) => ({
         playerId,
@@ -90,7 +90,7 @@ describe("Vet Head complete placeholder tournament", () => {
     expect(standings[0].totalNet).toBe(212);
   });
 
-  it("produces Player 2 as the placeholder Vet Head MVP", () => {
+  it("produces Player 2 as the placeholder Vet Head Winners", () => {
     const playerStats = new Map(
       Object.keys(individualNets).map((playerId) => [
         playerId,

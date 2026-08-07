@@ -41,7 +41,7 @@ export default async function ScoreboardPage() {
         </article>
 
         <article className="card">
-          <div className="smallLabel">VET HEAD MVP</div>
+          <div className="smallLabel">VET HEAD WINNERS</div>
           <div className="kpi">
             {board.mvp.length > 0
               ? board.mvp[0].playerName
@@ -55,7 +55,7 @@ export default async function ScoreboardPage() {
         </article>
 
         <article className="card">
-          <div className="smallLabel">VET HEADER</div>
+          <div className="smallLabel">VET HEAD MVP</div>
           <div className="kpi">
             {board.vetHeader.length > 0
               ? board.vetHeader[0].playerName
@@ -76,7 +76,7 @@ export default async function ScoreboardPage() {
         <div className="boardSectionHeader">
           <div>
             <div className="smallLabel">OVERALL</div>
-            <h2>Vet Head MVP Standings</h2>
+            <h2>Vet Head Winners Standings</h2>
             <p>
               8 points for 1st · 6 for 2nd · 4 for 3rd in each round
             </p>
@@ -166,7 +166,7 @@ export default async function ScoreboardPage() {
         <div className="boardSectionHeader">
           <div>
             <div className="smallLabel">54-HOLE INDIVIDUAL</div>
-            <h2>Vet Header Standings</h2>
+            <h2>Vet Head MVP Standings</h2>
             <p>
               Thursday + Friday AM + Saturday AM individual net
             </p>
@@ -176,7 +176,7 @@ export default async function ScoreboardPage() {
         {board.vetHeader.length === 0 ? (
           <article className="card">
             <p>
-              Vet Header standings will appear when players have
+              Vet Head MVP standings will appear when players have
               completed all three individual rounds.
             </p>
           </article>

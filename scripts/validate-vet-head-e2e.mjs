@@ -168,17 +168,17 @@ const vetHeader = [...individualTotals.entries()]
       a.thursday - b.thursday,
   );
 
-assert(vetHeader.length === 12, "Vet Header standings incomplete");
+assert(vetHeader.length === 12, "Vet Head MVP standings incomplete");
 
 const vhWinner = vetHeader[0];
 
 assert(
   vhWinner.player?.import_key === "P9",
-  `Expected Vet Header P9, got ${vhWinner.player?.import_key ?? "unknown"}`,
+  `Expected Vet Head MVP P9, got ${vhWinner.player?.import_key ?? "unknown"}`,
 );
 assert(
   vhWinner.total === 212,
-  `Expected Vet Header winning total 212, got ${vhWinner.total}`,
+  `Expected Vet Head MVP winning total 212, got ${vhWinner.total}`,
 );
 
 const expectedGroupTotals = {
@@ -323,7 +323,7 @@ console.log(`Individual Scores:   ${individualScores.length}/36`);
 console.log(`Scramble Scores:     ${scrambleScores.length}/6`);
 console.log(`Payout Rows:         ${payouts.length}/17`);
 console.log(`Prize Pool:          $${payoutTotal}/$1200`);
-console.log(`Vet Header Champion: ${vhWinner.player.display_name} (${vhWinner.total})`);
-console.log(`Vet Head MVP:        ${mvp[0].player.display_name} (${mvp[0].points} points)`);
+console.log(`Vet Head MVP Champion: ${vhWinner.player.display_name} (${vhWinner.total})`);
+console.log(`Vet Head Winners:        ${mvp[0].player.display_name} (${mvp[0].points} points)`);
 console.log("");
 console.log("DATABASE E2E VALIDATION: PASSED");

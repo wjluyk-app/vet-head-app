@@ -124,7 +124,7 @@ export default async function VetHeadPlayerGuidePage() {
       >
         <div className="boardSectionHeader">
           <div>
-            <div className="smallLabel">VET HEAD MVP</div>
+            <div className="smallLabel">VET HEAD WINNERS</div>
             <h2>Five-Round Points Race</h2>
           </div>
         </div>
@@ -155,7 +155,7 @@ export default async function VetHeadPlayerGuidePage() {
           </p>
           <p>
             Overall MVP ties are broken by most 1st-place finishes,
-            then most 2nd-place finishes, then lowest Vet Header
+            then most 2nd-place finishes, then lowest Vet Head MVP
             54-hole total.
           </p>
         </article>
@@ -167,7 +167,7 @@ export default async function VetHeadPlayerGuidePage() {
       >
         <div className="boardSectionHeader">
           <div>
-            <div className="smallLabel">VET HEADER</div>
+            <div className="smallLabel">VET HEAD MVP</div>
             <h2>54-Hole Individual Championship</h2>
           </div>
         </div>

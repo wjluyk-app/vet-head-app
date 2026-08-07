@@ -66,7 +66,7 @@ export default async function FridayPage() {
 
         <Link className="card" href="/scoreboard">
           <h3>Scoreboard</h3>
-          <p>Round results, MVP points and Vet Header standings.</p>
+          <p>Round results, MVP points and Vet Head MVP standings.</p>
         </Link>
 
         <Link className="card" href="/prize-money">

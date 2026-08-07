@@ -114,7 +114,7 @@ import {
   calculateVetHeadMvpStandings,
 } from "@/lib/vet-head-scoring";
 
-describe("Vet Header standings", () => {
+describe("Vet Head MVP standings", () => {
   it("ranks players by lowest 54-hole net total", () => {
     expect(
       calculateVetHeaderStandings([
@@ -151,7 +151,7 @@ describe("Vet Header standings", () => {
     ]);
   });
 
-  it("breaks Vet Header ties by Saturday AM, then Friday AM, then Thursday", () => {
+  it("breaks Vet Head MVP ties by Saturday AM, then Friday AM, then Thursday", () => {
     const standings = calculateVetHeaderStandings([
       {
         playerId: "A",
@@ -181,7 +181,7 @@ describe("Vet Header standings", () => {
   });
 });
 
-describe("Vet Head MVP standings", () => {
+describe("Vet Head Winners standings", () => {
   it("ranks players by highest cumulative points", () => {
     const standings = calculateVetHeadMvpStandings([
       {
@@ -203,7 +203,7 @@ describe("Vet Head MVP standings", () => {
     expect(standings.map((player) => player.playerId)).toEqual(["B", "A"]);
   });
 
-  it("breaks MVP ties by firsts, seconds, then Vet Header total", () => {
+  it("breaks MVP ties by firsts, seconds, then Vet Head MVP total", () => {
     const standings = calculateVetHeadMvpStandings([
       {
         playerId: "A",

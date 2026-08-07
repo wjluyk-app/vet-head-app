@@ -22,7 +22,7 @@ export const tournamentHubGroups: HubGroup[] = [
     items: [
       {
         title: "Scoreboard",
-        description: "Vet Head points, Vet Header standings and round results.",
+        description: "Vet Head points, Vet Head MVP standings and round results.",
         href: "/scoreboard",
         status: "Available",
         icon: "SB",

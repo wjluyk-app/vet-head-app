@@ -24,7 +24,7 @@ export default async function FinalResultsPage() {
 
       <section className="grid">
         <article className="card">
-          <div className="smallLabel">VET HEAD MVP</div>
+          <div className="smallLabel">VET HEAD WINNERS</div>
           <div className="kpi">
             {tournamentComplete && board.mvp.length
               ? board.mvp[0].playerName
@@ -38,7 +38,7 @@ export default async function FinalResultsPage() {
         </article>
 
         <article className="card">
-          <div className="smallLabel">VET HEADER</div>
+          <div className="smallLabel">VET HEAD MVP</div>
           <div className="kpi">
             {board.vetHeader.length
               ? board.vetHeader[0].playerName
@@ -67,7 +67,7 @@ export default async function FinalResultsPage() {
         <div className="boardSectionHeader">
           <div>
             <div className="smallLabel">MVP</div>
-            <h2>Vet Head MVP Standings</h2>
+            <h2>Vet Head Winners Standings</h2>
           </div>
         </div>
 
@@ -103,7 +103,7 @@ export default async function FinalResultsPage() {
         <div className="boardSectionHeader">
           <div>
             <div className="smallLabel">54-HOLE INDIVIDUAL</div>
-            <h2>Vet Header Standings</h2>
+            <h2>Vet Head MVP Standings</h2>
           </div>
         </div>
 

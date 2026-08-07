@@ -29,7 +29,7 @@ export default async function SaturdayPage() {
           <h2>Saturday Morning Individual Net</h2>
           <p>
             The third and final individual round completes the
-            54-hole Vet Header championship.
+            54-hole Vet Head MVP championship.
           </p>
         </article>
 
@@ -44,9 +44,9 @@ export default async function SaturdayPage() {
 
         <article className="card">
           <div className="smallLabel">CHAMPIONSHIPS</div>
-          <h2>Vet Header + Vet Head MVP</h2>
+          <h2>Vet Head MVP + Vet Head Winners</h2>
           <p>
-            Saturday morning completes the Vet Header. Saturday
+            Saturday morning completes the Vet Head MVP. Saturday
             afternoon completes the five-round MVP race.
           </p>
         </article>
@@ -65,7 +65,7 @@ export default async function SaturdayPage() {
 
         <Link className="card" href="/final-results">
           <h3>Final Results</h3>
-          <p>Vet Head MVP and Vet Header champions.</p>
+          <p>Vet Head Winners and Vet Head MVP champions.</p>
         </Link>
       </section>
     </main>

@@ -379,13 +379,13 @@ const payoutRows = [
 
   ["PAY11", "Saturday PM Scramble", 5, "1st", "player", 25, 4, 100],
 
-  ["PAY12", "Vet Head MVP", null, "1st", "player", 225, 1, 225],
-  ["PAY13", "Vet Head MVP", null, "2nd", "player", 125, 1, 125],
-  ["PAY14", "Vet Head MVP", null, "3rd", "player", 75, 1, 75],
-  ["PAY15", "Vet Head MVP", null, "4th", "player", 50, 1, 50],
+  ["PAY12", "Vet Head Winners", null, "1st", "player", 225, 1, 225],
+  ["PAY13", "Vet Head Winners", null, "2nd", "player", 125, 1, 125],
+  ["PAY14", "Vet Head Winners", null, "3rd", "player", 75, 1, 75],
+  ["PAY15", "Vet Head Winners", null, "4th", "player", 50, 1, 50],
 
-  ["PAY16", "Vet Header", null, "1st", "player", 150, 1, 150],
-  ["PAY17", "Vet Header", null, "2nd", "player", 75, 1, 75],
+  ["PAY16", "Vet Head MVP", null, "1st", "player", 150, 1, 150],
+  ["PAY17", "Vet Head MVP", null, "2nd", "player", 75, 1, 75],
 ];
 
 const { error: deletePayoutError } = await supabase

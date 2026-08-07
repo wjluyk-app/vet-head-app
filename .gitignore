@@ -8,3 +8,5 @@ dist
 
 supabase/.temp/
 tsconfig.tsbuildinfo
+.vercel
+.env*
