@@ -1,0 +1,246 @@
+import { describe, expect, it } from "vitest";
+import {
+  calculateCourseHandicap,
+  calculateIndividualNet,
+  calculateFourPlayerScrambleHandicap,
+  calculateScrambleNet,
+} from "@/lib/vet-head-scoring";
+
+describe("Vet Head scoring", () => {
+  it("calculates Course Handicap from index, slope, rating, and par", () => {
+    expect(calculateCourseHandicap(10, 113, 72, 72)).toBe(10);
+    expect(calculateCourseHandicap(8.4, 125, 71.5, 72)).toBe(9);
+  });
+
+  it("calculates individual net score", () => {
+    expect(calculateIndividualNet(82, 10)).toBe(72);
+    expect(calculateIndividualNet(74, 5)).toBe(69);
+  });
+
+  it("calculates four-player scramble handicap using 25/20/15/10", () => {
+    expect(
+      calculateFourPlayerScrambleHandicap([4, 8, 12, 16]),
+    ).toBe(6);
+  });
+
+  it("sorts scramble handicaps lowest to highest before applying percentages", () => {
+    expect(
+      calculateFourPlayerScrambleHandicap([16, 4, 12, 8]),
+    ).toBe(6);
+  });
+
+  it("requires exactly four scramble players", () => {
+    expect(() =>
+      calculateFourPlayerScrambleHandicap([4, 8, 12]),
+    ).toThrow("A four-player scramble requires exactly four handicaps.");
+  });
+
+  it("calculates scramble net score", () => {
+    expect(calculateScrambleNet(66, 6)).toBe(60);
+  });
+});
+
+import { calculateRoundGroupPoints } from "@/lib/vet-head-scoring";
+
+describe("Vet Head round points", () => {
+  it("awards 8, 6, and 4 points per player by group finish", () => {
+    expect(
+      calculateRoundGroupPoints([
+        { groupId: "A", total: 280 },
+        { groupId: "B", total: 276 },
+        { groupId: "C", total: 284 },
+      ]),
+    ).toEqual([
+      { groupId: "B", total: 276, place: 1, pointsPerPlayer: 8 },
+      { groupId: "A", total: 280, place: 2, pointsPerPlayer: 6 },
+      { groupId: "C", total: 284, place: 3, pointsPerPlayer: 4 },
+    ]);
+  });
+
+  it("splits first and second place points when two groups tie for first", () => {
+    expect(
+      calculateRoundGroupPoints([
+        { groupId: "A", total: 276 },
+        { groupId: "B", total: 276 },
+        { groupId: "C", total: 284 },
+      ]),
+    ).toEqual([
+      { groupId: "A", total: 276, place: 1, pointsPerPlayer: 7 },
+      { groupId: "B", total: 276, place: 1, pointsPerPlayer: 7 },
+      { groupId: "C", total: 284, place: 3, pointsPerPlayer: 4 },
+    ]);
+  });
+
+  it("splits second and third place points when two groups tie for second", () => {
+    expect(
+      calculateRoundGroupPoints([
+        { groupId: "A", total: 274 },
+        { groupId: "B", total: 280 },
+        { groupId: "C", total: 280 },
+      ]),
+    ).toEqual([
+      { groupId: "A", total: 274, place: 1, pointsPerPlayer: 8 },
+      { groupId: "B", total: 280, place: 2, pointsPerPlayer: 5 },
+      { groupId: "C", total: 280, place: 2, pointsPerPlayer: 5 },
+    ]);
+  });
+
+  it("splits all available points equally when all three groups tie", () => {
+    expect(
+      calculateRoundGroupPoints([
+        { groupId: "A", total: 280 },
+        { groupId: "B", total: 280 },
+        { groupId: "C", total: 280 },
+      ]),
+    ).toEqual([
+      { groupId: "A", total: 280, place: 1, pointsPerPlayer: 6 },
+      { groupId: "B", total: 280, place: 1, pointsPerPlayer: 6 },
+      { groupId: "C", total: 280, place: 1, pointsPerPlayer: 6 },
+    ]);
+  });
+
+  it("requires exactly three groups", () => {
+    expect(() =>
+      calculateRoundGroupPoints([
+        { groupId: "A", total: 280 },
+        { groupId: "B", total: 282 },
+      ]),
+    ).toThrow("A Vet Head round requires exactly three groups.");
+  });
+});
+
+import {
+  calculateVetHeaderStandings,
+  calculateVetHeadMvpStandings,
+} from "@/lib/vet-head-scoring";
+
+describe("Vet Header standings", () => {
+  it("ranks players by lowest 54-hole net total", () => {
+    expect(
+      calculateVetHeaderStandings([
+        {
+          playerId: "A",
+          thursdayNet: 72,
+          fridayAmNet: 71,
+          saturdayAmNet: 70,
+        },
+        {
+          playerId: "B",
+          thursdayNet: 70,
+          fridayAmNet: 70,
+          saturdayAmNet: 70,
+        },
+      ]),
+    ).toEqual([
+      {
+        playerId: "B",
+        thursdayNet: 70,
+        fridayAmNet: 70,
+        saturdayAmNet: 70,
+        totalNet: 210,
+        place: 1,
+      },
+      {
+        playerId: "A",
+        thursdayNet: 72,
+        fridayAmNet: 71,
+        saturdayAmNet: 70,
+        totalNet: 213,
+        place: 2,
+      },
+    ]);
+  });
+
+  it("breaks Vet Header ties by Saturday AM, then Friday AM, then Thursday", () => {
+    const standings = calculateVetHeaderStandings([
+      {
+        playerId: "A",
+        thursdayNet: 69,
+        fridayAmNet: 71,
+        saturdayAmNet: 70,
+      },
+      {
+        playerId: "B",
+        thursdayNet: 70,
+        fridayAmNet: 71,
+        saturdayAmNet: 69,
+      },
+      {
+        playerId: "C",
+        thursdayNet: 71,
+        fridayAmNet: 69,
+        saturdayAmNet: 70,
+      },
+    ]);
+
+    expect(standings.map((player) => player.playerId)).toEqual([
+      "B",
+      "C",
+      "A",
+    ]);
+  });
+});
+
+describe("Vet Head MVP standings", () => {
+  it("ranks players by highest cumulative points", () => {
+    const standings = calculateVetHeadMvpStandings([
+      {
+        playerId: "A",
+        totalPoints: 28,
+        firstPlaceFinishes: 2,
+        secondPlaceFinishes: 1,
+        vetHeaderTotalNet: 210,
+      },
+      {
+        playerId: "B",
+        totalPoints: 30,
+        firstPlaceFinishes: 1,
+        secondPlaceFinishes: 2,
+        vetHeaderTotalNet: 208,
+      },
+    ]);
+
+    expect(standings.map((player) => player.playerId)).toEqual(["B", "A"]);
+  });
+
+  it("breaks MVP ties by firsts, seconds, then Vet Header total", () => {
+    const standings = calculateVetHeadMvpStandings([
+      {
+        playerId: "A",
+        totalPoints: 30,
+        firstPlaceFinishes: 2,
+        secondPlaceFinishes: 1,
+        vetHeaderTotalNet: 214,
+      },
+      {
+        playerId: "B",
+        totalPoints: 30,
+        firstPlaceFinishes: 3,
+        secondPlaceFinishes: 0,
+        vetHeaderTotalNet: 216,
+      },
+      {
+        playerId: "C",
+        totalPoints: 30,
+        firstPlaceFinishes: 2,
+        secondPlaceFinishes: 2,
+        vetHeaderTotalNet: 218,
+      },
+      {
+        playerId: "D",
+        totalPoints: 30,
+        firstPlaceFinishes: 2,
+        secondPlaceFinishes: 2,
+        vetHeaderTotalNet: 212,
+      },
+    ]);
+
+    expect(standings.map((player) => player.playerId)).toEqual([
+      "B",
+      "D",
+      "C",
+      "A",
+    ]);
+  });
+});
+
