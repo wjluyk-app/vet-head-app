@@ -51,7 +51,19 @@ export default async function RootLayout({
         </header>
 
         <main>{children}</main>
-      </body>
+      
+      <footer className="fourPuttFooter">
+        <Image
+          src="/images/built-by-four-putt.png"
+          alt="Built By Four Putt Productions"
+          width={1536}
+          height={1024}
+          className="fourPuttFooterImage"
+          unoptimized
+        />
+      </footer>
+
+    </body>
     </html>
   );
 }

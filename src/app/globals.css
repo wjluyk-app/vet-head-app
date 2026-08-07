@@ -5264,3 +5264,32 @@ table {
     margin: 0 !important;
   }
 }
+
+
+/* FOUR PUTT PRODUCTIONS GLOBAL FOOTER */
+.fourPuttFooter {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 48px;
+  padding: 28px 20px 34px;
+}
+
+.fourPuttFooterImage {
+  display: block;
+  width: min(100%, 340px);
+  height: auto;
+  object-fit: contain;
+}
+
+@media (max-width: 640px) {
+  .fourPuttFooter {
+    margin-top: 32px;
+    padding: 22px 16px 26px;
+  }
+
+  .fourPuttFooterImage {
+    width: min(100%, 260px);
+  }
+}
