@@ -70,6 +70,16 @@ export default async function AdminPage() {
             Review scoreboard
           </Link>
         </article>
+
+        <article className="card">
+          <h3>Import Tournament Workbook</h3>
+          <p>
+            Upload and validate the Vet Head master workbook before importing data.
+          </p>
+          <Link className="button" href="/admin/import">
+            Open workbook import
+          </Link>
+        </article>
       </section>
     </main>
   );
