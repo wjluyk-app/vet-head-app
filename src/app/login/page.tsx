@@ -1,4 +1,5 @@
 import { getBillAdminUser } from "@/lib/auth/admin";
+import { getScoreEntryUser } from "@/lib/auth/score-entry";
 import { signIn, signOut } from "./actions";
 
 export default async function LoginPage({
@@ -7,13 +8,33 @@ export default async function LoginPage({
   searchParams: Promise<{ error?: string }>;
 }) {
   const params = await searchParams;
+
   const adminUser = await getBillAdminUser();
 
   if (adminUser) {
     return (
       <section className="card loginCard">
-        <h1>Administrator Account</h1>
-        <p>Signed in as {adminUser.email}</p>
+        <h1>Vet Head Account</h1>
+        <p>Signed in as {adminUser.email} · Admin</p>
+
+        <form action={signOut}>
+          <button className="button" type="submit">
+            Sign out
+          </button>
+        </form>
+      </section>
+    );
+  }
+
+  const scoreEntryAccess = await getScoreEntryUser();
+
+  if (scoreEntryAccess) {
+    return (
+      <section className="card loginCard">
+        <h1>Vet Head Account</h1>
+        <p>
+          Signed in as {scoreEntryAccess.user.email} · Score Entry
+        </p>
 
         <form action={signOut}>
           <button className="button" type="submit">
@@ -26,8 +47,11 @@ export default async function LoginPage({
 
   return (
     <section className="card loginCard">
-      <h1>Administrator Sign In</h1>
-      <p>Score entry and tournament setup are restricted to Bill.</p>
+      <h1>Vet Head Sign In</h1>
+
+      <p>
+        Sign in with your authorized Admin or Score Entry account.
+      </p>
 
       {params.error && (
         <div className="errorNotice">{params.error}</div>

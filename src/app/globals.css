@@ -4824,3 +4824,443 @@ table {
   background: white;
 }
 
+
+
+/* VET HEAD LOGO SIZE */
+.appHeader img,
+.appHeaderLogo,
+.headerLogo img {
+  width: 190px !important;
+  height: 110px !important;
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .appHeader img,
+  .appHeaderLogo,
+  .headerLogo img {
+    width: 150px !important;
+    height: 90px !important;
+  }
+}
+
+/* =========================================================
+   VET HEAD — FINAL MOBILE-FIRST HEADER
+   ========================================================= */
+
+.headerLogoLink {
+  width: 190px !important;
+  min-width: 190px !important;
+  height: 108px !important;
+  padding: 0 !important;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.headerLogoImage,
+.appHeader .headerLogoImage {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  object-fit: contain !important;
+  transform: scale(1.75);
+  transform-origin: center;
+}
+
+@media (max-width: 760px) {
+  .appHeader {
+    min-height: 78px !important;
+    padding: 7px 10px !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+
+  .headerLogoLink {
+    width: 126px !important;
+    min-width: 126px !important;
+    height: 70px !important;
+    padding: 0 !important;
+    border-radius: 9px;
+  }
+
+  .headerLogoImage,
+  .appHeader .headerLogoImage {
+    width: 100% !important;
+    height: 100% !important;
+    transform: scale(1.78);
+  }
+
+  .mobileHeaderControls {
+    gap: 6px !important;
+  }
+
+  .mobileScoreboardButton,
+  .mobileMenuButton {
+    min-height: 42px !important;
+    padding: 9px 10px !important;
+    font-size: 12px !important;
+  }
+}
+
+/* VET HEAD — slightly taller mobile header */
+@media (max-width: 760px) {
+  .appHeader {
+    min-height: 92px !important;
+    padding-top: 11px !important;
+    padding-bottom: 11px !important;
+  }
+
+  .headerLogoLink {
+    height: 76px !important;
+  }
+}
+
+/* =========================================================
+   VET HEAD — NEW TIGHT-CROPPED LOGO + TALLER MOBILE HEADER
+   ========================================================= */
+
+.headerLogoImage,
+.appHeader .headerLogoImage {
+  transform: none !important;
+  object-fit: contain !important;
+}
+
+@media (max-width: 760px) {
+  .appHeader {
+    min-height: 108px !important;
+    padding-top: 14px !important;
+    padding-bottom: 14px !important;
+  }
+
+  .headerLogoLink {
+    width: 142px !important;
+    min-width: 142px !important;
+    height: 82px !important;
+    padding: 2px !important;
+  }
+
+  .headerLogoImage,
+  .appHeader .headerLogoImage {
+    width: 100% !important;
+    height: 100% !important;
+    transform: none !important;
+    object-fit: contain !important;
+  }
+}
+
+
+/* VET HEAD — LARGE HEADER LOGO */
+.headerLogoLink {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 220px !important;
+  min-width: 220px !important;
+  height: 140px !important;
+  padding: 0 !important;
+  border-radius: 22px !important;
+  background: white !important;
+  overflow: hidden !important;
+}
+
+.headerLogoImage,
+.appHeader .headerLogoImage {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  transform: scale(1.55) !important;
+  transform-origin: center !important;
+}
+
+@media (max-width: 760px) {
+  .appHeader {
+    min-height: 112px !important;
+    padding: 14px 12px !important;
+    align-items: center !important;
+  }
+
+  .headerLogoLink {
+    width: 170px !important;
+    min-width: 170px !important;
+    height: 96px !important;
+    border-radius: 18px !important;
+  }
+
+  .headerLogoImage,
+  .appHeader .headerLogoImage {
+    transform: scale(1.7) !important;
+  }
+}
+
+
+/* VET HEAD — TIGHTER MOBILE LOGO BOX */
+@media (max-width: 760px) {
+  .headerLogoLink {
+    width: 145px !important;
+    min-width: 145px !important;
+    height: 100px !important;
+    padding: 0 !important;
+    border-radius: 16px !important;
+    overflow: hidden !important;
+  }
+
+  .headerLogoImage,
+  .appHeader .headerLogoImage {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    transform: scale(2.05) !important;
+    transform-origin: center !important;
+  }
+
+  .appHeader {
+    min-height: 122px !important;
+    padding-top: 11px !important;
+    padding-bottom: 11px !important;
+  }
+}
+
+/* =========================================================
+   VET HEAD — FINAL CROPPED MOBILE LOGO
+   ========================================================= */
+
+@media (max-width: 760px) {
+  .appHeader {
+    min-height: 120px !important;
+    padding: 10px 12px !important;
+    gap: 8px !important;
+    align-items: center !important;
+  }
+
+  .headerLogoLink {
+    width: 110px !important;
+    min-width: 110px !important;
+    height: 100px !important;
+    padding: 3px !important;
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    background: white !important;
+  }
+
+  .headerLogoImage,
+  .appHeader .headerLogoImage {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    transform: none !important;
+  }
+}
+
+/* VET HEAD — LOGO DIRECTLY ON GREEN HEADER */
+.headerLogoLink {
+  background: transparent !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  box-shadow: none !important;
+}
+
+@media (max-width: 760px) {
+  .headerLogoLink {
+    width: 145px !important;
+    min-width: 145px !important;
+    height: 110px !important;
+  }
+
+  .headerLogoImage,
+  .appHeader .headerLogoImage {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    transform: none !important;
+  }
+
+  .appHeader {
+    min-height: 130px !important;
+  }
+}
+
+/* VET HEAD — FINAL MOBILE HEADER LOGO FIT */
+@media (max-width: 760px) {
+  .appHeader {
+    min-height: 132px !important;
+    padding: 8px 12px !important;
+    align-items: center !important;
+  }
+
+  .headerLogoLink {
+    width: 150px !important;
+    min-width: 150px !important;
+    height: 116px !important;
+    padding: 0 !important;
+    background: transparent !important;
+    overflow: visible !important;
+  }
+
+  .headerLogoImage,
+  .appHeader .headerLogoImage {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    transform: none !important;
+  }
+}
+
+/* =========================================================
+   VET HEAD — FINAL HEADER LOGO
+   Tight-cropped artwork directly on Spartan Green
+   ========================================================= */
+
+.headerLogoLink {
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+
+.headerLogoImage,
+.appHeader .headerLogoImage {
+  display: block !important;
+  width: auto !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  transform: none !important;
+}
+
+@media (max-width: 760px) {
+  .appHeader {
+    min-height: 138px !important;
+    padding: 8px 12px !important;
+    align-items: center !important;
+    gap: 10px !important;
+  }
+
+  .headerLogoLink {
+    flex: 0 0 142px !important;
+    width: 142px !important;
+    min-width: 142px !important;
+    height: 120px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .headerLogoImage,
+  .appHeader .headerLogoImage {
+    width: auto !important;
+    height: 116px !important;
+    max-width: 142px !important;
+    max-height: 116px !important;
+    object-fit: contain !important;
+    transform: none !important;
+  }
+}
+
+/* =========================================================
+   VET HEAD — MEASURED FINAL MOBILE LOGO
+   Fresh asset: 815 x 850, ratio .959
+   ========================================================= */
+
+@media (max-width: 760px) {
+  .appHeader {
+    height: 138px !important;
+    min-height: 138px !important;
+    padding: 9px 12px !important;
+    align-items: center !important;
+  }
+
+  .headerLogoLink {
+    flex: 0 0 116px !important;
+    width: 116px !important;
+    min-width: 116px !important;
+    height: 120px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    overflow: visible !important;
+  }
+
+  .headerLogoImage,
+  .appHeader .headerLogoImage {
+    display: block !important;
+    width: 115px !important;
+    height: 120px !important;
+    min-width: 115px !important;
+    max-width: 115px !important;
+    min-height: 120px !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    transform: none !important;
+  }
+}
+
+/* VET HEAD — BALANCED MOBILE HEADER */
+@media (max-width: 760px) {
+  .appHeader {
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+    justify-content: space-between !important;
+    gap: 20px !important;
+  }
+
+  .headerLogoLink {
+    flex: 0 0 122px !important;
+    width: 122px !important;
+    min-width: 122px !important;
+  }
+
+  .headerLogoImage,
+  .appHeader .headerLogoImage {
+    width: 122px !important;
+    max-width: 122px !important;
+  }
+
+  .mobileHeaderControls {
+    margin-left: auto !important;
+    flex: 0 0 auto !important;
+  }
+
+  .mobileMenuButton {
+    width: 118px !important;
+    min-width: 118px !important;
+    min-height: 48px !important;
+    padding: 10px 14px !important;
+  }
+}
+
+/* VET HEAD — MEASURED MOBILE HEADER ALIGNMENT
+   Header = 400px
+   Left/right margin = 18px
+   Logo = 122px
+   Menu = 118px
+*/
+@media (max-width: 760px) {
+  .mobileHeaderControls {
+    width: 118px !important;
+    min-width: 118px !important;
+    max-width: 118px !important;
+    flex: 0 0 118px !important;
+    margin-left: auto !important;
+    justify-content: flex-end !important;
+  }
+
+  .mobileMenuButton {
+    width: 118px !important;
+    min-width: 118px !important;
+    max-width: 118px !important;
+    margin: 0 !important;
+  }
+}

@@ -14,10 +14,6 @@ export default function MobileHeaderNav({ isAdmin }: MobileHeaderNavProps) {
 
   return (
     <div className="mobileHeaderControls">
-      <Link className="mobileScoreboardButton" href="/scoreboard">
-        Scoreboard
-      </Link>
-
       <button
         type="button"
         className="mobileMenuButton"
@@ -42,6 +38,9 @@ export default function MobileHeaderNav({ isAdmin }: MobileHeaderNavProps) {
           <Link href="/scoreboard" onClick={closeMenu}>
             Scoreboard
           </Link>
+            <Link href="/prize-money" onClick={closeMenu}>
+              Payouts
+            </Link>
           {isAdmin ? (
             <>
               <Link href="/admin" onClick={closeMenu}>

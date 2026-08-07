@@ -21,10 +21,11 @@ export default async function RootLayout({
         <header className="appHeader">
           <Link className="brandLink headerLogoLink" href="/">
             <Image
-              src="/images/vet-head-logo.png"
+              src="/images/vet-head-logo-final.png"
               alt="Vet Head"
-              width={180}
-              height={100}
+              width={815}
+              height={850}
+              unoptimized
               priority
               className="headerLogoImage"
             />

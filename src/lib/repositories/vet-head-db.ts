@@ -181,3 +181,96 @@ export async function upsertVetHeadScrambleScore(params: {
 
   return data;
 }
+
+export async function getVetHeadRoundEntryData(roundId: string) {
+  const supabase = createAdminClient();
+
+  const { data: round, error: roundError } = await supabase
+    .from("tournament_round")
+    .select(`
+      *,
+      course_tee (
+        id,
+        course_name,
+        tee_name,
+        par,
+        course_rating,
+        slope_rating
+      )
+    `)
+    .eq("id", roundId)
+    .single();
+
+  if (roundError || !round) {
+    throw new Error(
+      `Failed to load Vet Head round: ${roundError?.message ?? "Round not found"}`,
+    );
+  }
+
+  const { data: groups, error: groupsError } = await supabase
+    .from("round_group")
+    .select("*")
+    .eq("round_id", roundId)
+    .order("group_number");
+
+  if (groupsError) {
+    throw new Error(`Failed to load Vet Head groups: ${groupsError.message}`);
+  }
+
+  const groupIds = (groups ?? []).map((group) => group.id);
+
+  const { data: assignments, error: assignmentsError } = await supabase
+    .from("round_group_player")
+    .select(`
+      *,
+      player (
+        id,
+        display_name,
+        handicap_index,
+        active
+      )
+    `)
+    .in("round_group_id", groupIds)
+    .order("player_order");
+
+  if (assignmentsError) {
+    throw new Error(
+      `Failed to load Vet Head group assignments: ${assignmentsError.message}`,
+    );
+  }
+
+  const [
+    individualScoresResult,
+    scrambleScoresResult,
+  ] = await Promise.all([
+    supabase
+      .from("individual_score")
+      .select("*")
+      .eq("round_id", roundId),
+
+    supabase
+      .from("scramble_score")
+      .select("*")
+      .eq("round_id", roundId),
+  ]);
+
+  if (individualScoresResult.error) {
+    throw new Error(
+      `Failed to load individual scores: ${individualScoresResult.error.message}`,
+    );
+  }
+
+  if (scrambleScoresResult.error) {
+    throw new Error(
+      `Failed to load scramble scores: ${scrambleScoresResult.error.message}`,
+    );
+  }
+
+  return {
+    round,
+    groups: groups ?? [],
+    assignments: assignments ?? [],
+    individualScores: individualScoresResult.data ?? [],
+    scrambleScores: scrambleScoresResult.data ?? [],
+  };
+}
