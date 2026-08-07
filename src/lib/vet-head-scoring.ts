@@ -1,13 +1,26 @@
+export function calculateUnroundedCourseHandicap(
+  handicapIndex: number,
+  slopeRating: number,
+  courseRating: number,
+  par: number,
+): number {
+  return handicapIndex * (slopeRating / 113) + (courseRating - par);
+}
+
 export function calculateCourseHandicap(
   handicapIndex: number,
   slopeRating: number,
   courseRating: number,
   par: number,
 ): number {
-  const unrounded =
-    handicapIndex * (slopeRating / 113) + (courseRating - par);
-
-  return Math.round(unrounded);
+  return Math.round(
+    calculateUnroundedCourseHandicap(
+      handicapIndex,
+      slopeRating,
+      courseRating,
+      par,
+    ),
+  );
 }
 
 export function calculateIndividualNet(

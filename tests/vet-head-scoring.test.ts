@@ -244,3 +244,22 @@ describe("Vet Head MVP standings", () => {
   });
 });
 
+
+import { calculateUnroundedCourseHandicap } from "@/lib/vet-head-scoring";
+
+describe("Vet Head handicap precision", () => {
+  it("preserves unrounded Course Handicap for scramble allowance calculations", () => {
+    const handicaps = [
+      calculateUnroundedCourseHandicap(4.4, 125, 71.5, 72),
+      calculateUnroundedCourseHandicap(8.4, 125, 71.5, 72),
+      calculateUnroundedCourseHandicap(12.4, 125, 71.5, 72),
+      calculateUnroundedCourseHandicap(16.4, 125, 71.5, 72),
+    ];
+
+    expect(handicaps[0]).not.toBe(Math.round(handicaps[0]));
+
+    expect(
+      calculateFourPlayerScrambleHandicap(handicaps),
+    ).toBe(7);
+  });
+});
