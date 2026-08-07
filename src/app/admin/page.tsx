@@ -72,6 +72,14 @@ export default async function AdminPage() {
         </article>
 
         <article className="card">
+          <h3>Payouts</h3>
+          <p>Manage the official $1,200 prize structure.</p>
+          <Link className="button" href="/admin/payouts">
+            Manage payouts
+          </Link>
+        </article>
+
+        <article className="card">
           <h3>Results & Publishing</h3>
           <p>Validate standings before results are published.</p>
           <Link className="button" href="/scoreboard">

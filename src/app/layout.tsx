@@ -36,6 +36,7 @@ export default async function RootLayout({
             <Link href="/schedule">Schedule</Link>
             <Link href="/teams">Pairings</Link>
             <Link href="/scoreboard">Scoreboard</Link>
+        <Link href="/prize-money">Payouts</Link>
             {adminUser ? (
               <>
                 <Link href="/admin">Admin</Link>

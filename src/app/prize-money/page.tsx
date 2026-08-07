@@ -1,227 +1,140 @@
 import Link from "next/link";
-import TournamentSectionShell from "@/components/TournamentSectionShell";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { getFridayMatchesFromDatabase } from "@/lib/repositories/friday-db";
-import { getSaturdayMatchesFromDatabase } from "@/lib/repositories/saturday-db";
-import { getSundayDataFromDatabase } from "@/lib/repositories/sunday-db";
-import { calculateFridayTournamentBoard } from "@/lib/friday-tournament-board";
-import { calculateSaturdayTournamentBoard } from "@/lib/saturday-tournament-board";
-import { calculateSundayTournamentBoard } from "@/lib/sunday-tournament-board";
-import { calculateOverallTournamentBoard } from "@/lib/overall-tournament-board";
-import { calculatePlayerAwards } from "@/lib/player-awards";
 
 export const dynamic = "force-dynamic";
 
 const money = (value: number) =>
   `$${value.toFixed(value % 1 === 0 ? 0 : 2)}`;
 
-export default async function PrizeMoneyPage() {
+export default async function VetHeadPayoutsPage() {
   const supabase = createAdminClient();
 
-  const [fridayMatches, saturdayMatches, sundayData] =
-    await Promise.all([
-      getFridayMatchesFromDatabase(supabase),
-      getSaturdayMatchesFromDatabase(supabase),
-      getSundayDataFromDatabase(supabase),
-    ]);
+  const { data: tournament, error: tournamentError } = await supabase
+    .from("tournament")
+    .select("id")
+    .eq("name", "VET HEAD")
+    .eq("year", 2026)
+    .single();
 
-  const friday = calculateFridayTournamentBoard(fridayMatches);
-  const saturday = calculateSaturdayTournamentBoard(saturdayMatches);
-  const sunday = calculateSundayTournamentBoard(sundayData);
-  const overall = calculateOverallTournamentBoard(
-    friday,
-    saturday,
-    sunday,
+  if (tournamentError || !tournament) {
+    throw new Error(
+      tournamentError?.message ?? "Vet Head tournament not found.",
+    );
+  }
+
+  const { data: payouts, error: payoutsError } = await supabase
+    .from("prize_payout")
+    .select(`
+      id,
+      import_key,
+      competition,
+      place,
+      recipient_type,
+      amount_per_recipient,
+      recipients,
+      total_payout
+    `)
+    .eq("tournament_id", tournament.id)
+    .order("import_key");
+
+  if (payoutsError) {
+    throw new Error(payoutsError.message);
+  }
+
+  const total = (payouts ?? []).reduce(
+    (sum, payout) => sum + Number(payout.total_payout),
+    0,
   );
 
-  const playerAwards = calculatePlayerAwards(
-    friday,
-    saturday,
-    sunday,
-    overall,
-  );
+  const grouped = new Map<
+    string,
+    NonNullable<typeof payouts>
+  >();
 
-  const winningTeam =
-    overall.winner === "LUKE"
-      ? "Team Luke"
-      : overall.winner === "SAM"
-        ? "Team Sam"
-        : overall.winner === "TIED"
-          ? "Tournament tied"
-          : null;
-
-  const payoutSections = [
-    {
-      title: "Friday Field",
-      amount: 450,
-      description: friday.fieldComplete
-        ? `${money(friday.fieldDistributed)} distributed · Front, back and total`
-        : "Front $100/$50 · Back $100/$50 · Total $100/$50",
-      status: friday.fieldComplete ? "Final" : "Live",
-      href: "/results/friday",
-    },
-    {
-      title: "Friday Skins",
-      amount: 200,
-      description: friday.fieldComplete
-        ? `${friday.skins.length} validated skin${friday.skins.length === 1 ? "" : "s"} · ${money(friday.skinsDistributed)} distributed`
-        : "Unique low NET score · Next-hole validation on Holes 1–17",
-      status: friday.fieldComplete ? "Final" : "Live",
-      href: "/results/friday",
-    },
-    {
-      title: "Saturday Field",
-      amount: 450,
-      description: saturday.fieldComplete
-        ? `${money(saturday.fieldDistributed)} distributed · Front, back and total`
-        : "Front $100/$50 · Back $100/$50 · Total $100/$50",
-      status: saturday.fieldComplete ? "Final" : "Pending",
-      href: "/results/saturday",
-    },
-    {
-      title: "Sunday Pinehurst",
-      amount: 150,
-      description: sunday.pinehurstFieldComplete
-        ? `${money(sunday.pinehurstFieldDistributed)} distributed · 1st $100 · 2nd $50`
-        : "Front nine field · 1st $100 · 2nd $50",
-      status: sunday.pinehurstFieldComplete ? "Final" : "Pending",
-      href: "/results/sunday",
-    },
-    {
-      title: "Winning Team",
-      amount: 480,
-      description: winningTeam
-        ? `${winningTeam} · $40 per player`
-        : "$40 per player on the winning team",
-      status: overall.complete ? "Final" : "Pending",
-      href: "/scoreboard",
-    },
-    {
-      title: "MVP",
-      amount: 70,
-      description: playerAwards.complete
-        ? `${playerAwards.leaders
-            .map((leader) => `${leader.player} (${leader.points} pts)`)
-            .join(" / ")} · ${money(playerAwards.mvpPayoutEach)} each`
-        : "Most points earned by a player on the winning team",
-      status: playerAwards.complete ? "Final" : "Pending",
-      href: "/final-results",
-    },
-  ];
-
-  const competitiveDistributed =
-    friday.moneyDistributed +
-    saturday.moneyDistributed +
-    sunday.pinehurstFieldDistributed;
-
-  const totalDistributed =
-    competitiveDistributed +
-    (overall.complete ? 480 : 0) +
-    (playerAwards.complete ? 70 : 0);
+  for (const payout of payouts ?? []) {
+    const existing = grouped.get(payout.competition) ?? [];
+    existing.push(payout);
+    grouped.set(payout.competition, existing);
+  }
 
   return (
-    <TournamentSectionShell
-      eyebrow="RESULTS & MONEY"
-      title="Prize Structure"
-      description="What is available to win across daily field payouts, skins, team awards and MVP."
-      status="Live"
-    >
-      <section className="prizeStructureIntro">
-        <div>
-          <span className="smallLabel">HOW TO READ THIS PAGE</span>
-          <h2>Prize Structure vs. Final Payouts</h2>
+    <main className="pageShell">
+      <section className="hero">
+        <div className="smallLabel">VET HEAD 2026</div>
+        <h1>Payouts</h1>
+        <p>
+          Official tournament prize structure for August 13–15, 2026.
+        </p>
+      </section>
+
+      <section className="grid">
+        <article className="card">
+          <h3>Total Prize Pool</h3>
+          <div className="kpi">{money(total)}</div>
+        </article>
+
+        <article className="card">
+          <h3>Payout Categories</h3>
+          <div className="kpi">{grouped.size}</div>
+        </article>
+      </section>
+
+      {(payouts ?? []).length === 0 ? (
+        <section className="card" style={{ marginTop: 22 }}>
+          <h2>Payout structure not loaded yet</h2>
           <p>
-            Prize Structure shows what is available to win. Final Payouts shows
-            what each player actually earned after all results are complete.
+            The official payout structure will appear here after the
+            completed Vet Head workbook is imported.
           </p>
-        </div>
-
-        <Link className="secondaryButton" href="/final-results">
-          View Final Payouts
-        </Link>
-      </section>
-
-      <section className="prizePoolHero">
-        <div>
-          <span className="smallLabel">TOTAL EVENT PRIZE POOL</span>
-          <strong>$1,800</strong>
-        </div>
-
-        <div>
-          <span>Currently Distributed</span>
-          <strong>{money(totalDistributed)}</strong>
-        </div>
-
-        <div>
-          <span>Points Awarded</span>
-          <strong>
-            {overall.totalPointsAwarded} / {overall.maximumPoints}
-          </strong>
-        </div>
-
-        <div>
-          <span>Unresolved</span>
-          <strong>{money(1800 - totalDistributed)}</strong>
-        </div>
-      </section>
-
-      <section className="prizeMoneyGrid">
-        {payoutSections.map((item) => (
-          <article className="prizeMoneyCard" key={item.title}>
-            <div className="prizeMoneyCardTop">
-              <div>
-                <span className="smallLabel">{item.status}</span>
-                <h2>{item.title}</h2>
+        </section>
+      ) : (
+        Array.from(grouped.entries()).map(
+          ([competition, competitionPayouts]) => (
+            <section
+              className="tournamentBoardSection"
+              key={competition}
+              style={{ marginTop: 22 }}
+            >
+              <div className="boardSectionHeader">
+                <div>
+                  <div className="smallLabel">PRIZE MONEY</div>
+                  <h2>{competition}</h2>
+                </div>
               </div>
 
-              <strong>${item.amount}</strong>
-            </div>
+              <section className="grid">
+                {competitionPayouts.map((payout) => (
+                  <article className="card" key={payout.id}>
+                    <div className="smallLabel">
+                      {payout.place}
+                    </div>
 
-            <p>{item.description}</p>
+                    <div className="kpi">
+                      {money(Number(payout.total_payout))}
+                    </div>
 
-            <Link href={item.href}>
-              {item.status === "Final"
-                ? "View final payouts →"
-                : "View tournament section →"}
-            </Link>
-          </article>
-        ))}
-      </section>
+                    <p>
+                      {payout.recipients}{" "}
+                      {payout.recipients === 1
+                        ? "recipient"
+                        : "recipients"}{" "}
+                      · {money(Number(payout.amount_per_recipient))} each
+                    </p>
 
-      <section className="prizeMoneyRules">
-        <article>
-          <span className="smallLabel">FIELD PAYOUTS</span>
-          <h2>Friday and Saturday</h2>
+                    <p>{payout.recipient_type}</p>
+                  </article>
+                ))}
+              </section>
+            </section>
+          ),
+        )
+      )}
 
-          <div className="prizeMoneyBreakdown">
-            <div>
-              <span>Front Nine</span>
-              <strong>$100 / $50</strong>
-            </div>
-
-            <div>
-              <span>Back Nine</span>
-              <strong>$100 / $50</strong>
-            </div>
-
-            <div>
-              <span>Total</span>
-              <strong>$100 / $50</strong>
-            </div>
-          </div>
-        </article>
-
-        <article>
-          <span className="smallLabel">FRIDAY SKINS</span>
-          <h2>Skin Validation Rule</h2>
-
-          <p>
-            A skin requires the unique lowest NET team score. Holes 1–17
-            must be validated by NET par or better on the next hole.
-            Hole 18 needs no validation. Tied lows do not pay.
-          </p>
-        </article>
-      </section>
-    </TournamentSectionShell>
+      <div style={{ marginTop: 22 }}>
+        <Link className="button" href="/">
+          Tournament Hub
+        </Link>
+      </div>
+    </main>
   );
 }
