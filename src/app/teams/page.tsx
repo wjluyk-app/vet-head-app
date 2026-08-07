@@ -117,8 +117,8 @@ export default async function VetHeadPairingsPage() {
                     {round.format !== "four_man_scramble" && (
                       <span>
                         {player.handicapIndex === null
-                          ? "HI —"
-                          : `HI ${player.handicapIndex}`}
+                          ? "HDCP —"
+                          : `HDCP ${player.handicapIndex}`}
                       </span>
                     )}
                   </div>
