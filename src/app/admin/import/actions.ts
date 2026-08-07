@@ -897,9 +897,26 @@ export async function importVetHeadWorkbook(
       (round) => round.round_number === roundNumber,
     )?.format;
 
+    const rawGroupTeeTime = pairingsSheet.getCell(
+      row,
+      pairingHeaders.get("Group_Tee_Time")!,
+    ).value;
+
+    let groupTeeTime: string | null = null;
+
+    if (typeof rawGroupTeeTime === "number") {
+      const totalMinutes = Math.round(rawGroupTeeTime * 24 * 60);
+      const hours = Math.floor(totalMinutes / 60) % 24;
+      const minutes = totalMinutes % 60;
+      groupTeeTime = `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:00`;
+    } else if (rawGroupTeeTime) {
+      groupTeeTime = String(rawGroupTeeTime);
+    }
+
     groupRows.push({
       round_id: roundUuid,
       group_number: groupNumber,
+      group_tee_time: groupTeeTime,
       name:
         roundFormat === "four_man_scramble"
           ? `Team ${groupNumber}`

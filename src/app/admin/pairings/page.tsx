@@ -21,6 +21,7 @@ type Group = {
   id: string;
   group_number: number;
   name: string | null;
+  group_tee_time: string | null;
   round_group_player: Assignment[];
 };
 
@@ -87,6 +88,7 @@ export default async function VetHeadPairingsAdminPage() {
         id,
         group_number,
         name,
+        group_tee_time,
         round_group_player (
           player_id,
           player_order
@@ -174,6 +176,10 @@ export default async function VetHeadPairingsAdminPage() {
                       ? `Team ${group.group_number}`
                       : `Group ${group.group_number}`)}
                 </h3>
+
+                <p>
+                  Tee Time: {String(group.group_tee_time ?? round.tee_time).slice(0, 5)}
+                </p>
 
                 {[1, 2, 3, 4].map((order) => {
                   const assignment =

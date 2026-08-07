@@ -45,7 +45,7 @@ export async function getVetHeadPublicTournamentData() {
 
     supabase
       .from("round_group")
-      .select("id, round_id, group_number, name")
+      .select("id, round_id, group_number, name, group_tee_time")
       .order("round_id")
       .order("group_number"),
 

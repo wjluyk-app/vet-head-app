@@ -74,7 +74,7 @@ export default async function VetHeadPairingsPage() {
 
                 <p style={{ marginTop: 4, marginBottom: 12 }}>
                   <strong>
-                    Tee Time: {formatTime(String(round.tee_time).slice(0, 5))}
+                    Tee Time: {formatTime(String(group.group_tee_time ?? round.tee_time).slice(0, 5))}
                   </strong>
                 </p>
 
