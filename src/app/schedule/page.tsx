@@ -1,127 +1,104 @@
-import TournamentSectionShell from "@/components/TournamentSectionShell";
-import seed from "@/data/2026-workbook-seed.json";
+import Link from "next/link";
+import { getVetHeadPublicTournamentData } from "@/lib/repositories/vet-head-public";
 
-function formatTime(value: string) {
-  const [hourText, minute] = value.split(":");
+export const dynamic = "force-dynamic";
+
+const formatTime = (value: string) => {
+  const [hourText, minuteText] = value.split(":");
   const hour = Number(hourText);
   const suffix = hour >= 12 ? "PM" : "AM";
-  return `${hour % 12 || 12}:${minute} ${suffix}`;
-}
 
-const schedule = [
-  {
-    day: "Friday",
-    sourceDay: "Friday",
-    date: "August 28",
-    course: "Mountain Course",
-    format: "1 Best Ball of 2",
-  },
-  {
-    day: "Saturday",
-    sourceDay: "Saturday",
-    date: "August 29",
-    course: "Betsie Valley",
-    format: "18-Hole 2-Man Scramble",
-  },
-  {
-    day: "Sunday",
-    sourceDay: "Sunday Front",
-    date: "August 30",
-    course: "Mountain Course",
-    format: "Front Nine Pinehurst · Back Nine Singles",
-  },
-];
+  return `${hour % 12 || 12}:${minuteText} ${suffix}`;
+};
 
-export default function Page() {
+const formatDate = (value: string) =>
+  new Intl.DateTimeFormat("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(`${value}T12:00:00Z`));
+
+export default async function VetHeadSchedulePage() {
+  const data = await getVetHeadPublicTournamentData();
+
   return (
-    <TournamentSectionShell
-      eyebrow="EVENT INFORMATION"
-      title="Schedule & Tee Times"
-      description="The complete tournament schedule, courses, formats and starting times."
-      status="Available"
-    >
-      <section className="scheduleOverview">
-        <div>
-          <span>FRIDAY</span>
-          <strong>1:00 PM</strong>
-        </div>
-        <div>
-          <span>SATURDAY</span>
-          <strong>11:20 AM</strong>
-        </div>
-        <div>
-          <span>SUNDAY</span>
-          <strong>10:50 AM</strong>
-        </div>
+    <main className="pageShell">
+      <section className="hero">
+        <div className="smallLabel">VET HEAD 2026</div>
+        <h1>Schedule</h1>
+        <p>
+          Five rounds over three days · August 13–15, 2026
+        </p>
       </section>
 
-      <section className="scheduleGrid">
-        {schedule.map((item) => {
-          const matches = seed.pairings
-            .filter((pairing) => pairing.day === item.sourceDay)
-            .sort((a, b) => a.matchNumber - b.matchNumber);
+      <section className="grid">
+        {data.rounds.map((round) => {
+          const course = Array.isArray(round.course_tee)
+            ? round.course_tee[0]
+            : round.course_tee;
 
           return (
-          <article className="scheduleCard" key={item.day}>
-            <div className="scheduleCardHeader">
-              <div>
-                <div className="smallLabel">{item.date}</div>
-                <h2>{item.day}</h2>
+            <article className="card" key={round.id}>
+              <div className="smallLabel">
+                ROUND {round.round_number}
               </div>
-              <span>{item.course}</span>
-            </div>
 
-            <div className="scheduleFormat">{item.format}</div>
+              <h2>{round.name}</h2>
 
-            <div className="teeTimeGrid">
-              {matches.map((match) => (
-                <div className="teeTimeRow teeTimeRowDetailed" key={match.matchNumber}>
-                  <div className="teeTimeMatch">
-                    <span>Match {match.matchNumber}</span>
-                    <strong>{match.teeTime ? formatTime(match.teeTime) : "Continues after front nine"}</strong>
-                  </div>
-
-                  <div className="teeTimeNames">
-                    <div>
-                      <span>TEAM LUKE</span>
-                      <strong>
-                        {match.lukePlayer1}
-                        {match.lukePlayer2 ? ` & ${match.lukePlayer2}` : ""}
-                      </strong>
-                    </div>
-                    <div className="teeTimeVs">VS</div>
-                    <div>
-                      <span>TEAM SAM</span>
-                      <strong>
-                        {match.samPlayer1}
-                        {match.samPlayer2 ? ` & ${match.samPlayer2}` : ""}
-                      </strong>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {item.day === "Sunday" && (
-              <div className="scheduleNote">
-                Singles matches begin immediately after each Pinehurst match completes the front nine.
+              <div className="kpi">
+                {formatTime(String(round.tee_time).slice(0, 5))}
               </div>
-            )}
-          </article>
+
+              <p>
+                <strong>{formatDate(round.round_date)}</strong>
+              </p>
+
+              <p>
+                {round.format === "four_man_scramble"
+                  ? "4-Man Scramble"
+                  : "Individual Net"}
+              </p>
+
+              <p>
+                {course?.course_name ?? "Course TBD"}
+                {course?.tee_name
+                  ? ` · ${course.tee_name} Tees`
+                  : ""}
+              </p>
+
+              {course ? (
+                <p>
+                  Par {course.par} · Rating {course.course_rating} ·
+                  Slope {course.slope_rating}
+                </p>
+              ) : null}
+
+              <Link className="button" href="/teams">
+                View Pairings
+              </Link>
+            </article>
           );
         })}
       </section>
 
-      <section className="scheduleSummaryCard">
-        <div>
-          <span className="smallLabel">TOURNAMENT WEEKEND</span>
-          <h2>{seed.tournament.name} {seed.tournament.year}</h2>
-        </div>
-        <div>
-          <strong>{seed.tournament.venue}</strong>
-          <span>August 28–30, 2026</span>
-        </div>
+      <section
+        className="card"
+        style={{ marginTop: 24 }}
+      >
+        <div className="smallLabel">TOURNAMENT WEEKEND</div>
+        <h2>
+          {data.tournament.name} {data.tournament.year}
+        </h2>
+        <p>Thursday, August 13 through Saturday, August 15, 2026</p>
       </section>
-    </TournamentSectionShell>
+
+      <div style={{ marginTop: 24 }}>
+        <Link className="button" href="/">
+          Tournament Hub
+        </Link>
+      </div>
+    </main>
   );
 }
