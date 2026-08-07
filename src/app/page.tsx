@@ -90,7 +90,7 @@ export default function HomePage() {
           <article className="card">
             <div className="smallLabel">THURSDAY · ROUND 1</div>
             <h3>Individual Net</h3>
-            <div className="kpi">8:00 AM</div>
+            <div className="kpi">1:20 PM</div>
             <Link className="button" href="/thursday">
               Thursday
             </Link>
@@ -99,7 +99,7 @@ export default function HomePage() {
           <article className="card">
             <div className="smallLabel">FRIDAY · ROUNDS 2 & 3</div>
             <h3>Individual + 4-Man Scramble</h3>
-            <div className="kpi">8:00 / 2:00</div>
+            <div className="kpi">9:00 / 3:20</div>
             <Link className="button" href="/friday">
               Friday
             </Link>
@@ -108,7 +108,7 @@ export default function HomePage() {
           <article className="card">
             <div className="smallLabel">SATURDAY · ROUNDS 4 & 5</div>
             <h3>Individual + 4-Man Scramble</h3>
-            <div className="kpi">8:00 / 2:00</div>
+            <div className="kpi">9:10 / 2:50</div>
             <Link className="button" href="/saturday">
               Saturday
             </Link>
