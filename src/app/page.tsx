@@ -1,27 +1,16 @@
 import Link from "next/link";
 import { tournamentHubGroups } from "@/data/tournament-hub";
-import { createAdminClient } from "@/lib/supabase/admin";
-import { getFridayMatchesFromDatabase } from "@/lib/repositories/friday-db";
-import { getSaturdayMatchesFromDatabase } from "@/lib/repositories/saturday-db";
-import { getSundayDataFromDatabase } from "@/lib/repositories/sunday-db";
-import { calculateFridayTournamentBoard } from "@/lib/friday-tournament-board";
-import { calculateSaturdayTournamentBoard } from "@/lib/saturday-tournament-board";
-import { calculateSundayTournamentBoard } from "@/lib/sunday-tournament-board";
-import { calculateOverallTournamentBoard } from "@/lib/overall-tournament-board";
 
 export const dynamic = "force-dynamic";
 
-const points = (value: number) =>
-  Number.isInteger(value) ? String(value) : value.toFixed(1);
-
 function hubActionLabel(href: string): string {
   const labels: Record<string, string> = {
-    "/scoreboard": "View overall score →",
+    "/scoreboard": "Open Scoreboard →",
     "/friday": "View Friday competition →",
     "/saturday": "View Saturday competition →",
     "/sunday": "View Sunday competition →",
     "/player-guide": "Read Player Guide →",
-    "/teams": "Find my team →",
+    "/teams": "View pairings →",
     "/schedule": "View tee times →",
     "/prize-money": "View prize structure →",
     "/final-results": "View final payouts →",
@@ -32,22 +21,7 @@ function hubActionLabel(href: string): string {
   return labels[href] ?? "Open section →";
 }
 
-export default async function HomePage() {
-  const supabase = createAdminClient();
-
-  const [fridayMatches, saturdayMatches, sundayData] =
-    await Promise.all([
-      getFridayMatchesFromDatabase(supabase),
-      getSaturdayMatchesFromDatabase(supabase),
-      getSundayDataFromDatabase(supabase),
-    ]);
-
-  const overall = calculateOverallTournamentBoard(
-    calculateFridayTournamentBoard(fridayMatches),
-    calculateSaturdayTournamentBoard(saturdayMatches),
-    calculateSundayTournamentBoard(sundayData),
-  );
-
+export default function HomePage() {
   return (
     <>
       <section className="hubHero">
@@ -64,17 +38,17 @@ export default async function HomePage() {
 
         <Link className="hubHeroScore" href="/scoreboard">
           <div>
-            <span>TEAM LUKE</span>
-            <strong>{points(overall.overallLukePoints)}</strong>
+            <span>PLAYERS</span>
+            <strong>12</strong>
           </div>
 
           <div className="hubScoreDivider">
-            {overall.complete ? "FINAL" : "OVERALL"}
+            VET HEAD
           </div>
 
           <div>
-            <span>TEAM SAM</span>
-            <strong>{points(overall.overallSamPoints)}</strong>
+            <span>ROUNDS</span>
+            <strong>5</strong>
           </div>
         </Link>
       </section>
