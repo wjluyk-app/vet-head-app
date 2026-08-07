@@ -5293,3 +5293,8 @@ table {
     width: min(100%, 260px);
   }
 }
+
+
+.heroDate {
+  color: rgba(255, 255, 255, 0.88);
+}

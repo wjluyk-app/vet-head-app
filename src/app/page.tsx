@@ -46,7 +46,7 @@ export default function HomePage() {
   return (
     <main className="pageShell">
       <section className="hero">
-        <div className="smallLabel">AUGUST 13–15, 2026</div>
+        <div className="smallLabel heroDate">AUGUST 13–15, 2026</div>
         <h1>Vet Head Tournament Hub</h1>
         <p>
           One home for pairings, tee times, scoring, Vet Head Winners
