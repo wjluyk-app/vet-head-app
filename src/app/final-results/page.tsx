@@ -1,215 +1,184 @@
-import OverallTournamentBoardClient from "@/components/OverallTournamentBoardClient";
-import FinalPayoutsClient from "@/components/FinalPayoutsClient";
-import { createAdminClient } from "@/lib/supabase/admin";
-import { getFridayMatchesFromDatabase } from "@/lib/repositories/friday-db";
-import { getSaturdayMatchesFromDatabase } from "@/lib/repositories/saturday-db";
-import { getSundayDataFromDatabase } from "@/lib/repositories/sunday-db";
-import { calculateFridayTournamentBoard } from "@/lib/friday-tournament-board";
-import { calculateSaturdayTournamentBoard } from "@/lib/saturday-tournament-board";
-import { calculateSundayTournamentBoard } from "@/lib/sunday-tournament-board";
-import { calculateOverallTournamentBoard } from "@/lib/overall-tournament-board";
-import { calculatePlayerAwards } from "@/lib/player-awards";
+import Link from "next/link";
+import { getVetHeadScoreboardData } from "@/lib/repositories/vet-head-scoreboard";
 
 export const dynamic = "force-dynamic";
 
-const money = (value: number) =>
-  new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: value % 1 === 0 ? 0 : 2,
-    maximumFractionDigits: 2,
-  }).format(value);
-
-interface PlayerPayout {
-  player: string;
-  team: "LUKE" | "SAM";
-  fridayField: number;
-  fridaySkins: number;
-  saturdayField: number;
-  sundayPinehurst: number;
-  winningTeamBonus: number;
-  mvpBonus: number;
-  total: number;
-}
+const points = (value: number) =>
+  Number.isInteger(value) ? String(value) : value.toFixed(1);
 
 export default async function FinalResultsPage() {
-  const supabase = createAdminClient();
-
-  const [fridayMatches, saturdayMatches, sundayData] =
-    await Promise.all([
-      getFridayMatchesFromDatabase(supabase),
-      getSaturdayMatchesFromDatabase(supabase),
-      getSundayDataFromDatabase(supabase),
-    ]);
-
-  const friday = calculateFridayTournamentBoard(fridayMatches);
-  const saturday = calculateSaturdayTournamentBoard(saturdayMatches);
-  const sunday = calculateSundayTournamentBoard(sundayData);
-
-  const overall = calculateOverallTournamentBoard(
-    friday,
-    saturday,
-    sunday,
-  );
-
-  const playerAwards = calculatePlayerAwards(
-    friday,
-    saturday,
-    sunday,
-    overall,
-  );
-
-  const payouts = new Map<string, PlayerPayout>();
-
-  for (const player of playerAwards.playerTotals) {
-    payouts.set(`${player.team}:${player.player}`, {
-      player: player.player,
-      team: player.team,
-      fridayField: 0,
-      fridaySkins: 0,
-      saturdayField: 0,
-      sundayPinehurst: 0,
-      winningTeamBonus:
-        overall.complete && overall.winner === player.team ? 40 : 0,
-      mvpBonus: playerAwards.leaders.some(
-        (leader) =>
-          leader.team === player.team &&
-          leader.player === player.player,
-      )
-        ? playerAwards.mvpPayoutEach
-        : 0,
-      total: 0,
-    });
-  }
-
-  function add(
-    team: "LUKE" | "SAM",
-    players: string,
-    field:
-      | "fridayField"
-      | "fridaySkins"
-      | "saturdayField"
-      | "sundayPinehurst",
-    amount: number,
-  ) {
-    const names = players.split(" / ");
-    const share = names.length ? amount / names.length : 0;
-
-    for (const player of names) {
-      const normalizedPlayer =
-        player === "L. Swardo" ? "Luke Swardenski" : player;
-
-      const row = payouts.get(`${team}:${normalizedPlayer}`);
-      if (row) row[field] += share;
-    }
-  }
-
-  for (const team of friday.teams) {
-    add(
-      team.captainTeam,
-      team.players,
-      "fridayField",
-      team.fieldPayout,
-    );
-
-    const skinTotal = friday.skins
-      .filter((skin) => skin.sourceKey === team.sourceKey)
-      .reduce((sum, skin) => sum + skin.teamPayout, 0);
-
-    add(
-      team.captainTeam,
-      team.players,
-      "fridaySkins",
-      skinTotal,
-    );
-  }
-
-  for (const team of saturday.teams) {
-    add(
-      team.captainTeam,
-      team.players,
-      "saturdayField",
-      team.fieldPayout,
-    );
-  }
-
-  for (const match of sunday.pinehurst.matches) {
-    add(
-      "LUKE",
-      match.lukePlayers,
-      "sundayPinehurst",
-      match.lukeFieldPayout,
-    );
-    add(
-      "SAM",
-      match.samPlayers,
-      "sundayPinehurst",
-      match.samFieldPayout,
-    );
-  }
-
-  const playerPayouts = [...payouts.values()]
-    .map((row) => ({
-      ...row,
-      total:
-        row.fridayField +
-        row.fridaySkins +
-        row.saturdayField +
-        row.sundayPinehurst +
-        row.winningTeamBonus +
-        row.mvpBonus,
-    }))
-    .sort(
-      (a, b) =>
-        b.total - a.total ||
-        a.player.localeCompare(b.player),
-    );
-
-  const totalPaid = playerPayouts.reduce(
-    (sum, player) => sum + player.total,
-    0,
-  );
-
-  const championshipMessage = overall.complete
-    ? overall.winner === "LUKE"
-      ? "Team Luke is the 2026 Cubby Cup Champion."
-      : overall.winner === "SAM"
-        ? "Team Sam is the 2026 Cubby Cup Champion."
-        : "The 2026 Cubby Cup finished tied."
-    : "Final payouts will be available after all 54 points are awarded.";
+  const board = await getVetHeadScoreboardData();
+  const tournamentComplete = board.completedRounds === 5;
 
   return (
-    <>
-      <section className="hero fridayResultsHero">
-        <div className="smallLabel">PERMANENT RECORD</div>
-        <h1>Final Payouts</h1>
-        <p>{championshipMessage}</p>
+    <main className="pageShell">
+      <section className="hero">
+        <div className="smallLabel">VET HEAD 2026</div>
+        <h1>Final Results</h1>
+        <p>
+          {tournamentComplete
+            ? "The five-round tournament is complete."
+            : `${board.completedRounds} of 5 rounds complete. Final results are still pending.`}
+        </p>
       </section>
 
-      <OverallTournamentBoardClient initial={overall} />
-
-      {playerAwards.complete && playerAwards.leaders.length > 0 && (
-        <section className="mvpFeatureCard">
-          <div className="mvpFeatureLabel">2026 CUBBY CUP MVP</div>
-
-          <div className="mvpFeatureNames">
-            {playerAwards.leaders.map((leader) => (
-              <div key={`${leader.team}:${leader.player}`}>
-                <h2>{leader.player}</h2>
-                <p>
-                  Team {leader.team} · {leader.points} points ·{" "}
-                  {money(playerAwards.mvpPayoutEach)} award
-                </p>
-              </div>
-            ))}
+      <section className="grid">
+        <article className="card">
+          <div className="smallLabel">VET HEAD MVP</div>
+          <div className="kpi">
+            {tournamentComplete && board.mvp.length
+              ? board.mvp[0].playerName
+              : "Pending"}
           </div>
-        </section>
-      )}
+          <p>
+            {tournamentComplete && board.mvp.length
+              ? `${points(board.mvp[0].totalPoints)} points`
+              : "Determined after all five rounds"}
+          </p>
+        </article>
 
-      <FinalPayoutsClient
-        payouts={playerPayouts}
-        totalPaid={totalPaid}
-      />
-    </>
+        <article className="card">
+          <div className="smallLabel">VET HEADER</div>
+          <div className="kpi">
+            {board.vetHeader.length
+              ? board.vetHeader[0].playerName
+              : "Pending"}
+          </div>
+          <p>
+            {board.vetHeader.length
+              ? `${board.vetHeader[0].totalNet} net · 54 holes`
+              : "Determined after all three individual rounds"}
+          </p>
+        </article>
+
+        <article className="card">
+          <div className="smallLabel">ROUNDS COMPLETE</div>
+          <div className="kpi">{board.completedRounds} / 5</div>
+          <p>
+            Results become permanent when the tournament is complete.
+          </p>
+        </article>
+      </section>
+
+      <section
+        className="tournamentBoardSection"
+        style={{ marginTop: 24 }}
+      >
+        <div className="boardSectionHeader">
+          <div>
+            <div className="smallLabel">MVP</div>
+            <h2>Vet Head MVP Standings</h2>
+          </div>
+        </div>
+
+        {board.mvp.length === 0 ? (
+          <article className="card">
+            <p>No completed rounds yet.</p>
+          </article>
+        ) : (
+          <section className="grid">
+            {board.mvp.map((standing) => (
+              <article className="card" key={standing.playerId}>
+                <div className="smallLabel">
+                  PLACE {standing.place}
+                </div>
+                <h3>{standing.playerName}</h3>
+                <div className="kpi">
+                  {points(standing.totalPoints)}
+                </div>
+                <p>
+                  {standing.firstPlaceFinishes} first-place finishes ·{" "}
+                  {standing.secondPlaceFinishes} second-place finishes
+                </p>
+              </article>
+            ))}
+          </section>
+        )}
+      </section>
+
+      <section
+        className="tournamentBoardSection"
+        style={{ marginTop: 24 }}
+      >
+        <div className="boardSectionHeader">
+          <div>
+            <div className="smallLabel">54-HOLE INDIVIDUAL</div>
+            <h2>Vet Header Standings</h2>
+          </div>
+        </div>
+
+        {board.vetHeader.length === 0 ? (
+          <article className="card">
+            <p>
+              Standings will appear after all three individual rounds
+              are complete for each player.
+            </p>
+          </article>
+        ) : (
+          <section className="grid">
+            {board.vetHeader.map((standing) => (
+              <article className="card" key={standing.playerId}>
+                <div className="smallLabel">
+                  PLACE {standing.place}
+                </div>
+                <h3>{standing.playerName}</h3>
+                <div className="kpi">{standing.totalNet}</div>
+                <p>
+                  Thu {standing.thursdayNet} · Fri{" "}
+                  {standing.fridayAmNet} · Sat{" "}
+                  {standing.saturdayAmNet}
+                </p>
+              </article>
+            ))}
+          </section>
+        )}
+      </section>
+
+      <section
+        className="tournamentBoardSection"
+        style={{ marginTop: 24 }}
+      >
+        <div className="boardSectionHeader">
+          <div>
+            <div className="smallLabel">ROUND RESULTS</div>
+            <h2>Five-Round Record</h2>
+          </div>
+        </div>
+
+        <section className="grid">
+          {board.rounds.map((round) => {
+            const winner = round.groups.find(
+              (group) => group.place === 1,
+            );
+
+            return (
+              <article className="card" key={round.id}>
+                <div className="smallLabel">
+                  ROUND {round.round_number}
+                </div>
+                <h3>{round.name}</h3>
+                <p>
+                  {round.complete && winner
+                    ? `${winner.name} · ${winner.total} net`
+                    : "Pending"}
+                </p>
+              </article>
+            );
+          })}
+        </section>
+      </section>
+
+      <section className="grid" style={{ marginTop: 24 }}>
+        <Link className="card" href="/scoreboard">
+          <h3>Scoreboard</h3>
+          <p>Full round-by-round standings.</p>
+        </Link>
+
+        <Link className="card" href="/prize-money">
+          <h3>Payouts</h3>
+          <p>Official tournament prize structure.</p>
+        </Link>
+      </section>
+    </main>
   );
 }

@@ -1,38 +1,79 @@
 import Link from "next/link";
-import TournamentSectionShell from "@/components/TournamentSectionShell";
-import { getBillAdminUser } from "@/lib/auth/admin";
+import { getVetHeadPublicTournamentData } from "@/lib/repositories/vet-head-public";
+
+export const dynamic = "force-dynamic";
 
 export default async function FridayPage() {
-  const adminUser = await getBillAdminUser();
+  const data = await getVetHeadPublicTournamentData();
+  const morning = data.rounds.find((item) => item.round_number === 2);
+  const afternoon = data.rounds.find((item) => item.round_number === 3);
+
+  if (!morning || !afternoon) {
+    throw new Error("Vet Head Friday rounds were not found.");
+  }
+
   return (
-    <TournamentSectionShell
-      eyebrow="DAY 1 · MOUNTAIN COURSE"
-      title="Friday"
-      description="1 Best Ball of 2 — match play, field competition, skins and results."
-      status="Live"
-    >
-      <section className="sectionActionGrid">
-        <Link className="sectionActionCard sectionActionPrimary" href="/scoreboard?day=friday">
-          <span>LIVE</span>
-          <h2>Friday Live Scoreboard</h2>
-          <p>Match points, hole scores, field standings, leaders and skins.</p>
-          <strong>Open scoreboard →</strong>
+    <main className="pageShell">
+      <section className="hero">
+        <div className="smallLabel">FRIDAY · ROUNDS 2 & 3</div>
+        <h1>Friday</h1>
+        <p>Individual Net in the morning · 4-Man Scramble in the afternoon</p>
+      </section>
+
+      <section className="grid">
+        <article className="card">
+          <div className="smallLabel">ROUND 2 · 8:00 AM</div>
+          <h2>Friday Morning Individual Net</h2>
+          <p>
+            Each player posts one final 18-hole gross score. The app
+            calculates Course Handicap and final net.
+          </p>
+          <p>
+            Group finish is determined by the combined net scores of
+            the four players.
+          </p>
+        </article>
+
+        <article className="card">
+          <div className="smallLabel">ROUND 3 · 2:00 PM</div>
+          <h2>Friday Afternoon 4-Man Scramble</h2>
+          <p>
+            One final 18-hole gross team score is entered for each
+            four-player team.
+          </p>
+          <p>
+            Team handicap uses 25% / 20% / 15% / 10% of the four
+            Course Handicaps, lowest to highest.
+          </p>
+        </article>
+
+        <article className="card">
+          <div className="smallLabel">MVP POINTS · EACH ROUND</div>
+          <h2>8 · 6 · 4</h2>
+          <p>
+            Every player on the 1st-place group receives 8 points,
+            2nd receives 6 and 3rd receives 4. Ties split the
+            applicable point pools.
+          </p>
+        </article>
+      </section>
+
+      <section className="grid" style={{ marginTop: 24 }}>
+        <Link className="card" href="/teams">
+          <h3>Friday Pairings</h3>
+          <p>Morning groups and afternoon scramble teams.</p>
         </Link>
-        {adminUser && (
-          <Link className="sectionActionCard" href="/score/friday">
-            <span>ADMIN</span>
-            <h2>Friday Score Entry</h2>
-            <p>Enter or correct each team’s NET score by hole.</p>
-            <strong>Open scoring →</strong>
-          </Link>
-        )}
-        <Link className="sectionActionCard" href="/prize-money">
-          <span>MONEY</span>
-          <h2>Friday Prize Structure</h2>
-          <p>Front, back, total and skins awards available on Friday.</p>
-          <strong>View Friday prize structure →</strong>
+
+        <Link className="card" href="/scoreboard">
+          <h3>Scoreboard</h3>
+          <p>Round results, MVP points and Vet Header standings.</p>
+        </Link>
+
+        <Link className="card" href="/prize-money">
+          <h3>Payouts</h3>
+          <p>Friday individual and scramble prize structure.</p>
         </Link>
       </section>
-    </TournamentSectionShell>
+    </main>
   );
 }

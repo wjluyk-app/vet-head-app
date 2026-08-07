@@ -1,140 +1,154 @@
 import Link from "next/link";
-import { tournamentHubGroups } from "@/data/tournament-hub";
 
 export const dynamic = "force-dynamic";
 
-function hubActionLabel(href: string): string {
-  const labels: Record<string, string> = {
-    "/scoreboard": "Open Scoreboard →",
-    "/friday": "View Friday competition →",
-    "/saturday": "View Saturday competition →",
-    "/sunday": "View Sunday competition →",
-    "/player-guide": "Read Player Guide →",
-    "/teams": "View pairings →",
-    "/schedule": "View tee times →",
-    "/prize-money": "View prize structure →",
-    "/final-results": "View final payouts →",
-    "/archive": "View tournament archive →",
-    "/upcoming-years": "View upcoming years →",
-  };
-
-  return labels[href] ?? "Open section →";
-}
+const sections = [
+  {
+    title: "Pairings",
+    description: "See all five predetermined groups and team assignments.",
+    href: "/teams",
+    action: "View pairings →",
+  },
+  {
+    title: "Schedule",
+    description: "Rounds, dates, start times, formats and course information.",
+    href: "/schedule",
+    action: "View schedule →",
+  },
+  {
+    title: "Scoreboard",
+    description: "Round results, Vet Head MVP points and Vet Header standings.",
+    href: "/scoreboard",
+    action: "Open Scoreboard →",
+    featured: true,
+  },
+  {
+    title: "Player Guide",
+    description: "Formats, handicap rules, scoring and championship structure.",
+    href: "/player-guide",
+    action: "Read Player Guide →",
+  },
+  {
+    title: "Payouts",
+    description: "Official $1,200 Vet Head prize structure.",
+    href: "/prize-money",
+    action: "View payouts →",
+  },
+  {
+    title: "Final Results",
+    description: "Champions and final standings when the tournament is complete.",
+    href: "/final-results",
+    action: "View final results →",
+  },
+];
 
 export default function HomePage() {
   return (
-    <>
-      <section className="hubHero">
-        <div className="hubHeroCopy">
-          <div className="smallLabel hubEdition">
-            AUGUST 13–15, 2026
-          </div>
-          <h1>Vet Head Tournament Hub</h1>
-          <p>
-            One home for pairings, tee times, scoring, Vet Head points
-            and the Vet Header race.
-          </p>
-        </div>
-
-        <Link className="hubHeroScore" href="/scoreboard">
-          <div>
-            <span>PLAYERS</span>
-            <strong>12</strong>
-          </div>
-
-          <div className="hubScoreDivider">
-            VET HEAD
-          </div>
-
-          <div>
-            <span>ROUNDS</span>
-            <strong>5</strong>
-          </div>
-        </Link>
+    <main className="pageShell">
+      <section className="hero">
+        <div className="smallLabel">AUGUST 13–15, 2026</div>
+        <h1>Vet Head Tournament Hub</h1>
+        <p>
+          One home for pairings, tee times, scoring, Vet Head MVP
+          points, Vet Header standings and payouts.
+        </p>
       </section>
 
-      <section className="hubStartHere" aria-labelledby="start-here-heading">
-        <div className="hubStartHereCopy">
-          <span className="smallLabel">VET HEAD</span>
-          <h2 id="start-here-heading">Start Here</h2>
-          <p>
-            Check your pairings and tee times, then use the Scoreboard for
-            Vet Head points, Vet Header standings and round results.
-          </p>
-        </div>
+      <section className="grid">
+        <article className="card">
+          <div className="smallLabel">PLAYERS</div>
+          <div className="kpi">12</div>
+          <p>One field · Same tees</p>
+        </article>
 
-        <div className="hubStartHereActions">
-          <Link href="/teams">
-            <span>1</span>
-            <strong>View Pairings</strong>
-          </Link>
+        <article className="card">
+          <div className="smallLabel">ROUNDS</div>
+          <div className="kpi">5</div>
+          <p>Three individual · Two scramble</p>
+        </article>
 
-          <Link href="/schedule">
-            <span>2</span>
-            <strong>View Tee Times</strong>
-          </Link>
-
-          <Link href="/scoreboard">
-            <span>3</span>
-            <strong>Open Scoreboard</strong>
-          </Link>
-        </div>
+        <article className="card">
+          <div className="smallLabel">PRIZE POOL</div>
+          <div className="kpi">$1,200</div>
+          <p>Round payouts + Vet Head MVP + Vet Header</p>
+        </article>
       </section>
 
-      {tournamentHubGroups.map((group) => (
-        <section className="hubGroup" key={group.title}>
-          <div className="hubGroupHeader">
-            <div>
-              <h2>{group.title}</h2>
-              <p>{group.description}</p>
-            </div>
+      <section
+        className="tournamentBoardSection"
+        style={{ marginTop: 24 }}
+      >
+        <div className="boardSectionHeader">
+          <div>
+            <div className="smallLabel">START HERE</div>
+            <h2>Tournament Weekend</h2>
+            <p>Thursday through Saturday · Five rounds</p>
           </div>
+        </div>
 
-          <div className="hubTileGrid">
-            {group.items.map((item) => (
-              <Link
-                className={
-                  item.featured
-                    ? "hubTile hubTileFeatured"
-                    : "hubTile"
-                }
-                href={item.href}
-                key={item.title}
-              >
-                <div className="hubTileTop hubTileTopNoIcon">
-                  <span
-                    className={`hubStatus hubStatus${item.status.replace(
-                      " ",
-                      "",
-                    )}`}
-                  >
-                    {item.status}
-                  </span>
-                </div>
+        <section className="grid">
+          <article className="card">
+            <div className="smallLabel">THURSDAY · ROUND 1</div>
+            <h3>Individual Net</h3>
+            <div className="kpi">8:00 AM</div>
+            <Link className="button" href="/thursday">
+              Thursday
+            </Link>
+          </article>
 
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
-                <span className="hubOpen">{hubActionLabel(item.href)}</span>
-              </Link>
-            ))}
-          </div>
+          <article className="card">
+            <div className="smallLabel">FRIDAY · ROUNDS 2 & 3</div>
+            <h3>Individual + 4-Man Scramble</h3>
+            <div className="kpi">8:00 / 2:00</div>
+            <Link className="button" href="/friday">
+              Friday
+            </Link>
+          </article>
+
+          <article className="card">
+            <div className="smallLabel">SATURDAY · ROUNDS 4 & 5</div>
+            <h3>Individual + 4-Man Scramble</h3>
+            <div className="kpi">8:00 / 2:00</div>
+            <Link className="button" href="/saturday">
+              Saturday
+            </Link>
+          </article>
         </section>
-      ))}
-
-      <section className="hubAdminBar">
-        <div>
-          <strong>Tournament Administration</strong>
-          <span>
-            Score entry, corrections, setup, audit history and exports.
-          </span>
-        </div>
-
-        <Link className="secondaryButton" href="/admin">
-          Open Admin
-        </Link>
       </section>
 
+      <section
+        className="grid"
+        style={{ marginTop: 24 }}
+      >
+        {sections.map((item) => (
+          <article className="card" key={item.href}>
+            <div className="smallLabel">
+              {item.featured ? "LIVE TOURNAMENT" : "VET HEAD 2026"}
+            </div>
+            <h2>{item.title}</h2>
+            <p>{item.description}</p>
+            <Link className="button" href={item.href}>
+              {item.action}
+            </Link>
+          </article>
+        ))}
+      </section>
 
-    </>
+      <section
+        className="card"
+        style={{ marginTop: 24 }}
+      >
+        <div className="smallLabel">SCORING</div>
+        <h2>Two Championships</h2>
+        <p>
+          <strong>Vet Head MVP:</strong> points earned from group
+          finishes across all five rounds.
+        </p>
+        <p>
+          <strong>Vet Header:</strong> lowest combined net score from
+          Thursday, Friday morning and Saturday morning.
+        </p>
+      </section>
+    </main>
   );
 }

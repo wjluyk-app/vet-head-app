@@ -1,60 +1,73 @@
 import Link from "next/link";
-import TournamentSectionShell from "@/components/TournamentSectionShell";
-import { getBillAdminUser } from "@/lib/auth/admin";
+import { getVetHeadPublicTournamentData } from "@/lib/repositories/vet-head-public";
+
+export const dynamic = "force-dynamic";
 
 export default async function SaturdayPage() {
-  const adminUser = await getBillAdminUser();
+  const data = await getVetHeadPublicTournamentData();
+  const morning = data.rounds.find((item) => item.round_number === 4);
+  const afternoon = data.rounds.find((item) => item.round_number === 5);
+
+  if (!morning || !afternoon) {
+    throw new Error("Vet Head Saturday rounds were not found.");
+  }
+
   return (
-    <TournamentSectionShell
-      eyebrow="DAY 2 · BETSIE VALLEY"
-      title="Saturday"
-      description="2-Man Scramble — match play, field competition, payouts and results."
-      status="Live"
-    >
-      <section className="sectionActionGrid">
-        <Link className="sectionActionCard sectionActionPrimary" href="/scoreboard?day=saturday">
-          <span>RESULTS</span>
-          <h2>Saturday Live Scoreboard</h2>
-          <p>Match points, hole scores, field standings and leaders.</p>
-          <strong>Open scoreboard →</strong>
-        </Link>
-
-        {adminUser && (
-          <Link className="sectionActionCard" href="/score/saturday">
-            <span>ADMIN</span>
-            <h2>Saturday Score Entry</h2>
-            <p>Enter or correct each team’s NET scramble score by hole.</p>
-            <strong>Open scoring →</strong>
-          </Link>
-        )}
-
-        <Link className="sectionActionCard" href="/prize-money">
-          <span>MONEY</span>
-          <h2>Saturday Prize Structure</h2>
-          <p>Front, back and total field awards available on Saturday.</p>
-          <strong>View Saturday prize structure →</strong>
-        </Link>
+    <main className="pageShell">
+      <section className="hero">
+        <div className="smallLabel">SATURDAY · ROUNDS 4 & 5</div>
+        <h1>Saturday</h1>
+        <p>
+          Individual Net in the morning · Final 4-Man Scramble in the
+          afternoon
+        </p>
       </section>
 
-      <section className="saturdayFormatCard">
-        <div>
-          <span className="smallLabel">FORMAT</span>
-          <h2>18-Hole 2-Man Scramble</h2>
-          <p>35% of the low handicap plus 15% of the high handicap.</p>
-        </div>
+      <section className="grid">
+        <article className="card">
+          <div className="smallLabel">ROUND 4 · 8:00 AM</div>
+          <h2>Saturday Morning Individual Net</h2>
+          <p>
+            The third and final individual round completes the
+            54-hole Vet Header championship.
+          </p>
+        </article>
 
-        <div>
-          <span className="smallLabel">TEE TIMES</span>
-          <strong>11:20 AM–12:10 PM</strong>
-          <p>All groups begin on Hole 1 at Betsie Valley.</p>
-        </div>
+        <article className="card">
+          <div className="smallLabel">ROUND 5 · 2:00 PM</div>
+          <h2>Saturday Afternoon 4-Man Scramble</h2>
+          <p>
+            The fifth and final Vet Head round. Final team net
+            determines the last 8 / 6 / 4 MVP point allocation.
+          </p>
+        </article>
 
-        <div>
-          <span className="smallLabel">POINTS</span>
-          <strong>18</strong>
-          <p>Front, back and total are worth one point in each of six matches.</p>
-        </div>
+        <article className="card">
+          <div className="smallLabel">CHAMPIONSHIPS</div>
+          <h2>Vet Header + Vet Head MVP</h2>
+          <p>
+            Saturday morning completes the Vet Header. Saturday
+            afternoon completes the five-round MVP race.
+          </p>
+        </article>
       </section>
-    </TournamentSectionShell>
+
+      <section className="grid" style={{ marginTop: 24 }}>
+        <Link className="card" href="/teams">
+          <h3>Saturday Pairings</h3>
+          <p>Morning groups and afternoon scramble teams.</p>
+        </Link>
+
+        <Link className="card" href="/scoreboard">
+          <h3>Scoreboard</h3>
+          <p>Final standings and championship results.</p>
+        </Link>
+
+        <Link className="card" href="/final-results">
+          <h3>Final Results</h3>
+          <p>Vet Head MVP and Vet Header champions.</p>
+        </Link>
+      </section>
+    </main>
   );
 }
