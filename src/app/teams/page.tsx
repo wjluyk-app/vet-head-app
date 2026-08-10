@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getVetHeadPublicTournamentData } from "@/lib/repositories/vet-head-public";
 import {
+  calculateCourseHandicap,
   calculateFourPlayerScrambleHandicap,
   calculateUnroundedCourseHandicap,
 } from "@/lib/vet-head-scoring";
@@ -114,7 +115,12 @@ export default async function VetHeadPairingsPage() {
                       <span>
                         {player.handicapIndex === null
                           ? "HDCP —"
-                          : `HDCP ${player.handicapIndex}`}
+                          : `HDCP ${calculateCourseHandicap(
+                              Number(player.handicapIndex),
+                              Number(round.course_tee?.[0]?.slope_rating ?? 113),
+                              Number(round.course_tee?.[0]?.course_rating ?? 72),
+                              Number(round.course_tee?.[0]?.par ?? 72),
+                            )}`}
                       </span>
                     )}
                   </div>
