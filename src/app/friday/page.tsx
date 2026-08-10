@@ -3,6 +3,12 @@ import { getVetHeadPublicTournamentData } from "@/lib/repositories/vet-head-publ
 
 export const dynamic = "force-dynamic";
 
+const formatTime = (value: string) => {
+  const [hourText, minuteText] = String(value).slice(0, 5).split(":");
+  const hour = Number(hourText);
+  return `${hour % 12 || 12}:${minuteText} ${hour >= 12 ? "PM" : "AM"}`;
+};
+
 export default async function FridayPage() {
   const data = await getVetHeadPublicTournamentData();
   const morning = data.rounds.find((item) => item.round_number === 2);
@@ -30,7 +36,7 @@ export default async function FridayPage() {
 
       <section className="grid">
         <article className="card">
-          <div className="smallLabel">ROUND 2 · {morning.tee_time}</div>
+          <div className="smallLabel">ROUND 2 · {formatTime(morning.tee_time)}</div>
           <h2>Morning Individual Net</h2>
           <p>
             {morningCourse?.course_name ?? "Course TBD"}
@@ -39,7 +45,7 @@ export default async function FridayPage() {
         </article>
 
         <article className="card">
-          <div className="smallLabel">ROUND 3 · {afternoon.tee_time}</div>
+          <div className="smallLabel">ROUND 3 · {formatTime(afternoon.tee_time)}</div>
           <h2>Afternoon 4-Man Scramble</h2>
           <p>
             {afternoonCourse?.course_name ?? "Course TBD"}

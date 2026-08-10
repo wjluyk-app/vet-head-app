@@ -70,10 +70,6 @@ export default async function VetHeadPairingsPage() {
                 </div>
 
                 <h3>
-                  {group.name ??
-                    (round.format === "four_man_scramble"
-                      ? `Team ${group.group_number}`
-                      : `Group ${group.group_number}`)}
                 </h3>
 
                 <p style={{ marginTop: 4, marginBottom: 12 }}>

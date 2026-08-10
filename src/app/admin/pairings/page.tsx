@@ -5,6 +5,12 @@ import { updateVetHeadPairingGroup } from "./actions";
 
 export const dynamic = "force-dynamic";
 
+const formatTime = (value: string) => {
+  const [hourText, minuteText] = String(value).slice(0, 5).split(":");
+  const hour = Number(hourText);
+  return `${hour % 12 || 12}:${minuteText} ${hour >= 12 ? "PM" : "AM"}`;
+};
+
 type Player = {
   id: string;
   import_key: string | null;
@@ -143,7 +149,7 @@ export default async function VetHeadPairingsAdminPage() {
 
               <p>
                 {round.round_date} ·{" "}
-                {String(round.tee_time).slice(0, 5)} ·{" "}
+                {formatTime(round.tee_time)} ·{" "}
                 {round.format === "four_man_scramble"
                   ? "4-Man Scramble"
                   : "Individual Net"}
@@ -178,7 +184,7 @@ export default async function VetHeadPairingsAdminPage() {
                 </h3>
 
                 <p>
-                  Tee Time: {String(group.group_tee_time ?? round.tee_time).slice(0, 5)}
+                  Tee Time: {formatTime(group.group_tee_time ?? round.tee_time)}
                 </p>
 
                 {[1, 2, 3, 4].map((order) => {
