@@ -6113,3 +6113,8 @@ a.card strong {
     padding: 4px 20px 0;
   }
 }
+
+/* Vet Head hero labels */
+.hero .smallLabel {
+  color: #ffffff;
+}
