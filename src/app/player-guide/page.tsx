@@ -202,8 +202,13 @@ export default async function VetHeadPlayerGuidePage() {
         </Link>
 
         <Link className="card" href="/prize-money">
-          <h3>Payouts</h3>
-          <p>Official $1,200 prize structure.</p>
+          <h3>Payouts Preview</h3>
+          <p>See what is at stake throughout Vet Head.</p>
+        </Link>
+
+        <Link className="card" href="/payout-results">
+          <h3>Payout Results</h3>
+          <p>See who won each payout and how much they earned.</p>
         </Link>
       </section>
     </main>
