@@ -20,66 +20,43 @@ export default async function ThursdayPage() {
       <section className="hero">
         <div className="smallLabel">THURSDAY · ROUND 1</div>
         <h1>Individual Net</h1>
-        <p>
-          August 13, 2026 · {round.tee_time}
-        </p>
+        <p>August 13, 2026 · {round.tee_time}</p>
       </section>
 
       <section className="grid">
         <article className="card">
-          <div className="smallLabel">FORMAT</div>
+          <div className="smallLabel">ROUND 1 · {round.tee_time}</div>
           <h2>18-Hole Individual Net</h2>
           <p>
-            Final gross score is entered for each player. Course
-            Handicap is calculated automatically and subtracted to
-            determine net score.
-          </p>
-        </article>
-
-        <article className="card">
-          <div className="smallLabel">COURSE</div>
-          <h2>{course?.course_name ?? "Course TBD"}</h2>
-          <p>
-            {course?.tee_name
-              ? `${course.tee_name} Tees`
-              : "Tournament tees"}
+            {course?.course_name ?? "Course TBD"}
+            {course?.tee_name ? ` · ${course.tee_name} Tees` : ""}
           </p>
           {course ? (
             <p>
-              Par {course.par} · Rating {course.course_rating} ·
-              Slope {course.slope_rating}
+              Par {course.par} · Rating {course.course_rating} · Slope{" "}
+              {course.slope_rating}
             </p>
           ) : null}
-        </article>
-
-        <article className="card">
-          <div className="smallLabel">VET HEAD POINTS</div>
-          <h2>8 · 6 · 4</h2>
-          <p>
-            Each four-player group total is the sum of its four net
-            scores. Every player in the group receives the group&apos;s
-            finish points.
-          </p>
         </article>
       </section>
 
       <section className="grid" style={{ marginTop: 24 }}>
         <Link className="card" href="/teams">
           <div className="smallLabel">ROUND 1</div>
-          <h3>View Pairings</h3>
+          <h3>Pairings</h3>
           <p>See all three Thursday groups.</p>
         </Link>
 
         <Link className="card" href="/scoreboard">
-          <div className="smallLabel">RESULTS</div>
+          <div className="smallLabel">LIVE TOURNAMENT</div>
           <h3>Scoreboard</h3>
-          <p>Round standings and Vet Head Points.</p>
+          <p>Round results, Vet Head Points and Vet Head MVP.</p>
         </Link>
 
         <Link className="card" href="/prize-money">
-          <div className="smallLabel">MONEY</div>
-          <h3>Payouts</h3>
-          <p>Thursday individual prize structure.</p>
+          <div className="smallLabel">PAYOUTS</div>
+          <h3>Prize Money</h3>
+          <p>Thursday individual payout structure.</p>
         </Link>
       </section>
     </main>

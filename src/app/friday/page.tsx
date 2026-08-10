@@ -12,6 +12,14 @@ export default async function FridayPage() {
     throw new Error("Vet Head Friday rounds were not found.");
   }
 
+  const morningCourse = Array.isArray(morning.course_tee)
+    ? morning.course_tee[0]
+    : morning.course_tee;
+
+  const afternoonCourse = Array.isArray(afternoon.course_tee)
+    ? afternoon.course_tee[0]
+    : afternoon.course_tee;
+
   return (
     <main className="pageShell">
       <section className="hero">
@@ -22,60 +30,43 @@ export default async function FridayPage() {
 
       <section className="grid">
         <article className="card">
-          <div className="smallLabel">
-            ROUND 2 · {morning.tee_time}
-          </div>
-          <h2>Friday Morning Individual Net</h2>
+          <div className="smallLabel">ROUND 2 · {morning.tee_time}</div>
+          <h2>Morning Individual Net</h2>
           <p>
-            Each player posts one final 18-hole gross score. The app
-            calculates Course Handicap and final net.
-          </p>
-          <p>
-            Group finish is determined by the combined net scores of
-            the four players.
+            {morningCourse?.course_name ?? "Course TBD"}
+            {morningCourse?.tee_name ? ` · ${morningCourse.tee_name} Tees` : ""}
           </p>
         </article>
 
         <article className="card">
-          <div className="smallLabel">
-            ROUND 3 · {afternoon.tee_time}
-          </div>
-          <h2>Friday Afternoon 4-Man Scramble</h2>
+          <div className="smallLabel">ROUND 3 · {afternoon.tee_time}</div>
+          <h2>Afternoon 4-Man Scramble</h2>
           <p>
-            One final 18-hole gross team score is entered for each
-            four-player team.
-          </p>
-          <p>
-            Team handicap uses 25% / 20% / 15% / 10% of the four
-            Course Handicaps, lowest to highest.
-          </p>
-        </article>
-
-        <article className="card">
-          <div className="smallLabel">VET HEAD POINTS · EACH ROUND</div>
-          <h2>8 · 6 · 4</h2>
-          <p>
-            Every player on the 1st-place group receives 8 points,
-            2nd receives 6 and 3rd receives 4. Ties split the
-            applicable point pools.
+            {afternoonCourse?.course_name ?? "Course TBD"}
+            {afternoonCourse?.tee_name
+              ? ` · ${afternoonCourse.tee_name} Tees`
+              : ""}
           </p>
         </article>
       </section>
 
       <section className="grid" style={{ marginTop: 24 }}>
         <Link className="card" href="/teams">
-          <h3>Friday Pairings</h3>
+          <div className="smallLabel">FRIDAY</div>
+          <h3>Pairings</h3>
           <p>Morning groups and afternoon scramble teams.</p>
         </Link>
 
         <Link className="card" href="/scoreboard">
+          <div className="smallLabel">LIVE TOURNAMENT</div>
           <h3>Scoreboard</h3>
-          <p>Round results, Vet Head Points and Vet Head MVP standings.</p>
+          <p>Round results, Vet Head Points and Vet Head MVP.</p>
         </Link>
 
         <Link className="card" href="/prize-money">
-          <h3>Payouts</h3>
-          <p>Friday individual and scramble prize structure.</p>
+          <div className="smallLabel">PAYOUTS</div>
+          <h3>Prize Money</h3>
+          <p>Friday individual and scramble payouts.</p>
         </Link>
       </section>
     </main>
