@@ -174,9 +174,9 @@ export default async function FinalResultsPage() {
           <p>Full round-by-round standings.</p>
         </Link>
 
-        <Link className="card" href="/prize-money">
-          <h3>Payouts</h3>
-          <p>Official tournament prize structure.</p>
+        <Link className="card" href="/payout-results">
+          <h3>Payout Results</h3>
+          <p>See the prize money awarded from the final scoring results.</p>
         </Link>
       </section>
     </main>

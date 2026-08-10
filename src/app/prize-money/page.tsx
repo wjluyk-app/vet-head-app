@@ -61,9 +61,9 @@ export default async function VetHeadPayoutsPage() {
     <main className="pageShell">
       <section className="hero">
         <div className="smallLabel">VET HEAD 2026</div>
-        <h1>Payouts</h1>
+        <h1>Payouts Preview</h1>
         <p>
-          Official tournament prize structure for August 13–15, 2026.
+          What is at stake throughout Vet Head 2026.
         </p>
       </section>
 
@@ -130,11 +130,17 @@ export default async function VetHeadPayoutsPage() {
         )
       )}
 
-      <div style={{ marginTop: 22 }}>
-        <Link className="button" href="/">
-          Tournament Hub
+      <section className="grid" style={{ marginTop: 22 }}>
+        <Link className="card" href="/payout-results">
+          <h3>Payout Results</h3>
+          <p>See who won each payout from the official scoring results.</p>
         </Link>
-      </div>
+
+        <Link className="card" href="/">
+          <h3>Tournament Hub</h3>
+          <p>Return to the Vet Head home page.</p>
+        </Link>
+      </section>
     </main>
   );
 }
