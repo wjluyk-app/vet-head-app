@@ -3,6 +3,13 @@ import { getVetHeadPublicTournamentData } from "@/lib/repositories/vet-head-publ
 
 export const dynamic = "force-dynamic";
 
+function formatTeeTime(value: string) {
+  const [hourText, minute] = String(value).slice(0, 5).split(":");
+  const hour = Number(hourText);
+
+  return `${hour % 12 || 12}:${minute} ${hour >= 12 ? "PM" : "AM"}`;
+}
+
 const sections = [
   {
     title: "Pairings",
@@ -83,7 +90,7 @@ export default async function HomePage() {
           <article className="card">
             <div className="smallLabel">THURSDAY · ROUND 1</div>
             <h3>Individual Net</h3>
-            <div className="kpi">{round1.tee_time}</div>
+            <div className="kpi">{formatTeeTime(round1.tee_time)}</div>
             <Link className="button" href="/thursday">
               Thursday
             </Link>
@@ -93,7 +100,7 @@ export default async function HomePage() {
             <div className="smallLabel">FRIDAY · ROUNDS 2 & 3</div>
             <h3>Individual + 4-Man Scramble</h3>
             <div className="kpi">
-              {round2.tee_time} / {round3.tee_time}
+              {formatTeeTime(round2.tee_time)} / {formatTeeTime(round3.tee_time)}
             </div>
             <Link className="button" href="/friday">
               Friday
@@ -104,7 +111,7 @@ export default async function HomePage() {
             <div className="smallLabel">SATURDAY · ROUNDS 4 & 5</div>
             <h3>Individual + 4-Man Scramble</h3>
             <div className="kpi">
-              {round4.tee_time} / {round5.tee_time}
+              {formatTeeTime(round4.tee_time)} / {formatTeeTime(round5.tee_time)}
             </div>
             <Link className="button" href="/saturday">
               Saturday
