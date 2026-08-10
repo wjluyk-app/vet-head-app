@@ -22,29 +22,35 @@ export default async function VetHeadRoundEntryPage({
     ? round.course_tee[0]
     : round.course_tee;
 
+  const isIndividual = round.format === "individual_net";
+
   return (
-    <main className="pageShell">
-      <section className="contentCard">
-        <div className="eyebrow">VET HEAD 2026 · SCORE ENTRY</div>
+    <main className="vetRoundEntryPage">
+      <section className="vetRoundEntryHero">
+        <div className="vetRoundEntryKicker">
+          VET HEAD 2026 · SCORE ENTRY
+        </div>
 
         <h1>{round.name}</h1>
 
-        <p className="lede">
-          {round.format === "individual_net"
+        <p>
+          {isIndividual
             ? "Enter each player’s final 18-hole gross score."
             : "Enter each team’s final 18-hole gross scramble score."}
         </p>
 
-        <p className="muted">
-          {courseTee?.course_name ?? "Course TBD"}
-          {" · "}
-          {courseTee?.tee_name ?? "Tees TBD"}
-        </p>
+        <div className="vetRoundEntryMeta">
+          <span>{courseTee?.course_name ?? "Course TBD"}</span>
+          <span>•</span>
+          <span>{courseTee?.tee_name ?? "Tees TBD"}</span>
+        </div>
 
-        <Link href="/score">← Back to rounds</Link>
+        <Link className="vetBackButton" href="/score">
+          ← Back to Rounds
+        </Link>
       </section>
 
-      <section className="sectionBlock">
+      <section className="vetRoundEntryGroups">
         {groups.map((group) => {
           const groupAssignments = assignments
             .filter(
@@ -61,27 +67,33 @@ export default async function VetHeadRoundEntryPage({
           );
 
           return (
-            <article className="contentCard" key={group.id}>
-              <div className="eyebrow">
-                GROUP {group.group_number}
-              </div>
-
-              <h2>
-                {group.name || `Group ${group.group_number}`}
-              </h2>
-
-              {round.format === "individual_net" ? (
+            <article className="vetRoundGroupCard" key={group.id}>
+              <header className="vetRoundGroupHeader">
                 <div>
+                  <span>GROUP {group.group_number}</span>
+                  <h2>
+                    {group.name || `Group ${group.group_number}`}
+                  </h2>
+                </div>
+
+                <div className="vetGroupCount">
+                  {groupAssignments.length} Players
+                </div>
+              </header>
+
+              {isIndividual ? (
+                <div className="vetPlayerScoreList">
                   {groupAssignments.map((assignment) => {
                     const existingScore = individualScores.find(
-                      (score) => score.player_id === assignment.player_id,
+                      (score) =>
+                        score.player_id === assignment.player_id,
                     );
 
                     return (
                       <form
                         action={saveIndividualScoreAction}
                         key={assignment.id}
-                        className="scoreEntryRow"
+                        className="vetPlayerScoreRow"
                       >
                         <input
                           type="hidden"
@@ -95,46 +107,60 @@ export default async function VetHeadRoundEntryPage({
                           value={assignment.player_id}
                         />
 
-                        <div>
+                        <div className="vetPlayerScoreInfo">
                           <strong>
                             {assignment.player?.display_name ?? "Player"}
                           </strong>
 
-                          <div className="muted">
+                          <span>
                             HI {assignment.player?.handicap_index ?? "—"}
-                          </div>
+                          </span>
+
+                          {existingScore && (
+                            <small>
+                              Course HDCP {existingScore.course_handicap}
+                              {" · "}
+                              Net {existingScore.net_score}
+                            </small>
+                          )}
                         </div>
 
-                        <input
-                          type="number"
-                          name="grossScore"
-                          min="18"
-                          max="200"
-                          required
-                          defaultValue={
-                            existingScore?.gross_score ?? ""
-                          }
-                          aria-label={`Gross score for ${
-                            assignment.player?.display_name ?? "player"
-                          }`}
-                        />
+                        <div className="vetScoreControls">
+                          <label>
+                            <span>Gross</span>
 
-                        <button type="submit" className="button">
-                          Save
-                        </button>
+                            <input
+                              type="number"
+                              name="grossScore"
+                              min="18"
+                              max="200"
+                              inputMode="numeric"
+                              required
+                              defaultValue={
+                                existingScore?.gross_score ?? ""
+                              }
+                              aria-label={`Gross score for ${
+                                assignment.player?.display_name ?? "player"
+                              }`}
+                            />
+                          </label>
 
-                        {existingScore && (
-                          <div className="muted">
-                            CH {existingScore.course_handicap} · Net{" "}
-                            {existingScore.net_score}
-                          </div>
-                        )}
+                          <button
+                            type="submit"
+                            className="vetSaveScoreButton"
+                          >
+                            {existingScore ? "Update" : "Save"}
+                          </button>
+                        </div>
                       </form>
                     );
                   })}
                 </div>
               ) : (
-                <form action={saveScrambleScoreAction}>
+                <form
+                  action={saveScrambleScoreAction}
+                  className="vetScrambleScoreForm"
+                >
                   <input
                     type="hidden"
                     name="roundId"
@@ -147,41 +173,50 @@ export default async function VetHeadRoundEntryPage({
                     value={group.id}
                   />
 
-                  <p>
-                    {groupAssignments
-                      .map(
-                        (assignment) =>
-                          assignment.player?.display_name ?? "Player",
-                      )
-                      .join(" / ")}
-                  </p>
+                  <div className="vetScramblePlayers">
+                    <span>TEAM</span>
 
-                  <div className="scoreEntryRow">
+                    <strong>
+                      {groupAssignments
+                        .map(
+                          (assignment) =>
+                            assignment.player?.display_name ?? "Player",
+                        )
+                        .join(" · ")}
+                    </strong>
+                  </div>
+
+                  {scrambleScore && (
+                    <div className="vetScrambleCurrent">
+                      Team HDCP {scrambleScore.team_handicap}
+                      {" · "}
+                      Net {scrambleScore.net_score}
+                    </div>
+                  )}
+
+                  <div className="vetScrambleControls">
                     <label>
-                      <strong>Gross Score</strong>
+                      <span>Gross Team Score</span>
+
+                      <input
+                        type="number"
+                        name="grossScore"
+                        min="18"
+                        max="200"
+                        inputMode="numeric"
+                        required
+                        defaultValue={
+                          scrambleScore?.gross_score ?? ""
+                        }
+                      />
                     </label>
 
-                    <input
-                      type="number"
-                      name="grossScore"
-                      min="18"
-                      max="200"
-                      required
-                      defaultValue={
-                        scrambleScore?.gross_score ?? ""
-                      }
-                    />
-
-                    <button type="submit" className="button">
-                      Save
+                    <button
+                      type="submit"
+                      className="vetSaveScoreButton"
+                    >
+                      {scrambleScore ? "Update Score" : "Save Score"}
                     </button>
-
-                    {scrambleScore && (
-                      <div className="muted">
-                        Team HCP {scrambleScore.team_handicap} · Net{" "}
-                        {scrambleScore.net_score}
-                      </div>
-                    )}
                   </div>
                 </form>
               )}

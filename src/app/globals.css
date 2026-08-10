@@ -5538,3 +5538,326 @@ table {
     font-size: 16px;
   }
 }
+
+
+/* Vet Head polished round score entry */
+.vetRoundEntryPage {
+  width: min(100%, 1050px);
+  margin: 0 auto;
+  padding: 28px 22px 70px;
+}
+
+.vetRoundEntryHero {
+  padding: 32px 34px;
+  border-radius: 24px;
+  background: #174f43;
+  color: #ffffff;
+}
+
+.vetRoundEntryKicker {
+  margin-bottom: 10px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+}
+
+.vetRoundEntryHero h1 {
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(36px, 6vw, 52px);
+  line-height: 1.05;
+}
+
+.vetRoundEntryHero p {
+  max-width: 720px;
+  margin: 16px 0 0;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 18px;
+  line-height: 1.45;
+}
+
+.vetRoundEntryMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 17px;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.vetBackButton {
+  display: inline-flex;
+  margin-top: 24px;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.vetRoundEntryGroups {
+  display: grid;
+  gap: 20px;
+  margin-top: 26px;
+}
+
+.vetRoundGroupCard {
+  overflow: hidden;
+  border: 1px solid #d8dfdc;
+  border-radius: 22px;
+  background: #ffffff;
+  box-shadow: 0 7px 22px rgba(18, 52, 43, 0.05);
+}
+
+.vetRoundGroupHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 22px 26px;
+  border-bottom: 1px solid #e0e5e2;
+  background: #f4f7f6;
+}
+
+.vetRoundGroupHeader span {
+  color: #71817b;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+}
+
+.vetRoundGroupHeader h2 {
+  margin: 4px 0 0;
+  color: #10241f;
+  font-size: 27px;
+  line-height: 1.1;
+}
+
+.vetGroupCount {
+  flex: 0 0 auto;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: #e3ece9;
+  color: #174f43;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.vetPlayerScoreList {
+  padding: 0 26px;
+}
+
+.vetPlayerScoreRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 22px;
+  padding: 22px 0;
+  border-bottom: 1px solid #e8ecea;
+}
+
+.vetPlayerScoreRow:last-child {
+  border-bottom: 0;
+}
+
+.vetPlayerScoreInfo {
+  min-width: 0;
+}
+
+.vetPlayerScoreInfo strong {
+  display: block;
+  color: #10241f;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.vetPlayerScoreInfo > span {
+  display: block;
+  margin-top: 4px;
+  color: #65726d;
+  font-size: 14px;
+}
+
+.vetPlayerScoreInfo small {
+  display: block;
+  margin-top: 7px;
+  color: #174f43;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.vetScoreControls {
+  display: flex;
+  align-items: end;
+  gap: 10px;
+}
+
+.vetScoreControls label,
+.vetScrambleControls label {
+  display: grid;
+  gap: 5px;
+}
+
+.vetScoreControls label > span,
+.vetScrambleControls label > span {
+  color: #66736e;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.vetScoreControls input,
+.vetScrambleControls input {
+  width: 84px;
+  height: 54px;
+  padding: 0 8px;
+  border: 2px solid #aeb8b4;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #10241f;
+  font-size: 24px;
+  font-weight: 900;
+  text-align: center;
+}
+
+.vetScoreControls input:focus,
+.vetScrambleControls input:focus {
+  border-color: #174f43;
+  outline: 3px solid rgba(23, 79, 67, 0.13);
+}
+
+.vetSaveScoreButton {
+  min-width: 105px;
+  height: 54px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 12px;
+  background: #174f43;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.vetScrambleScoreForm {
+  padding: 26px;
+}
+
+.vetScramblePlayers > span {
+  display: block;
+  margin-bottom: 7px;
+  color: #71817b;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}
+
+.vetScramblePlayers strong {
+  color: #10241f;
+  font-size: 19px;
+  line-height: 1.45;
+}
+
+.vetScrambleCurrent {
+  margin-top: 18px;
+  padding: 11px 14px;
+  border-radius: 10px;
+  background: #e8f0ed;
+  color: #174f43;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.vetScrambleControls {
+  display: flex;
+  align-items: end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.vetScrambleControls input {
+  width: 105px;
+}
+
+@media (max-width: 700px) {
+  .vetRoundEntryPage {
+    padding: 20px 16px 54px;
+  }
+
+  .vetRoundEntryHero {
+    padding: 26px 22px;
+    border-radius: 20px;
+  }
+
+  .vetRoundEntryHero h1 {
+    font-size: 38px;
+  }
+
+  .vetRoundEntryHero p {
+    font-size: 16px;
+  }
+
+  .vetRoundGroupCard {
+    border-radius: 18px;
+  }
+
+  .vetRoundGroupHeader {
+    padding: 19px 20px;
+  }
+
+  .vetRoundGroupHeader h2 {
+    font-size: 25px;
+  }
+
+  .vetPlayerScoreList {
+    padding: 0 20px;
+  }
+
+  .vetPlayerScoreRow {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 20px 0;
+  }
+
+  .vetPlayerScoreInfo strong {
+    font-size: 20px;
+  }
+
+  .vetScoreControls {
+    display: grid;
+    grid-template-columns: 92px minmax(0, 1fr);
+    align-items: end;
+    gap: 10px;
+  }
+
+  .vetScoreControls input {
+    width: 92px;
+    height: 56px;
+  }
+
+  .vetSaveScoreButton {
+    width: 100%;
+    min-width: 0;
+    height: 56px;
+  }
+
+  .vetScrambleScoreForm {
+    padding: 20px;
+  }
+
+  .vetScrambleControls {
+    display: grid;
+    grid-template-columns: 110px minmax(0, 1fr);
+    align-items: end;
+  }
+
+  .vetScrambleControls input {
+    width: 110px;
+    height: 56px;
+  }
+}
