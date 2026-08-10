@@ -48,6 +48,7 @@ type RankedEntry = {
 
 type Award = {
   id: string;
+  playerId: string;
   place: string;
   title: string;
   detail: string;
@@ -98,6 +99,7 @@ const allocateAwards = (
       tiedEntries.forEach((entry, tiedIndex) => {
         awards.push({
           id: entry.id,
+          playerId: entry.id,
           place: placeLabel(startPlace, tiedEntries.length > 1),
           title: entry.title,
           detail: entry.detail,
@@ -218,6 +220,7 @@ export default async function PayoutResultsPage() {
         team.players.forEach((player, index) => {
           awards.push({
             id: `${team.id}-${player.id}`,
+            playerId: player.id,
             place: teamAward.place,
             title: player.name,
             detail: `${team.name} · ${team.total} net`,
@@ -313,6 +316,63 @@ export default async function PayoutResultsPage() {
     0,
   );
 
+  const winningsByPlayer = new Map(
+    board.players.map((player) => [
+      player.id,
+      {
+        playerId: player.id,
+        playerName: player.display_name,
+        total: 0,
+        payouts: 0,
+      },
+    ]),
+  );
+
+  for (const section of sections) {
+    for (const award of section.awards) {
+      const player = winningsByPlayer.get(award.playerId);
+
+      if (!player) continue;
+
+      player.total += award.amount;
+      player.payouts += 1;
+    }
+  }
+
+  const sortedWinnings = Array.from(
+    winningsByPlayer.values(),
+  ).sort(
+    (a, b) =>
+      b.total - a.total ||
+      a.playerName.localeCompare(b.playerName),
+  );
+
+  const winningsRanking: Array<{
+    playerId: string;
+    playerName: string;
+    total: number;
+    payouts: number;
+    rank: number;
+  }> = [];
+
+  let previousTotal: number | null = null;
+  let previousRank = 0;
+
+  sortedWinnings.forEach((player, index) => {
+    const rank =
+      previousTotal !== null && player.total === previousTotal
+        ? previousRank
+        : index + 1;
+
+    winningsRanking.push({
+      ...player,
+      rank,
+    });
+
+    previousTotal = player.total;
+    previousRank = rank;
+  });
+
   return (
     <main className="pageShell">
       <section className="hero">
@@ -322,6 +382,63 @@ export default async function PayoutResultsPage() {
           Prize money automatically calculated from official scoring
           results. Ties split the money for the occupied places.
         </p>
+      </section>
+
+      <nav className="payoutTabs" aria-label="Payout views">
+        <Link className="payoutTab" href="/prize-money">
+          Preview
+        </Link>
+        <Link
+          className="payoutTab payoutTabActive"
+          href="/payout-results"
+        >
+          Results
+        </Link>
+      </nav>
+
+      <section
+        className="tournamentBoardSection"
+        style={{ marginTop: 24 }}
+      >
+        <div className="boardSectionHeader">
+          <div>
+            <div className="smallLabel">PLAYER WINNINGS</div>
+            <h2>Total Winnings</h2>
+            <p>All players ranked from highest to lowest winnings.</p>
+          </div>
+        </div>
+
+        <div className="card payoutLeaderboard">
+          {winningsRanking.map((player) => {
+            const tied =
+              winningsRanking.filter(
+                (item) => item.total === player.total,
+              ).length > 1;
+
+            return (
+              <div
+                className="payoutLeaderboardRow"
+                key={player.playerId}
+              >
+                <div className="payoutRank">
+                  {tied ? `T${player.rank}` : player.rank}
+                </div>
+
+                <div className="payoutPlayer">
+                  <strong>{player.playerName}</strong>
+                  <span>
+                    {player.payouts}{" "}
+                    {player.payouts === 1 ? "payout" : "payouts"}
+                  </span>
+                </div>
+
+                <div className="payoutAmount">
+                  {money(player.total)}
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </section>
 
       <section className="grid">

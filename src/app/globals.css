@@ -5965,3 +5965,99 @@ a.card strong {
   color: inherit;
   text-decoration: none;
 }
+
+/* Payout Preview / Results navigation */
+.payoutTabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 20px 0 0;
+  padding: 6px;
+  background: #e9eeec;
+  border-radius: 14px;
+}
+
+.payoutTab,
+.payoutTab:visited {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  border-radius: 10px;
+  color: var(--navy);
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.payoutTabActive,
+.payoutTabActive:visited {
+  background: var(--navy);
+  color: white;
+}
+
+/* Total winnings leaderboard */
+.payoutLeaderboard {
+  padding: 0;
+  overflow: hidden;
+}
+
+.payoutLeaderboardRow {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  padding: 15px 18px;
+  border-top: 1px solid #e1e6e4;
+}
+
+.payoutLeaderboardRow:first-child {
+  border-top: 0;
+}
+
+.payoutRank {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--navy);
+  color: white;
+  font-weight: 900;
+}
+
+.payoutPlayer {
+  min-width: 0;
+}
+
+.payoutPlayer strong {
+  display: block;
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.payoutPlayer span {
+  display: block;
+  margin-top: 4px;
+  color: #66716d;
+  font-size: 13px;
+}
+
+.payoutAmount {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--navy);
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .payoutLeaderboardRow {
+    grid-template-columns: 44px minmax(0, 1fr) auto;
+    gap: 10px;
+    padding: 14px 12px;
+  }
+
+  .payoutAmount {
+    font-size: 19px;
+  }
+}

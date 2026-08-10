@@ -67,6 +67,18 @@ export default async function VetHeadPayoutsPage() {
         </p>
       </section>
 
+      <nav className="payoutTabs" aria-label="Payout views">
+        <Link
+          className="payoutTab payoutTabActive"
+          href="/prize-money"
+        >
+          Preview
+        </Link>
+        <Link className="payoutTab" href="/payout-results">
+          Results
+        </Link>
+      </nav>
+
       <section className="grid">
         <article className="card">
           <h3>Total Prize Pool</h3>
