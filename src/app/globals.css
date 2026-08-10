@@ -5861,3 +5861,91 @@ table {
     height: 56px;
   }
 }
+
+/* Vet Head Winners standings */
+.vetWinnersDesktop {
+  overflow-x: auto;
+}
+
+.vetWinnersTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.vetWinnersTable th,
+.vetWinnersTable td {
+  padding: 12px 14px;
+}
+
+.vetWinnersTable th {
+  text-align: left;
+}
+
+.vetWinnersTable th:nth-child(n + 3),
+.vetWinnersTable td:nth-child(n + 3) {
+  text-align: right;
+}
+
+.vetWinnersMobile {
+  display: none;
+}
+
+@media (max-width: 650px) {
+  .vetWinnersDesktop {
+    display: none;
+  }
+
+  .vetWinnersMobile {
+    display: grid;
+    gap: 10px;
+  }
+
+  .vetWinnerMobileRow {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr);
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    border: 1px solid #d8dfdc;
+    border-radius: 16px;
+    background: #ffffff;
+  }
+
+  .vetWinnerPosition {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #174f43;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 900;
+  }
+
+  .vetWinnerPlayer {
+    min-width: 0;
+  }
+
+  .vetWinnerPlayer strong {
+    display: block;
+    color: #10241f;
+    font-size: 20px;
+    line-height: 1.2;
+    word-break: normal;
+    overflow-wrap: normal;
+  }
+
+  .vetWinnerPlayer span {
+    display: block;
+    margin-top: 5px;
+    color: #66716d;
+    font-size: 14px;
+    line-height: 1.35;
+  }
+
+  .vetWinnerPlayer b {
+    color: #174f43;
+  }
+}

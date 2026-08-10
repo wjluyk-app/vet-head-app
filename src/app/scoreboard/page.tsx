@@ -84,80 +84,59 @@ export default async function ScoreboardPage() {
         </div>
 
         {board.mvp.length === 0 ? (
-          <article className="card">
-            <p>
-              MVP standings will begin after the first round is
-              complete.
-            </p>
-          </article>
-        ) : (
-          <div className="card" style={{ overflowX: "auto" }}>
-            <table
-              style={{
-                width: "100%",
-                borderCollapse: "collapse",
-              }}
-            >
-              <thead>
-                <tr>
-                  <th style={{ textAlign: "left", padding: 10 }}>
-                    Pos
-                  </th>
-                  <th style={{ textAlign: "left", padding: 10 }}>
-                    Player
-                  </th>
-                  <th style={{ textAlign: "right", padding: 10 }}>
-                    Points
-                  </th>
-                  <th style={{ textAlign: "right", padding: 10 }}>
-                    1sts
-                  </th>
-                  <th style={{ textAlign: "right", padding: 10 }}>
-                    2nds
-                  </th>
+      <article className="card">
+        <p>
+          Vet Head Winners standings will begin after the first round is complete.
+        </p>
+      </article>
+    ) : (
+      <>
+        <div className="card vetWinnersDesktop">
+          <table className="vetWinnersTable">
+            <thead>
+              <tr>
+                <th>Pos</th>
+                <th>Player</th>
+                <th>Points</th>
+                <th>1sts</th>
+                <th>2nds</th>
+              </tr>
+            </thead>
+            <tbody>
+              {board.mvp.map((standing) => (
+                <tr key={standing.playerId}>
+                  <td>{standing.place}</td>
+                  <td><strong>{standing.playerName}</strong></td>
+                  <td>{standing.totalPoints}</td>
+                  <td>{standing.firstPlaceFinishes}</td>
+                  <td>{standing.secondPlaceFinishes}</td>
                 </tr>
-              </thead>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-              <tbody>
-                {board.mvp.map((standing) => (
-                  <tr key={standing.playerId}>
-                    <td style={{ padding: 10 }}>
-                      {standing.place}
-                    </td>
-                    <td style={{ padding: 10 }}>
-                      <strong>{standing.playerName}</strong>
-                    </td>
-                    <td
-                      style={{
-                        padding: 10,
-                        textAlign: "right",
-                      }}
-                    >
-                      {standing.totalPoints}
-                    </td>
-                    <td
-                      style={{
-                        padding: 10,
-                        textAlign: "right",
-                      }}
-                    >
-                      {standing.firstPlaceFinishes}
-                    </td>
-                    <td
-                      style={{
-                        padding: 10,
-                        textAlign: "right",
-                      }}
-                    >
-                      {standing.secondPlaceFinishes}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </section>
+        <div className="vetWinnersMobile">
+          {board.mvp.map((standing) => (
+            <article className="vetWinnerMobileRow" key={standing.playerId}>
+              <div className="vetWinnerPosition">{standing.place}</div>
+              <div className="vetWinnerPlayer">
+                <strong>{standing.playerName}</strong>
+                <span>
+                  <b>{standing.totalPoints} pts</b>
+                  {" · "}
+                  {standing.firstPlaceFinishes} firsts
+                  {" · "}
+                  {standing.secondPlaceFinishes} seconds
+                </span>
+              </div>
+            </article>
+          ))}
+        </div>
+      </>
+    )}
+
+        </section>
 
       <section
         className="tournamentBoardSection"
