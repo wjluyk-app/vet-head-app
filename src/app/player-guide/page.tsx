@@ -124,7 +124,7 @@ export default async function VetHeadPlayerGuidePage() {
       >
         <div className="boardSectionHeader">
           <div>
-            <div className="smallLabel">VET HEAD WINNERS</div>
+            <div className="smallLabel">VET HEAD POINTS</div>
             <h2>Five-Round Points Race</h2>
           </div>
         </div>
@@ -154,7 +154,7 @@ export default async function VetHeadPlayerGuidePage() {
             8 / 5 / 5. A three-way tie produces 6 / 6 / 6.
           </p>
           <p>
-            Overall MVP ties are broken by most 1st-place finishes,
+            Vet Head Points ties are broken by most 1st-place finishes,
             then most 2nd-place finishes, then lowest Vet Head MVP
             54-hole total.
           </p>

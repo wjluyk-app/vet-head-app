@@ -22,7 +22,9 @@ export default async function FridayPage() {
 
       <section className="grid">
         <article className="card">
-          <div className="smallLabel">ROUND 2 · 8:00 AM</div>
+          <div className="smallLabel">
+            ROUND 2 · {morning.tee_time}
+          </div>
           <h2>Friday Morning Individual Net</h2>
           <p>
             Each player posts one final 18-hole gross score. The app
@@ -35,7 +37,9 @@ export default async function FridayPage() {
         </article>
 
         <article className="card">
-          <div className="smallLabel">ROUND 3 · 2:00 PM</div>
+          <div className="smallLabel">
+            ROUND 3 · {afternoon.tee_time}
+          </div>
           <h2>Friday Afternoon 4-Man Scramble</h2>
           <p>
             One final 18-hole gross team score is entered for each
@@ -48,7 +52,7 @@ export default async function FridayPage() {
         </article>
 
         <article className="card">
-          <div className="smallLabel">MVP POINTS · EACH ROUND</div>
+          <div className="smallLabel">VET HEAD POINTS · EACH ROUND</div>
           <h2>8 · 6 · 4</h2>
           <p>
             Every player on the 1st-place group receives 8 points,
@@ -66,7 +70,7 @@ export default async function FridayPage() {
 
         <Link className="card" href="/scoreboard">
           <h3>Scoreboard</h3>
-          <p>Round results, MVP points and Vet Head MVP standings.</p>
+          <p>Round results, Vet Head Points and Vet Head MVP standings.</p>
         </Link>
 
         <Link className="card" href="/prize-money">

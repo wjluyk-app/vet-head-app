@@ -20,7 +20,9 @@ export default async function ThursdayPage() {
       <section className="hero">
         <div className="smallLabel">THURSDAY · ROUND 1</div>
         <h1>Individual Net</h1>
-        <p>August 13, 2026 · 8:00 AM</p>
+        <p>
+          August 13, 2026 · {round.tee_time}
+        </p>
       </section>
 
       <section className="grid">
@@ -51,7 +53,7 @@ export default async function ThursdayPage() {
         </article>
 
         <article className="card">
-          <div className="smallLabel">MVP POINTS</div>
+          <div className="smallLabel">VET HEAD POINTS</div>
           <h2>8 · 6 · 4</h2>
           <p>
             Each four-player group total is the sum of its four net
@@ -71,7 +73,7 @@ export default async function ThursdayPage() {
         <Link className="card" href="/scoreboard">
           <div className="smallLabel">RESULTS</div>
           <h3>Scoreboard</h3>
-          <p>Round standings and MVP points.</p>
+          <p>Round standings and Vet Head Points.</p>
         </Link>
 
         <Link className="card" href="/prize-money">

@@ -25,7 +25,9 @@ export default async function SaturdayPage() {
 
       <section className="grid">
         <article className="card">
-          <div className="smallLabel">ROUND 4 · 8:00 AM</div>
+          <div className="smallLabel">
+            ROUND 4 · {morning.tee_time}
+          </div>
           <h2>Saturday Morning Individual Net</h2>
           <p>
             The third and final individual round completes the
@@ -34,20 +36,22 @@ export default async function SaturdayPage() {
         </article>
 
         <article className="card">
-          <div className="smallLabel">ROUND 5 · 2:00 PM</div>
+          <div className="smallLabel">
+            ROUND 5 · {afternoon.tee_time}
+          </div>
           <h2>Saturday Afternoon 4-Man Scramble</h2>
           <p>
             The fifth and final Vet Head round. Final team net
-            determines the last 8 / 6 / 4 MVP point allocation.
+            determines the last 8 / 6 / 4 Vet Head Points allocation.
           </p>
         </article>
 
         <article className="card">
           <div className="smallLabel">CHAMPIONSHIPS</div>
-          <h2>Vet Head MVP + Vet Head Winners</h2>
+          <h2>Vet Head MVP + Vet Head Points</h2>
           <p>
             Saturday morning completes the Vet Head MVP. Saturday
-            afternoon completes the five-round MVP race.
+            afternoon completes the five-round Vet Head Points race.
           </p>
         </article>
       </section>
@@ -65,7 +69,7 @@ export default async function SaturdayPage() {
 
         <Link className="card" href="/final-results">
           <h3>Final Results</h3>
-          <p>Vet Head Winners and Vet Head MVP champions.</p>
+          <p>Vet Head Points and Vet Head MVP champions.</p>
         </Link>
       </section>
     </main>

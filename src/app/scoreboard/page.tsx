@@ -41,7 +41,7 @@ export default async function ScoreboardPage() {
         </article>
 
         <article className="card">
-          <div className="smallLabel">VET HEAD WINNERS</div>
+          <div className="smallLabel">VET HEAD POINTS</div>
           <div className="kpi">
             {board.mvp.length > 0
               ? board.mvp[0].playerName
@@ -86,7 +86,7 @@ export default async function ScoreboardPage() {
         {board.mvp.length === 0 ? (
       <article className="card">
         <p>
-          Vet Head Winners standings will begin after the first round is complete.
+          Vet Head Points standings will begin after the first round is complete.
         </p>
       </article>
     ) : (
@@ -304,7 +304,7 @@ export default async function ScoreboardPage() {
                 ) : null}
 
                 <p>
-                  MVP Points: {points(group.pointsPerPlayer)}
+                  Points: {points(group.pointsPerPlayer)}
                 </p>
               </article>
             ))}

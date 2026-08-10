@@ -17,7 +17,7 @@ const sections = [
   },
   {
     title: "Scoreboard",
-    description: "Round results, Vet Head Winners points and Vet Head MVP standings.",
+    description: "Round results, Vet Head Points and Vet Head MVP standings.",
     href: "/scoreboard",
     action: "Open Scoreboard →",
     featured: true,
@@ -49,7 +49,7 @@ export default function HomePage() {
         <div className="smallLabel heroDate">AUGUST 13–15, 2026</div>
         <h1>Vet Head Tournament Hub</h1>
         <p>
-          One home for pairings, tee times, scoring, Vet Head Winners
+          One home for pairings, tee times, scoring, Vet Head Points
           points, Vet Head MVP standings and payouts.
         </p>
       </section>
@@ -70,7 +70,7 @@ export default function HomePage() {
         <article className="card">
           <div className="smallLabel">PRIZE POOL</div>
           <div className="kpi">$1,200</div>
-          <p>Round payouts + Vet Head Winners + Vet Head MVP</p>
+          <p>Round payouts + Vet Head Points + Vet Head MVP</p>
         </article>
       </section>
 
@@ -141,7 +141,7 @@ export default function HomePage() {
         <div className="smallLabel">SCORING</div>
         <h2>Two Championships</h2>
         <p>
-          <strong>Vet Head Winners:</strong> points earned from group
+          <strong>Vet Head Points:</strong> points earned from group
           finishes across all five rounds.
         </p>
         <p>
