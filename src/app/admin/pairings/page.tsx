@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { requireBillAdmin } from "@/lib/auth/admin";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { updateVetHeadPairingGroup } from "./actions";
+import { updateVetHeadPairingRound } from "./actions";
 
 export const dynamic = "force-dynamic";
 
@@ -157,74 +157,96 @@ export default async function VetHeadPairingsAdminPage() {
             </div>
           </div>
 
-          <section className="grid">
-            {round.round_group.map((group) => (
-              <form
-                action={updateVetHeadPairingGroup}
-                className="card"
-                key={group.id}
-              >
-                <input
-                  type="hidden"
-                  name="group_id"
-                  value={group.id}
-                />
+          <form action={updateVetHeadPairingRound}>
+            <input
+              type="hidden"
+              name="round_id"
+              value={round.id}
+            />
 
-                <div className="smallLabel">
-                  {round.format === "four_man_scramble"
-                    ? `TEAM ${group.group_number}`
-                    : `GROUP ${group.group_number}`}
-                </div>
+            <section className="grid">
+              {round.round_group.map((group) => (
+                <article className="card" key={group.id}>
+                  <input
+                    type="hidden"
+                    name={`group_${group.group_number}_id`}
+                    value={group.id}
+                  />
 
-                <h3>
-                  {group.name ??
-                    (round.format === "four_man_scramble"
-                      ? `Team ${group.group_number}`
-                      : `Group ${group.group_number}`)}
-                </h3>
+                  <div className="smallLabel">
+                    {round.format === "four_man_scramble"
+                      ? `TEAM ${group.group_number}`
+                      : `GROUP ${group.group_number}`}
+                  </div>
 
-                <p>
-                  Tee Time: {formatTime(group.group_tee_time ?? round.tee_time)}
-                </p>
+                  <h3>
+                    {group.name ??
+                      (round.format === "four_man_scramble"
+                        ? `Team ${group.group_number}`
+                        : `Group ${group.group_number}`)}
+                  </h3>
 
-                {[1, 2, 3, 4].map((order) => {
-                  const assignment =
-                    group.round_group_player.find(
-                      (item) => item.player_order === order,
-                    );
+                  <p>
+                    Tee Time:{" "}
+                    {formatTime(
+                      group.group_tee_time ?? round.tee_time,
+                    )}
+                  </p>
 
-                  return (
-                    <label key={order}>
-                      Player {order}
-                      <select
-                        className="textInput"
-                        name={`player_${order}_id`}
-                        defaultValue={assignment?.player_id ?? ""}
-                        required
-                      >
-                        <option value="" disabled>
-                          Select player
-                        </option>
+                  {[1, 2, 3, 4].map((order) => {
+                    const assignment =
+                      group.round_group_player.find(
+                        (item) => item.player_order === order,
+                      );
 
-                        {players.map((player) => (
-                          <option key={player.id} value={player.id}>
-                            {player.import_key ?? ""} —{" "}
-                            {player.display_name}
+                    return (
+                      <label key={order}>
+                        Player {order}
+
+                        <select
+                          className="textInput"
+                          name={`group_${group.group_number}_player_${order}_id`}
+                          defaultValue={
+                            assignment?.player_id ?? ""
+                          }
+                          required
+                        >
+                          <option value="" disabled>
+                            Select player
                           </option>
-                        ))}
-                      </select>
-                    </label>
-                  );
-                })}
 
-                <div style={{ marginTop: 16 }}>
-                  <button className="button" type="submit">
-                    Save Group
-                  </button>
-                </div>
-              </form>
-            ))}
-          </section>
+                          {players.map((player) => (
+                            <option
+                              key={player.id}
+                              value={player.id}
+                            >
+                              {player.import_key ?? ""} —{" "}
+                              {player.display_name}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                    );
+                  })}
+                </article>
+              ))}
+            </section>
+
+            <div
+              style={{
+                marginTop: 18,
+                padding: "0 20px 20px",
+              }}
+            >
+              <button className="button" type="submit">
+                Save {round.name} Pairings
+              </button>
+
+              <p style={{ marginTop: 10 }}>
+                All 12 players must appear exactly once in this round.
+              </p>
+            </div>
+          </form>
         </section>
       ))}
 
