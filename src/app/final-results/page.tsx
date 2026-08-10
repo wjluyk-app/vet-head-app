@@ -66,74 +66,31 @@ export default async function FinalResultsPage() {
       >
         <div className="boardSectionHeader">
           <div>
-            <div className="smallLabel">MVP</div>
-            <h2>Vet Head Points Standings</h2>
-          </div>
-        </div>
-
-        {board.mvp.length === 0 ? (
-          <article className="card">
-            <p>No completed rounds yet.</p>
-          </article>
-        ) : (
-          <section className="grid">
-            {board.mvp.map((standing) => (
-              <article className="card" key={standing.playerId}>
-                <div className="smallLabel">
-                  PLACE {standing.place}
-                </div>
-                <h3>{standing.playerName}</h3>
-                <div className="kpi">
-                  {points(standing.totalPoints)}
-                </div>
-                <p>
-                  {standing.firstPlaceFinishes} first-place finishes ·{" "}
-                  {standing.secondPlaceFinishes} second-place finishes
-                </p>
-              </article>
-            ))}
-          </section>
-        )}
-      </section>
-
-      <section
-        className="tournamentBoardSection"
-        style={{ marginTop: 24 }}
-      >
-        <div className="boardSectionHeader">
-          <div>
-            <div className="smallLabel">54-HOLE INDIVIDUAL</div>
-            <h2>Vet Head MVP Standings</h2>
-          </div>
-        </div>
-
-        {board.vetHeader.length === 0 ? (
-          <article className="card">
+            <div className="smallLabel">CHAMPIONSHIP SUMMARY</div>
+            <h2>Official Vet Head Results</h2>
             <p>
-              Standings will appear after all three individual rounds
-              are complete for each player.
+              Champions are shown above. Complete Vet Head Points and
+              Vet Head MVP standings remain available on the Scoreboard.
             </p>
-          </article>
-        ) : (
-          <section className="grid">
-            {board.vetHeader.map((standing) => (
-              <article className="card" key={standing.playerId}>
-                <div className="smallLabel">
-                  PLACE {standing.place}
-                </div>
-                <h3>{standing.playerName}</h3>
-                <div className="kpi">{standing.totalNet}</div>
-                <p>
-                  Thu {standing.thursdayNet} · Fri{" "}
-                  {standing.fridayAmNet} · Sat{" "}
-                  {standing.saturdayAmNet}
-                </p>
-              </article>
-            ))}
-          </section>
-        )}
-      </section>
+          </div>
+        </div>
 
+        <section className="grid">
+          <Link className="card" href="/scoreboard">
+            <h3>Full Scoreboard</h3>
+            <p>
+              View complete Points, MVP and round-by-round standings.
+            </p>
+          </Link>
+
+          <Link className="card" href="/payout-results">
+            <h3>Payout Results</h3>
+            <p>
+              View total winnings and the detailed payout results.
+            </p>
+          </Link>
+        </section>
+      </section>
       <section
         className="tournamentBoardSection"
         style={{ marginTop: 24 }}
@@ -168,17 +125,6 @@ export default async function FinalResultsPage() {
         </section>
       </section>
 
-      <section className="grid" style={{ marginTop: 24 }}>
-        <Link className="card" href="/scoreboard">
-          <h3>Scoreboard</h3>
-          <p>Full round-by-round standings.</p>
-        </Link>
-
-        <Link className="card" href="/payout-results">
-          <h3>Payout Results</h3>
-          <p>See the prize money awarded from the final scoring results.</p>
-        </Link>
-      </section>
     </main>
   );
 }
