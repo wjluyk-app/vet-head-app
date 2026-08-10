@@ -16,49 +16,69 @@ function formatRoundLabel(format: string) {
   return format;
 }
 
+function roundTypeClass(format: string) {
+  return format === "four_man_scramble"
+    ? "vetScoreFormat vetScoreFormatScramble"
+    : "vetScoreFormat";
+}
+
 export default async function ScoreEntryPage() {
   const access = await requireScoreEntryAccess();
   const data = await getVetHeadTournamentData();
 
   return (
-    <main className="pageShell">
-      <section className="contentCard">
-        <div className="eyebrow">VET HEAD 2026</div>
+    <main className="vetScorePage">
+      <section className="vetScoreHero">
+        <div className="vetScoreEyebrow">VET HEAD 2026</div>
 
         <h1>Score Entry</h1>
 
-        <p className="lede">
+        <p className="vetScoreLead">
           Enter final 18-hole gross scores for the selected round.
         </p>
 
-        <p className="muted">
-          Signed in as{" "}
+        <div className="vetScoreSignedIn">
+          <span>Signed in as</span>
           <strong>{access.user.email}</strong>
-          {access.role === "admin" ? " · Admin" : " · Score Entry"}
-        </p>
+          <span className="vetScoreRole">
+            {access.role === "admin" ? "Admin" : "Score Entry"}
+          </span>
+        </div>
       </section>
 
-      <section className="sectionBlock">
-        <h2>Select Round</h2>
+      <section className="vetScoreRounds">
+        <div className="vetScoreSectionHeading">
+          <div>
+            <span>TOURNAMENT SCORING</span>
+            <h2>Select Round</h2>
+          </div>
 
-        <div className="hubGrid">
+          <p>Choose the round you want to enter.</p>
+        </div>
+
+        <div className="vetScoreGrid">
           {data.rounds.map((round) => (
             <Link
               key={round.id}
               href={`/score/round/${round.id}`}
-              className="hubCard"
+              className="vetScoreRoundCard"
             >
-              <div className="hubCardKicker">
-                Round {round.round_number}
+              <div className="vetScoreCardTop">
+                <span className="vetScoreRoundNumber">
+                  Round {round.round_number}
+                </span>
+
+                <span className={roundTypeClass(round.format)}>
+                  {formatRoundLabel(round.format)}
+                </span>
               </div>
 
               <h3>{round.name}</h3>
 
-              <p>{formatRoundLabel(round.format)}</p>
-
-              <span className="hubCardAction">
-                Enter scores →
-              </span>
+              <div className="vetScoreEnterButton">
+                Enter Scores
+                <span aria-hidden="true">→</span>
+              </div>
             </Link>
           ))}
         </div>
