@@ -160,83 +160,68 @@ export default async function ScoreboardPage() {
             </p>
           </article>
         ) : (
-          <div className="card" style={{ overflowX: "auto" }}>
-            <table
-              style={{
-                width: "100%",
-                borderCollapse: "collapse",
-              }}
-            >
-              <thead>
-                <tr>
-                  <th style={{ textAlign: "left", padding: 10 }}>
-                    Pos
-                  </th>
-                  <th style={{ textAlign: "left", padding: 10 }}>
-                    Player
-                  </th>
-                  <th style={{ textAlign: "right", padding: 10 }}>
-                    Thu
-                  </th>
-                  <th style={{ textAlign: "right", padding: 10 }}>
-                    Fri AM
-                  </th>
-                  <th style={{ textAlign: "right", padding: 10 }}>
-                    Sat AM
-                  </th>
-                  <th style={{ textAlign: "right", padding: 10 }}>
-                    Total
-                  </th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {board.vetHeader.map((standing) => (
-                  <tr key={standing.playerId}>
-                    <td style={{ padding: 10 }}>
-                      {standing.place}
-                    </td>
-                    <td style={{ padding: 10 }}>
-                      <strong>{standing.playerName}</strong>
-                    </td>
-                    <td
-                      style={{
-                        padding: 10,
-                        textAlign: "right",
-                      }}
-                    >
-                      {standing.thursdayNet}
-                    </td>
-                    <td
-                      style={{
-                        padding: 10,
-                        textAlign: "right",
-                      }}
-                    >
-                      {standing.fridayAmNet}
-                    </td>
-                    <td
-                      style={{
-                        padding: 10,
-                        textAlign: "right",
-                      }}
-                    >
-                      {standing.saturdayAmNet}
-                    </td>
-                    <td
-                      style={{
-                        padding: 10,
-                        textAlign: "right",
-                      }}
-                    >
-                      <strong>{standing.totalNet}</strong>
-                    </td>
+          <>
+            <div className="card vetWinnersDesktop">
+              <table className="vetWinnersTable">
+                <thead>
+                  <tr>
+                    <th>Pos</th>
+                    <th>Player</th>
+                    <th>Thu</th>
+                    <th>Fri AM</th>
+                    <th>Sat AM</th>
+                    <th>Total</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+
+                <tbody>
+                  {board.vetHeader.map((standing) => (
+                    <tr key={standing.playerId}>
+                      <td>{standing.place}</td>
+                      <td>
+                        <strong>{standing.playerName}</strong>
+                      </td>
+                      <td>{standing.thursdayNet}</td>
+                      <td>{standing.fridayAmNet}</td>
+                      <td>{standing.saturdayAmNet}</td>
+                      <td>
+                        <strong>{standing.totalNet}</strong>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="vetWinnersMobile">
+              {board.vetHeader.map((standing) => (
+                <article
+                  className="vetWinnerMobileRow"
+                  key={standing.playerId}
+                >
+                  <div className="vetWinnerPosition">
+                    {standing.place}
+                  </div>
+
+                  <div className="vetWinnerPlayer">
+                    <strong>{standing.playerName}</strong>
+
+                    <span>
+                      <b>{standing.totalNet} total</b>
+                      {" · "}
+                      Thu {standing.thursdayNet}
+                      {" · "}
+                      Fri {standing.fridayAmNet}
+                      {" · "}
+                      Sat {standing.saturdayAmNet}
+                    </span>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </>
         )}
+
       </section>
 
       {board.rounds.map((round) => (
