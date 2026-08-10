@@ -254,7 +254,7 @@ export default async function ScoreboardPage() {
                     : `GROUP ${group.groupNumber}`}
                 </div>
 
-                <h3>{group.name}</h3>
+                <h3></h3>
 
                 <div
                   style={{
