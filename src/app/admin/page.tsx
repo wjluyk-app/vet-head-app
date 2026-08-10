@@ -161,6 +161,16 @@ export default async function AdminPage() {
         </article>
 
         <article className="card">
+          <h3>Create Tournament Index</h3>
+          <p>
+            Estimate an index for a player who does not have one.
+          </p>
+          <Link className="button" href="/admin/create-index">
+            Create index
+          </Link>
+        </article>
+
+        <article className="card">
           <h3>Courses / Tees</h3>
           <p>Course names, tees, Rating, Slope and Par.</p>
           <Link className="button" href="/admin/courses">
