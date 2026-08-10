@@ -76,7 +76,7 @@ export default async function ScoreboardPage() {
         <div className="boardSectionHeader">
           <div>
             <div className="smallLabel">OVERALL</div>
-            <h2>Vet Head Winners Standings</h2>
+            <h2>Vet Head Points Standings</h2>
             <p>
               8 points for 1st · 6 for 2nd · 4 for 3rd in each round
             </p>
