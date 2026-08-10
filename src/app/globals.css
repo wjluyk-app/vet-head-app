@@ -6061,3 +6061,55 @@ a.card strong {
     font-size: 19px;
   }
 }
+
+/* Vet Head individual group score entry */
+.vetIndividualGroupForm {
+  padding-bottom: 20px;
+}
+
+.vetIndividualGroupForm .vetScoreControls {
+  justify-content: flex-end;
+}
+
+.vetGroupSaveArea {
+  padding: 4px 20px 0;
+}
+
+.vetSaveGroupButton {
+  width: 100%;
+  min-height: 58px;
+  font-size: 17px;
+  letter-spacing: 0.04em;
+}
+
+.vetRoundComplete {
+  margin-top: 24px;
+  padding: 24px;
+  border: 1px solid #cbd8d3;
+  border-radius: 18px;
+  background: #ffffff;
+}
+
+.vetRoundComplete h2 {
+  margin: 6px 0 8px;
+}
+
+@media (max-width: 700px) {
+  .vetIndividualGroupForm .vetPlayerScoreRow {
+    grid-template-columns: minmax(0, 1fr) 92px;
+    align-items: end;
+  }
+
+  .vetIndividualGroupForm .vetScoreControls {
+    display: block;
+  }
+
+  .vetIndividualGroupForm .vetScoreControls input {
+    width: 92px;
+    height: 56px;
+  }
+
+  .vetGroupSaveArea {
+    padding: 4px 20px 0;
+  }
+}

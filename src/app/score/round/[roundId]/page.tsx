@@ -2,7 +2,7 @@ import Link from "next/link";
 import { requireScoreEntryAccess } from "@/lib/auth/score-entry";
 import { getVetHeadRoundEntryData } from "@/lib/repositories/vet-head-db";
 import {
-  saveIndividualScoreAction,
+  saveIndividualGroupAction,
   saveScrambleScoreAction,
 } from "./actions";
 
@@ -10,10 +10,19 @@ export const dynamic = "force-dynamic";
 
 export default async function VetHeadRoundEntryPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ roundId: string }>;
+  searchParams: Promise<{
+    focus?: string;
+    complete?: string;
+  }>;
 }) {
   await requireScoreEntryAccess();
+
+  const resolvedSearchParams = await searchParams;
+  const focusGroupId = resolvedSearchParams.focus ?? null;
+  const roundComplete = resolvedSearchParams.complete === "1";
 
   const { round, groups, assignments, individualScores, scrambleScores } =
     await getVetHeadRoundEntryData((await params).roundId);
@@ -67,7 +76,11 @@ export default async function VetHeadRoundEntryPage({
           );
 
           return (
-            <article className="vetRoundGroupCard" key={group.id}>
+            <article
+              className="vetRoundGroupCard"
+              id={`group-${group.id}`}
+              key={group.id}
+            >
               <header className="vetRoundGroupHeader">
                 <div>
                   <span>GROUP {group.group_number}</span>
@@ -82,80 +95,90 @@ export default async function VetHeadRoundEntryPage({
               </header>
 
               {isIndividual ? (
-                <div className="vetPlayerScoreList">
-                  {groupAssignments.map((assignment) => {
-                    const existingScore = individualScores.find(
-                      (score) =>
-                        score.player_id === assignment.player_id,
-                    );
+                <form
+                  action={saveIndividualGroupAction}
+                  className="vetIndividualGroupForm"
+                >
+                  <input
+                    type="hidden"
+                    name="roundId"
+                    value={round.id}
+                  />
 
-                    return (
-                      <form
-                        action={saveIndividualScoreAction}
-                        key={assignment.id}
-                        className="vetPlayerScoreRow"
-                      >
-                        <input
-                          type="hidden"
-                          name="roundId"
-                          value={round.id}
-                        />
+                  <input
+                    type="hidden"
+                    name="roundGroupId"
+                    value={group.id}
+                  />
 
-                        <input
-                          type="hidden"
-                          name="playerId"
-                          value={assignment.player_id}
-                        />
+                  <div className="vetPlayerScoreList">
+                    {groupAssignments.map((assignment, index) => {
+                      const existingScore = individualScores.find(
+                        (score) =>
+                          score.player_id === assignment.player_id,
+                      );
 
-                        <div className="vetPlayerScoreInfo">
-                          <strong>
-                            {assignment.player?.display_name ?? "Player"}
-                          </strong>
+                      return (
+                        <div
+                          className="vetPlayerScoreRow"
+                          key={assignment.id}
+                        >
+                          <div className="vetPlayerScoreInfo">
+                            <strong>
+                              {assignment.player?.display_name ?? "Player"}
+                            </strong>
 
-                          <span>
-                            HI {assignment.player?.handicap_index ?? "—"}
-                          </span>
+                            <span>
+                              HI {assignment.player?.handicap_index ?? "—"}
+                            </span>
 
-                          {existingScore && (
-                            <small>
-                              Course HDCP {existingScore.course_handicap}
-                              {" · "}
-                              Net {existingScore.net_score}
-                            </small>
-                          )}
+                            {existingScore && (
+                              <small>
+                                Course HDCP {existingScore.course_handicap}
+                                {" · "}
+                                Net {existingScore.net_score}
+                              </small>
+                            )}
+                          </div>
+
+                          <div className="vetScoreControls">
+                            <label>
+                              <span>Gross</span>
+
+                              <input
+                                type="number"
+                                name={`grossScore_${assignment.player_id}`}
+                                min="18"
+                                max="200"
+                                inputMode="numeric"
+                                required
+                                defaultValue={
+                                  existingScore?.gross_score ?? ""
+                                }
+                                autoFocus={
+                                  focusGroupId === group.id &&
+                                  index === 0
+                                }
+                                aria-label={`Gross score for ${
+                                  assignment.player?.display_name ?? "player"
+                                }`}
+                              />
+                            </label>
+                          </div>
                         </div>
+                      );
+                    })}
+                  </div>
 
-                        <div className="vetScoreControls">
-                          <label>
-                            <span>Gross</span>
-
-                            <input
-                              type="number"
-                              name="grossScore"
-                              min="18"
-                              max="200"
-                              inputMode="numeric"
-                              required
-                              defaultValue={
-                                existingScore?.gross_score ?? ""
-                              }
-                              aria-label={`Gross score for ${
-                                assignment.player?.display_name ?? "player"
-                              }`}
-                            />
-                          </label>
-
-                          <button
-                            type="submit"
-                            className="vetSaveScoreButton"
-                          >
-                            {existingScore ? "Update" : "Save"}
-                          </button>
-                        </div>
-                      </form>
-                    );
-                  })}
-                </div>
+                  <div className="vetGroupSaveArea">
+                    <button
+                      type="submit"
+                      className="vetSaveScoreButton vetSaveGroupButton"
+                    >
+                      SAVE GROUP
+                    </button>
+                  </div>
+                </form>
               ) : (
                 <form
                   action={saveScrambleScoreAction}
@@ -208,6 +231,7 @@ export default async function VetHeadRoundEntryPage({
                         defaultValue={
                           scrambleScore?.gross_score ?? ""
                         }
+                        autoFocus={focusGroupId === group.id}
                       />
                     </label>
 
@@ -215,7 +239,7 @@ export default async function VetHeadRoundEntryPage({
                       type="submit"
                       className="vetSaveScoreButton"
                     >
-                      {scrambleScore ? "Update Score" : "Save Score"}
+                      {scrambleScore ? "UPDATE TEAM" : "SAVE TEAM"}
                     </button>
                   </div>
                 </form>
@@ -224,6 +248,24 @@ export default async function VetHeadRoundEntryPage({
           );
         })}
       </section>
+
+      {roundComplete && (
+        <section
+          className="vetRoundComplete"
+          id="round-complete"
+        >
+          <div className="smallLabel">ROUND COMPLETE</div>
+          <h2>All groups have been saved.</h2>
+          <p>
+            You can review or update any score above, or return to the
+            round list.
+          </p>
+
+          <Link className="vetBackButton" href="/score">
+            Back to Rounds
+          </Link>
+        </section>
+      )}
     </main>
   );
 }
