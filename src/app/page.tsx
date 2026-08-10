@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getVetHeadPublicTournamentData } from "@/lib/repositories/vet-head-public";
 
 export const dynamic = "force-dynamic";
 
@@ -42,36 +43,28 @@ const sections = [
   },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const data = await getVetHeadPublicTournamentData();
+
+  const round1 = data.rounds.find((round) => round.round_number === 1);
+  const round2 = data.rounds.find((round) => round.round_number === 2);
+  const round3 = data.rounds.find((round) => round.round_number === 3);
+  const round4 = data.rounds.find((round) => round.round_number === 4);
+  const round5 = data.rounds.find((round) => round.round_number === 5);
+
+  if (!round1 || !round2 || !round3 || !round4 || !round5) {
+    throw new Error("Vet Head tournament rounds are incomplete.");
+  }
+
   return (
     <main className="pageShell">
       <section className="hero">
         <div className="smallLabel heroDate">AUGUST 13–15, 2026</div>
         <h1>Vet Head Tournament Hub</h1>
         <p>
-          One home for pairings, tee times, scoring, Vet Head Points
-          points, Vet Head MVP standings and payouts.
+          One home for pairings, tee times, scoring, Vet Head Points,
+          Vet Head MVP standings and payouts.
         </p>
-      </section>
-
-      <section className="grid">
-        <article className="card">
-          <div className="smallLabel">PLAYERS</div>
-          <div className="kpi">12</div>
-          <p>One field · Same tees</p>
-        </article>
-
-        <article className="card">
-          <div className="smallLabel">ROUNDS</div>
-          <div className="kpi">5</div>
-          <p>Three individual · Two scramble</p>
-        </article>
-
-        <article className="card">
-          <div className="smallLabel">PRIZE POOL</div>
-          <div className="kpi">$1,200</div>
-          <p>Round payouts + Vet Head Points + Vet Head MVP</p>
-        </article>
       </section>
 
       <section
@@ -90,7 +83,7 @@ export default function HomePage() {
           <article className="card">
             <div className="smallLabel">THURSDAY · ROUND 1</div>
             <h3>Individual Net</h3>
-            <div className="kpi">1:20 PM</div>
+            <div className="kpi">{round1.tee_time}</div>
             <Link className="button" href="/thursday">
               Thursday
             </Link>
@@ -99,7 +92,9 @@ export default function HomePage() {
           <article className="card">
             <div className="smallLabel">FRIDAY · ROUNDS 2 & 3</div>
             <h3>Individual + 4-Man Scramble</h3>
-            <div className="kpi">9:00 / 3:20</div>
+            <div className="kpi">
+              {round2.tee_time} / {round3.tee_time}
+            </div>
             <Link className="button" href="/friday">
               Friday
             </Link>
@@ -108,7 +103,9 @@ export default function HomePage() {
           <article className="card">
             <div className="smallLabel">SATURDAY · ROUNDS 4 & 5</div>
             <h3>Individual + 4-Man Scramble</h3>
-            <div className="kpi">9:10 / 2:50</div>
+            <div className="kpi">
+              {round4.tee_time} / {round5.tee_time}
+            </div>
             <Link className="button" href="/saturday">
               Saturday
             </Link>
@@ -134,21 +131,6 @@ export default function HomePage() {
         ))}
       </section>
 
-      <section
-        className="card"
-        style={{ marginTop: 24 }}
-      >
-        <div className="smallLabel">SCORING</div>
-        <h2>Two Championships</h2>
-        <p>
-          <strong>Vet Head Points:</strong> points earned from group
-          finishes across all five rounds.
-        </p>
-        <p>
-          <strong>Vet Head MVP:</strong> lowest combined net score from
-          Thursday, Friday morning and Saturday morning.
-        </p>
-      </section>
     </main>
   );
 }
