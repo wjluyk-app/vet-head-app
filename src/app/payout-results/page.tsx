@@ -380,7 +380,10 @@ export default async function PayoutResultsPage() {
         <h1>Payout Results</h1>
         <p>
           Prize money automatically calculated from official scoring
-          results. Ties split the money for the occupied places.
+          results. Round ties split the money for the occupied places.
+          Vet Head Points and Vet Head MVP tiebreakers are applied before
+          championship prize money is awarded. Money is split only if
+          players remain tied after all applicable tiebreakers.
         </p>
       </section>
 

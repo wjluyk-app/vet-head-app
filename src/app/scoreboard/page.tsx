@@ -80,6 +80,10 @@ export default async function ScoreboardPage() {
             <p>
               8 points for 1st · 6 for 2nd · 4 for 3rd in each round
             </p>
+            <p>
+              Final ties are broken by most 1st-place finishes, then most
+              2nd-place finishes, then lowest Vet Head MVP 54-hole total.
+            </p>
           </div>
         </div>
 
@@ -148,6 +152,10 @@ export default async function ScoreboardPage() {
             <h2>Vet Head MVP Standings</h2>
             <p>
               Thursday + Friday AM + Saturday AM individual net
+            </p>
+            <p>
+              Ties are broken by Saturday AM net, then Friday AM net,
+              then Thursday net.
             </p>
           </div>
         </div>
