@@ -6370,3 +6370,34 @@ a.card strong {
     color: #4f6375;
   }
 }
+
+@media (max-width: 650px) {
+  .hybridScoreTableWrap {
+    max-height: 68vh;
+    overflow-x: auto;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .hybridScoreTable thead th {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: white;
+  }
+
+  .hybridStickyCorner {
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 30 !important;
+    background: white;
+  }
+
+  .hybridHoleHeader {
+    position: sticky;
+    left: 0;
+    z-index: 15;
+    background: white;
+  }
+}
