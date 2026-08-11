@@ -134,12 +134,6 @@ export default function RoundPairingEditor({
                 const key = `${group.group_number}-${order}`;
                 const currentPlayerId = selections[key] ?? "";
 
-                const availablePlayers = players.filter(
-                  (player) =>
-                    player.id === currentPlayerId ||
-                    !selectedSet.has(player.id),
-                );
-
                 return (
                   <label key={order}>
                     Player {order}
@@ -148,19 +142,35 @@ export default function RoundPairingEditor({
                       className="textInput"
                       name={`group_${group.group_number}_player_${order}_id`}
                       value={currentPlayerId}
-                      onChange={(event) =>
-                        setSelections((current) => ({
-                          ...current,
-                          [key]: event.target.value,
-                        }))
-                      }
+                      onChange={(event) => {
+                        const nextPlayerId = event.target.value;
+
+                        setSelections((current) => {
+                          const updated = { ...current };
+
+                          const otherEntry = Object.entries(current).find(
+                            ([otherKey, playerId]) =>
+                              otherKey !== key &&
+                              playerId === nextPlayerId,
+                          );
+
+                          if (otherEntry) {
+                            const [otherKey] = otherEntry;
+                            updated[otherKey] = currentPlayerId;
+                          }
+
+                          updated[key] = nextPlayerId;
+
+                          return updated;
+                        });
+                      }}
                       required
                     >
                       <option value="">
                         Select player
                       </option>
 
-                      {availablePlayers.map((player) => (
+                      {players.map((player) => (
                         <option
                           key={player.id}
                           value={player.id}
