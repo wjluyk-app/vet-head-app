@@ -464,16 +464,29 @@ export default async function PayoutResultsPage() {
               <p>No payout recipients calculated.</p>
             </article>
           ) : (
-            <section className="grid">
+            <div className="compactPayoutList">
               {section.awards.map((award) => (
-                <article className="card" key={award.id}>
-                  <div className="smallLabel">{award.place}</div>
-                  <h3>{award.title}</h3>
-                  <div className="kpi">{money(award.amount)}</div>
-                  <p>{award.detail}</p>
+                <article
+                  className="compactPayoutRow"
+                  key={award.id}
+                >
+                  <div className="compactPayoutMain">
+                    <div className="compactPayoutPlace">
+                      {award.place}
+                    </div>
+
+                    <div className="compactPayoutPlayer">
+                      <strong>{award.title}</strong>
+                      <span>{award.detail}</span>
+                    </div>
+                  </div>
+
+                  <div className="compactPayoutAmount">
+                    {money(award.amount)}
+                  </div>
                 </article>
               ))}
-            </section>
+            </div>
           )}
         </section>
       ))}

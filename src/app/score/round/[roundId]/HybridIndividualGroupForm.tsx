@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   calculateCourseHandicap,
   calculateHoleNet,
@@ -92,6 +92,28 @@ export default function HybridIndividualGroupForm({
   }, [existingHoleScores, players]);
 
   const [scores, setScores] = useState(initialScores);
+  const [dirty, setDirty] = useState(false);
+
+  const hasSavedScorecard =
+    existingHoleScores.length === players.length * 18;
+
+  useEffect(() => {
+    const warnBeforeLeaving = (event: BeforeUnloadEvent) => {
+      if (!dirty) return;
+
+      event.preventDefault();
+      event.returnValue = "";
+    };
+
+    window.addEventListener("beforeunload", warnBeforeLeaving);
+
+    return () => {
+      window.removeEventListener(
+        "beforeunload",
+        warnBeforeLeaving,
+      );
+    };
+  }, [dirty]);
 
   const playerData = players.map((player) => {
     const courseHandicap = calculateCourseHandicap(
@@ -233,6 +255,7 @@ export default function HybridIndividualGroupForm({
     <form
       action={saveIndividualGroupAction}
       className="vetIndividualGroupForm"
+      onSubmit={() => setDirty(false)}
     >
       <input
         type="hidden"
@@ -246,30 +269,16 @@ export default function HybridIndividualGroupForm({
         value={roundGroupId}
       />
 
-      <div
-        style={{
-          overflowX: "auto",
-          marginTop: 16,
-        }}
-      >
-        <table
-          style={{
-            width: "100%",
-            minWidth: 720,
-            borderCollapse: "collapse",
-          }}
-        >
+      <div className="hybridScoreTableWrap">
+        <table className="hybridScoreTable">
           <thead>
             <tr>
-              <th style={{ padding: 8 }}>Hole</th>
+              <th className="hybridStickyCorner">Hole</th>
 
               {playerData.map((player) => (
                 <th
                   key={player.playerId}
-                  style={{
-                    padding: 8,
-                    textAlign: "center",
-                  }}
+                  className="hybridPlayerHeader"
                 >
                   <div>{player.playerName}</div>
                   <small>
@@ -278,7 +287,7 @@ export default function HybridIndividualGroupForm({
                 </th>
               ))}
 
-              <th style={{ padding: 8 }}>
+              <th className="hybridPlayerHeader">
                 Group
               </th>
             </tr>
@@ -292,12 +301,7 @@ export default function HybridIndividualGroupForm({
 
                 return (
                   <tr key={holeNumber}>
-                    <th
-                      style={{
-                        padding: 8,
-                        textAlign: "center",
-                      }}
-                    >
+                    <th className="hybridHoleHeader">
                       <div>{holeNumber}</div>
                       <small>
                         SI {strokeIndexes[index]}
@@ -354,6 +358,7 @@ export default function HybridIndividualGroupForm({
                                         value,
                                     }),
                                   );
+                                  setDirty(true);
                                 }}
                                 onKeyDown={(event) => {
                                   if (
@@ -459,7 +464,8 @@ export default function HybridIndividualGroupForm({
                                 style={{
                                   fontSize: 11,
                                   marginTop: 2,
-                                  opacity: 0.75,
+                                  color: "#4f6375",
+                                  fontWeight: 700,
                                 }}
                               >
                                 Net {hole.net}
@@ -481,7 +487,8 @@ export default function HybridIndividualGroupForm({
                       <div
                         style={{
                           fontSize: 10,
-                          opacity: 0.7,
+                          color: "#4f6375",
+                          fontWeight: 800,
                         }}
                       >
                         {holeNumber <= 9
@@ -562,13 +569,22 @@ export default function HybridIndividualGroupForm({
         </span>
       </div>
 
-      <div className="vetGroupSaveArea">
-        {!allComplete && (
-          <p>
-            Enter all 18 holes for all four players
-            before saving the group.
-          </p>
-        )}
+      <div className="vetGroupSaveArea hybridStickySaveArea">
+        <div className="hybridSaveStatus">
+          {!allComplete ? (
+            <span>COMPLETE SCORECARD TO SAVE</span>
+          ) : dirty ? (
+            <span className="hybridUnsavedStatus">
+              UNSAVED CHANGES
+            </span>
+          ) : hasSavedScorecard ? (
+            <span className="hybridSavedStatus">
+              ✓ SCORES SAVED
+            </span>
+          ) : (
+            <span>READY TO SAVE</span>
+          )}
+        </div>
 
         <button
           type="submit"

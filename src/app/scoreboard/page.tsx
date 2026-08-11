@@ -239,7 +239,7 @@ export default async function ScoreboardPage() {
               <p>
                 {round.format === "four_man_scramble"
                   ? "4-Man Scramble"
-                  : "Individual Net"}{" "}
+                  : "Individual + Best Ball"}{" "}
                 · {round.complete ? "Final" : "Pending"}
               </p>
             </div>
@@ -268,9 +268,522 @@ export default async function ScoreboardPage() {
                   <strong>
                     {group.total === null
                       ? "Pending"
-                      : `${group.total} net`}
+                      : round.format === "individual_net"
+                        ? `${group.total} Best Ball`
+                        : `${group.total} net`}
                   </strong>
                 </div>
+
+                {round.format === "individual_net" ? (
+                  <>
+                    <p style={{ fontWeight: 700, marginBottom: 8 }}>
+                      Best Ball Results · Front 9: 2 Best of 4 · Back 9: 3 Best of 4
+                    </p>
+
+                    <details style={{ marginBottom: 14 }}>
+                      <summary
+                        style={{
+                          cursor: "pointer",
+                          fontWeight: 700,
+                          padding: "8px 0",
+                        }}
+                      >
+                        View Best Ball Scorecard
+                      </summary>
+
+                      <div style={{ marginTop: 12 }}>
+                        <p
+                          style={{
+                            margin: "0 0 10px",
+                            fontSize: 12,
+                          }}
+                        >
+                          Highlighted net scores are the scores
+                          counting toward the group Best Ball.
+                        </p>
+
+                        <div className="smallLabel">
+                          FRONT 9 · 2 BEST OF 4
+                        </div>
+
+                        <div
+                          style={{
+                            overflowX: "auto",
+                            marginTop: 6,
+                          }}
+                        >
+                          <table
+                            style={{
+                              borderCollapse: "collapse",
+                              width: "max-content",
+                              minWidth: "100%",
+                              fontSize: 13,
+                            }}
+                          >
+                            <thead>
+                              <tr>
+                                <th
+                                  style={{
+                                    textAlign: "left",
+                                    padding: 6,
+                                    position: "sticky",
+                                    left: 0,
+                                    background: "white",
+                                    zIndex: 2,
+                                  }}
+                                >
+                                  Player
+                                </th>
+
+                                {Array.from(
+                                  { length: 9 },
+                                  (_, index) => (
+                                    <th
+                                      key={index}
+                                      style={{
+                                        textAlign: "center",
+                                        padding: 6,
+                                      }}
+                                    >
+                                      {index + 1}
+                                    </th>
+                                  ),
+                                )}
+
+                                <th style={{ padding: 6 }}>
+                                  OUT
+                                </th>
+                              </tr>
+                            </thead>
+
+                            <tbody>
+                              {group.players.map((player) => (
+                                <tr key={player.id}>
+                                  <td
+                                    style={{
+                                      padding: 6,
+                                      fontWeight: 700,
+                                      whiteSpace: "nowrap",
+                                      position: "sticky",
+                                      left: 0,
+                                      background: "white",
+                                      zIndex: 1,
+                                      borderTop:
+                                        "1px solid rgba(0,0,0,.08)",
+                                    }}
+                                  >
+                                    {player.name}
+                                  </td>
+
+                                  {player.holes
+                                    .slice(0, 9)
+                                    .map((hole) => {
+                                      const countedPlayerIds =
+                                        group.players
+                                          .map(
+                                            (
+                                              candidate,
+                                              candidateIndex,
+                                            ) => ({
+                                              id: candidate.id,
+                                              order:
+                                                candidateIndex,
+                                              net:
+                                                candidate.holes[
+                                                  hole.holeNumber -
+                                                    1
+                                                ]?.netScore ??
+                                                null,
+                                            }),
+                                          )
+                                          .filter(
+                                            (
+                                              candidate,
+                                            ): candidate is {
+                                              id: string;
+                                              order: number;
+                                              net: number;
+                                            } =>
+                                              candidate.net !==
+                                              null,
+                                          )
+                                          .sort(
+                                            (a, b) =>
+                                              a.net - b.net ||
+                                              a.order - b.order,
+                                          )
+                                          .slice(0, 2)
+                                          .map(
+                                            (candidate) =>
+                                              candidate.id,
+                                          );
+
+                                      const counted =
+                                        countedPlayerIds.includes(
+                                          player.id,
+                                        );
+
+                                      return (
+                                        <td
+                                          key={hole.holeNumber}
+                                          style={{
+                                            padding: 6,
+                                            textAlign: "center",
+                                            fontWeight: counted
+                                              ? 900
+                                              : 400,
+                                            background: counted
+                                              ? "var(--cream)"
+                                              : undefined,
+                                            borderTop:
+                                              "1px solid rgba(0,0,0,.08)",
+                                          }}
+                                          title={
+                                            counted
+                                              ? `COUNTING SCORE · Gross ${hole.grossScore} · SI ${hole.strokeIndex}`
+                                              : `Gross ${hole.grossScore} · SI ${hole.strokeIndex}`
+                                          }
+                                        >
+                                          {hole.netScore ?? "—"}
+                                        </td>
+                                      );
+                                    })}
+
+                                  <td
+                                    style={{
+                                      padding: 6,
+                                      textAlign: "center",
+                                      fontWeight: 700,
+                                    }}
+                                  >
+                                    {player.holes
+                                      .slice(0, 9)
+                                      .reduce(
+                                        (sum, hole) =>
+                                          sum +
+                                          (hole.netScore ?? 0),
+                                        0,
+                                      )}
+                                  </td>
+                                </tr>
+                              ))}
+
+                              <tr>
+                                <td
+                                  style={{
+                                    padding: 6,
+                                    fontWeight: 800,
+                                    whiteSpace: "nowrap",
+                                    position: "sticky",
+                                    left: 0,
+                                    background: "white",
+                                    zIndex: 1,
+                                    borderTop:
+                                      "2px solid rgba(0,0,0,.25)",
+                                  }}
+                                >
+                                  COUNTING
+                                </td>
+
+                                {group.countingHoleTotals
+                                  .slice(0, 9)
+                                  .map((score, index) => (
+                                    <td
+                                      key={index}
+                                      style={{
+                                        padding: 6,
+                                        textAlign: "center",
+                                        fontWeight: 800,
+                                        borderTop:
+                                          "2px solid rgba(0,0,0,.25)",
+                                      }}
+                                    >
+                                      {score}
+                                    </td>
+                                  ))}
+
+                                <td
+                                  style={{
+                                    padding: 6,
+                                    textAlign: "center",
+                                    fontWeight: 900,
+                                    borderTop:
+                                      "2px solid rgba(0,0,0,.25)",
+                                  }}
+                                >
+                                  {group.frontNine ?? "—"}
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+
+                      <div style={{ marginTop: 18 }}>
+                        <div className="smallLabel">
+                          BACK 9 · 3 BEST OF 4
+                        </div>
+
+                        <div
+                          style={{
+                            overflowX: "auto",
+                            marginTop: 6,
+                          }}
+                        >
+                          <table
+                            style={{
+                              borderCollapse: "collapse",
+                              width: "max-content",
+                              minWidth: "100%",
+                              fontSize: 13,
+                            }}
+                          >
+                            <thead>
+                              <tr>
+                                <th
+                                  style={{
+                                    textAlign: "left",
+                                    padding: 6,
+                                    position: "sticky",
+                                    left: 0,
+                                    background: "white",
+                                    zIndex: 2,
+                                  }}
+                                >
+                                  Player
+                                </th>
+
+                                {Array.from(
+                                  { length: 9 },
+                                  (_, index) => (
+                                    <th
+                                      key={index}
+                                      style={{
+                                        textAlign: "center",
+                                        padding: 6,
+                                      }}
+                                    >
+                                      {index + 10}
+                                    </th>
+                                  ),
+                                )}
+
+                                <th style={{ padding: 6 }}>
+                                  IN
+                                </th>
+                              </tr>
+                            </thead>
+
+                            <tbody>
+                              {group.players.map((player) => (
+                                <tr key={player.id}>
+                                  <td
+                                    style={{
+                                      padding: 6,
+                                      fontWeight: 700,
+                                      whiteSpace: "nowrap",
+                                      position: "sticky",
+                                      left: 0,
+                                      background: "white",
+                                      zIndex: 1,
+                                      borderTop:
+                                        "1px solid rgba(0,0,0,.08)",
+                                    }}
+                                  >
+                                    {player.name}
+                                  </td>
+
+                                  {player.holes
+                                    .slice(9)
+                                    .map((hole) => {
+                                      const countedPlayerIds =
+                                        group.players
+                                          .map(
+                                            (
+                                              candidate,
+                                              candidateIndex,
+                                            ) => ({
+                                              id: candidate.id,
+                                              order:
+                                                candidateIndex,
+                                              net:
+                                                candidate.holes[
+                                                  hole.holeNumber -
+                                                    1
+                                                ]?.netScore ??
+                                                null,
+                                            }),
+                                          )
+                                          .filter(
+                                            (
+                                              candidate,
+                                            ): candidate is {
+                                              id: string;
+                                              order: number;
+                                              net: number;
+                                            } =>
+                                              candidate.net !==
+                                              null,
+                                          )
+                                          .sort(
+                                            (a, b) =>
+                                              a.net - b.net ||
+                                              a.order - b.order,
+                                          )
+                                          .slice(0, 3)
+                                          .map(
+                                            (candidate) =>
+                                              candidate.id,
+                                          );
+
+                                      const counted =
+                                        countedPlayerIds.includes(
+                                          player.id,
+                                        );
+
+                                      return (
+                                        <td
+                                          key={hole.holeNumber}
+                                          style={{
+                                            padding: 6,
+                                            textAlign: "center",
+                                            fontWeight: counted
+                                              ? 900
+                                              : 400,
+                                            background: counted
+                                              ? "var(--cream)"
+                                              : undefined,
+                                            borderTop:
+                                              "1px solid rgba(0,0,0,.08)",
+                                          }}
+                                          title={
+                                            counted
+                                              ? `COUNTING SCORE · Gross ${hole.grossScore} · SI ${hole.strokeIndex}`
+                                              : `Gross ${hole.grossScore} · SI ${hole.strokeIndex}`
+                                          }
+                                        >
+                                          {hole.netScore ?? "—"}
+                                        </td>
+                                      );
+                                    })}
+
+                                  <td
+                                    style={{
+                                      padding: 6,
+                                      textAlign: "center",
+                                      fontWeight: 700,
+                                    }}
+                                  >
+                                    {player.holes
+                                      .slice(9)
+                                      .reduce(
+                                        (sum, hole) =>
+                                          sum +
+                                          (hole.netScore ?? 0),
+                                        0,
+                                      )}
+                                  </td>
+                                </tr>
+                              ))}
+
+                              <tr>
+                                <td
+                                  style={{
+                                    padding: 6,
+                                    fontWeight: 800,
+                                    whiteSpace: "nowrap",
+                                    position: "sticky",
+                                    left: 0,
+                                    background: "white",
+                                    zIndex: 1,
+                                    borderTop:
+                                      "2px solid rgba(0,0,0,.25)",
+                                  }}
+                                >
+                                  COUNTING
+                                </td>
+
+                                {group.countingHoleTotals
+                                  .slice(9)
+                                  .map((score, index) => (
+                                    <td
+                                      key={index}
+                                      style={{
+                                        padding: 6,
+                                        textAlign: "center",
+                                        fontWeight: 800,
+                                        borderTop:
+                                          "2px solid rgba(0,0,0,.25)",
+                                      }}
+                                    >
+                                      {score}
+                                    </td>
+                                  ))}
+
+                                <td
+                                  style={{
+                                    padding: 6,
+                                    textAlign: "center",
+                                    fontWeight: 900,
+                                    borderTop:
+                                      "2px solid rgba(0,0,0,.25)",
+                                  }}
+                                >
+                                  {group.backNine ?? "—"}
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+
+                      <div
+                        style={{
+                          marginTop: 18,
+                          padding: 12,
+                          borderTop:
+                            "2px solid rgba(0,0,0,.18)",
+                          display: "flex",
+                          justifyContent: "space-between",
+                          gap: 12,
+                          alignItems: "center",
+                          fontWeight: 900,
+                        }}
+                      >
+                        <span>BEST BALL TOTAL</span>
+                        <span>
+                          {group.total ?? "—"}
+                        </span>
+                      </div>
+
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          gap: 12,
+                          padding: "8px 12px 0",
+                          fontWeight: 800,
+                        }}
+                      >
+                        <span>
+                          {ordinal(group.place)}
+                        </span>
+                        <span>
+                          {points(group.pointsPerPlayer)} pts
+                        </span>
+                      </div>
+                    </details>
+
+                    <div
+                      style={{
+                        fontWeight: 700,
+                        marginBottom: 4,
+                      }}
+                    >
+                      Individual Results · Daily Low Net + Vet Head MVP
+                    </div>
+                  </>
+                ) : null}
 
                 {group.players.map((player) => (
                   <div

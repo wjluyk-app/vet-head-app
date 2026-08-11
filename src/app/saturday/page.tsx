@@ -31,13 +31,13 @@ export default async function SaturdayPage() {
       <section className="hero">
         <div className="smallLabel">SATURDAY · ROUNDS 4 & 5</div>
         <h1>Saturday</h1>
-        <p>Individual Net in the morning · Final 4-Man Scramble in the afternoon</p>
+        <p>Individual + Best Ball in the morning · Final 4-Man Scramble in the afternoon</p>
       </section>
 
       <section className="grid">
         <article className="card">
           <div className="smallLabel">ROUND 4 · {formatTime(morning.tee_time)}</div>
-          <h2>Morning Individual Net</h2>
+          <h2>Morning Individual + Best Ball</h2>
           <p>
             {morningCourse?.course_name ?? "Course TBD"}
             {morningCourse?.tee_name ? ` · ${morningCourse.tee_name} Tees` : ""}

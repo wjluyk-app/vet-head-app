@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 
 function formatRoundLabel(format: string) {
   if (format === "individual_net") {
-    return "Individual Net";
+    return "Individual + Best Ball";
   }
 
   if (format === "four_man_scramble") {

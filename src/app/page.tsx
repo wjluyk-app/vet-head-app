@@ -18,6 +18,12 @@ const sections = [
     action: "View pairings →",
   },
   {
+    title: "Players",
+    description: "USGA Handicap Index and Course Handicap for each course.",
+    href: "/players",
+    action: "View players →",
+  },
+  {
     title: "Schedule",
     description: "Rounds, dates, start times, formats and course information.",
     href: "/schedule",
@@ -89,7 +95,7 @@ export default async function HomePage() {
         <section className="grid">
           <article className="card">
             <div className="smallLabel">THURSDAY · ROUND 1</div>
-            <h3>Individual Net</h3>
+            <h3>Individual + Best Ball</h3>
             <div className="kpi">{formatTeeTime(round1.tee_time)}</div>
             <Link className="button" href="/thursday">
               Thursday

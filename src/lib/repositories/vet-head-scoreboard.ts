@@ -1,5 +1,6 @@
 import { createAdminClient } from "@/lib/supabase/admin";
 import {
+  calculateHoleNet,
   calculateHybridGroupTotal,
   calculateRoundGroupPoints,
   calculateVetHeaderStandings,
@@ -260,19 +261,34 @@ export async function getVetHeadScoreboardData() {
                   a.hole_number - b.hole_number,
               );
 
+          const courseHandicap =
+            player.handicap === null
+              ? null
+              : Number(player.handicap);
+
           return {
-            courseHandicap:
-              player.handicap === null
-                ? null
-                : Number(player.handicap),
-            holes: holeScores.map((holeScore) => ({
-              holeNumber: holeScore.hole_number,
-              grossScore: holeScore.gross_score,
-              strokeIndex:
+            ...player,
+            courseHandicap,
+            holes: holeScores.map((holeScore) => {
+              const strokeIndex =
                 strokeIndexes[
                   holeScore.hole_number - 1
-                ],
-            })),
+                ];
+
+              return {
+                holeNumber: holeScore.hole_number,
+                grossScore: holeScore.gross_score,
+                strokeIndex,
+                netScore:
+                  courseHandicap === null
+                    ? null
+                    : calculateHoleNet(
+                        holeScore.gross_score,
+                        courseHandicap,
+                        strokeIndex,
+                      ),
+              };
+            }),
           };
         });
 
@@ -295,19 +311,72 @@ export async function getVetHeadScoreboardData() {
                 courseHandicap: Number(
                   player.courseHandicap,
                 ),
-                holes: player.holes,
+                holes: player.holes.map((hole) => ({
+                  holeNumber: hole.holeNumber,
+                  grossScore: hole.grossScore,
+                  strokeIndex: hole.strokeIndex,
+                })),
               })),
             ).total
           : null;
+
+        const countingHoleTotals = complete
+          ? Array.from({ length: 18 }, (_, index) => {
+              const nets = hybridPlayers
+                .map(
+                  (player) =>
+                    player.holes[index]?.netScore,
+                )
+                .filter(
+                  (score): score is number =>
+                    score !== null &&
+                    score !== undefined,
+                )
+                .sort((a, b) => a - b);
+
+              const numberToCount =
+                index < 9 ? 2 : 3;
+
+              return nets
+                .slice(0, numberToCount)
+                .reduce(
+                  (sum, score) => sum + score,
+                  0,
+                );
+            })
+          : [];
+
+        const frontNine =
+          countingHoleTotals.length === 18
+            ? countingHoleTotals
+                .slice(0, 9)
+                .reduce(
+                  (sum, score) => sum + score,
+                  0,
+                )
+            : null;
+
+        const backNine =
+          countingHoleTotals.length === 18
+            ? countingHoleTotals
+                .slice(9)
+                .reduce(
+                  (sum, score) => sum + score,
+                  0,
+                )
+            : null;
 
         return {
           id: group.id,
           groupNumber: group.group_number,
           name: group.name ?? `Group ${group.group_number}`,
-          players: scores,
+          players: hybridPlayers,
           gross: null,
           handicap: null,
           total,
+          frontNine,
+          backNine,
+          countingHoleTotals,
           complete,
           place: null as number | null,
           pointsPerPlayer: null as number | null,
@@ -329,10 +398,20 @@ export async function getVetHeadScoreboardData() {
           gross: null,
           handicap: null,
           net: null,
+          courseHandicap: null,
+          holes: [] as Array<{
+            holeNumber: number;
+            grossScore: number;
+            strokeIndex: number;
+            netScore: number | null;
+          }>,
         })),
         gross: score?.gross_score ?? null,
         handicap: score?.team_handicap ?? null,
         total: score?.net_score ?? null,
+        frontNine: null,
+        backNine: null,
+        countingHoleTotals: [] as number[],
         complete: Boolean(score),
         place: null as number | null,
         pointsPerPlayer: null as number | null,

@@ -58,7 +58,7 @@ export default async function VetHeadSchedulePage() {
               <p>
                 {round.format === "four_man_scramble"
                   ? "4-Man Scramble"
-                  : "Individual Net"}
+                  : "Individual + Best Ball"}
               </p>
 
               <p>

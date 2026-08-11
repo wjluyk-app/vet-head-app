@@ -151,7 +151,7 @@ describe("Vet Head MVP standings", () => {
     ]);
   });
 
-  it("breaks Vet Head MVP ties by Saturday AM, then Friday AM, then Thursday", () => {
+  it("keeps Vet Head MVP ties tied", () => {
     const standings = calculateVetHeaderStandings([
       {
         playerId: "A",
@@ -173,10 +173,16 @@ describe("Vet Head MVP standings", () => {
       },
     ]);
 
-    expect(standings.map((player) => player.playerId)).toEqual([
-      "B",
-      "C",
-      "A",
+    expect(
+      standings.map((player) => ({
+        playerId: player.playerId,
+        totalNet: player.totalNet,
+        place: player.place,
+      })),
+    ).toEqual([
+      { playerId: "A", totalNet: 210, place: 1 },
+      { playerId: "B", totalNet: 210, place: 1 },
+      { playerId: "C", totalNet: 210, place: 1 },
     ]);
   });
 });
@@ -203,7 +209,7 @@ describe("Vet Head Winners standings", () => {
     expect(standings.map((player) => player.playerId)).toEqual(["B", "A"]);
   });
 
-  it("breaks MVP ties by firsts, seconds, then Vet Head MVP total", () => {
+  it("keeps Vet Head Points ties tied", () => {
     const standings = calculateVetHeadMvpStandings([
       {
         playerId: "A",
@@ -235,11 +241,17 @@ describe("Vet Head Winners standings", () => {
       },
     ]);
 
-    expect(standings.map((player) => player.playerId)).toEqual([
-      "B",
-      "D",
-      "C",
-      "A",
+    expect(
+      standings.map((player) => ({
+        playerId: player.playerId,
+        totalPoints: player.totalPoints,
+        place: player.place,
+      })),
+    ).toEqual([
+      { playerId: "A", totalPoints: 30, place: 1 },
+      { playerId: "B", totalPoints: 30, place: 1 },
+      { playerId: "C", totalPoints: 30, place: 1 },
+      { playerId: "D", totalPoints: 30, place: 1 },
     ]);
   });
 });
@@ -261,5 +273,58 @@ describe("Vet Head handicap precision", () => {
     expect(
       calculateFourPlayerScrambleHandicap(handicaps),
     ).toBe(7);
+  });
+});
+
+
+import { calculateHybridGroupTotal } from "@/lib/vet-head-scoring";
+
+describe("Vet Head hybrid Best Ball", () => {
+  const players = [
+    {
+      courseHandicap: 0,
+      holes: Array.from({ length: 18 }, (_, index) => ({
+        holeNumber: index + 1,
+        grossScore: 4,
+        strokeIndex: index + 1,
+      })),
+    },
+    {
+      courseHandicap: 0,
+      holes: Array.from({ length: 18 }, (_, index) => ({
+        holeNumber: index + 1,
+        grossScore: 5,
+        strokeIndex: index + 1,
+      })),
+    },
+    {
+      courseHandicap: 0,
+      holes: Array.from({ length: 18 }, (_, index) => ({
+        holeNumber: index + 1,
+        grossScore: 6,
+        strokeIndex: index + 1,
+      })),
+    },
+    {
+      courseHandicap: 0,
+      holes: Array.from({ length: 18 }, (_, index) => ({
+        holeNumber: index + 1,
+        grossScore: 7,
+        strokeIndex: index + 1,
+      })),
+    },
+  ];
+
+  it("counts the 2 best net scores on holes 1-9", () => {
+    const result = calculateHybridGroupTotal(players);
+
+    expect(result.frontNine).toBe(81);
+  });
+
+  it("counts the 3 best net scores on holes 10-18", () => {
+    const result = calculateHybridGroupTotal(players);
+
+    expect(result.backNine).toBe(135);
+    expect(result.total).toBe(216);
   });
 });

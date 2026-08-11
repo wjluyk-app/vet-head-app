@@ -24,8 +24,12 @@ export default function VetHeadPlayerGuidePage() {
 
         <section className="grid">
           <article className="card">
-            <div className="smallLabel">INDIVIDUAL NET</div>
-            <h3>Three Individual Rounds</h3>
+            <div className="smallLabel">INDIVIDUAL + BEST BALL</div>
+            <h3>Three Individual + Best Ball Rounds</h3>
+
+            <p>
+              Each player plays his own ball for all 18 holes.
+            </p>
 
             <p>
               Course Handicap = Handicap Index × (Slope ÷ 113) +
@@ -34,7 +38,30 @@ export default function VetHeadPlayerGuidePage() {
 
             <p>
               <strong>
-                Net Score = Gross Score − Course Handicap.
+                Individual Net = Gross Score − Course Handicap.
+              </strong>
+            </p>
+
+            <p>
+              Each player&apos;s individual net score is used for that
+              day&apos;s low-net payout and is also added to his Thursday,
+              Friday AM and Saturday AM totals for the 54-hole Vet Head MVP.
+            </p>
+
+            <p>
+              <strong>Group Best Ball:</strong> Holes 1–9 use the
+              2 best net scores of the 4 players on each hole. Holes 10–18
+              use the 3 best net scores of the 4 players on each hole.
+            </p>
+
+            <p>
+              The 18-hole Best Ball total determines the group&apos;s
+              finish and Vet Head Points for that round.
+            </p>
+
+            <p>
+              <strong>
+                CH = Course Handicap · • = 1 stroke · •• = 2 strokes
               </strong>
             </p>
           </article>
@@ -71,22 +98,27 @@ export default function VetHeadPlayerGuidePage() {
           </div>
         </div>
 
-        <section className="grid">
-          <article className="card">
-            <div className="kpi">8</div>
-            <p>Points to every player in the 1st-place group or team.</p>
-          </article>
+        <article className="card">
+          <div className="smallLabel">ROUND POINTS</div>
 
-          <article className="card">
-            <div className="kpi">6</div>
-            <p>Points to every player in the 2nd-place group or team.</p>
-          </article>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr auto",
+              gap: "10px 18px",
+              alignItems: "center",
+            }}
+          >
+            <strong>1st Place</strong>
+            <strong>8 pts</strong>
 
-          <article className="card">
-            <div className="kpi">4</div>
-            <p>Points to every player in the 3rd-place group or team.</p>
-          </article>
-        </section>
+            <strong>2nd Place</strong>
+            <strong>6 pts</strong>
+
+            <strong>3rd Place</strong>
+            <strong>4 pts</strong>
+          </div>
+        </article>
 
         <article className="card" style={{ marginTop: 16 }}>
           <div className="smallLabel">TIES</div>

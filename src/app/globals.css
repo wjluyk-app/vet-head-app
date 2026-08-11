@@ -6118,3 +6118,255 @@ a.card strong {
 .hero .smallLabel {
   color: #ffffff;
 }
+
+/* Vet Head mobile hybrid score-entry context */
+.hybridScoreTableWrap {
+  overflow-x: auto;
+  margin-top: 16px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.hybridScoreTable {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.hybridScoreTable thead th {
+  position: sticky;
+  top: 0;
+  z-index: 8;
+  background: white;
+  padding: 8px;
+  text-align: center;
+  border-bottom: 1px solid #d9dee5;
+}
+
+.hybridStickyCorner {
+  left: 0;
+  z-index: 12 !important;
+  min-width: 64px;
+  box-shadow: 1px 0 0 #d9dee5;
+}
+
+.hybridHoleHeader {
+  position: sticky;
+  left: 0;
+  z-index: 6;
+  min-width: 64px;
+  padding: 8px;
+  text-align: center;
+  background: white;
+  box-shadow: 1px 0 0 #d9dee5;
+}
+
+.hybridPlayerHeader {
+  min-width: 138px;
+}
+
+@media (max-width: 650px) {
+  .hybridScoreTable thead th {
+    top: 0;
+  }
+
+  .hybridPlayerHeader {
+    min-width: 138px;
+  }
+
+  .hybridStickyCorner,
+  .hybridHoleHeader {
+    min-width: 64px;
+  }
+}
+
+/* Vet Head hybrid scorecard sticky save */
+.hybridStickySaveArea {
+  position: sticky;
+  bottom: 0;
+  z-index: 20;
+  background: rgba(255,255,255,.97);
+  border-top: 1px solid #d9dee5;
+  padding: 12px 0;
+  margin-top: 16px;
+  box-shadow: 0 -6px 18px rgba(16,42,67,.10);
+}
+
+.hybridSaveStatus {
+  margin-bottom: 8px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .06em;
+  color: #66788a;
+}
+
+.hybridUnsavedStatus {
+  color: #9a5a00;
+}
+
+.hybridSavedStatus {
+  color: #17663a;
+}
+
+.hybridStickySaveArea .vetSaveGroupButton {
+  width: 100%;
+}
+
+@media (max-width: 650px) {
+  .hybridStickySaveArea {
+    margin-left: -20px;
+    margin-right: -20px;
+    padding: 10px 20px calc(10px + env(safe-area-inset-bottom));
+  }
+}
+
+/* Vet Head compact payout result rows */
+.compactPayoutList {
+  display: flex;
+  flex-direction: column;
+}
+
+.compactPayoutRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 14px 18px;
+  background: white;
+  border-top: 1px solid #e2e6ea;
+}
+
+.compactPayoutRow:first-child {
+  border-top: 0;
+}
+
+.compactPayoutMain {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.compactPayoutPlace {
+  min-width: 42px;
+  font-size: 13px;
+  font-weight: 900;
+  color: #66788a;
+}
+
+.compactPayoutPlayer {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.compactPayoutPlayer strong {
+  font-size: 16px;
+  line-height: 1.15;
+}
+
+.compactPayoutPlayer span {
+  margin-top: 3px;
+  font-size: 13px;
+  color: #66788a;
+}
+
+.compactPayoutAmount {
+  flex: 0 0 auto;
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--green);
+}
+
+@media (max-width: 650px) {
+  .compactPayoutRow {
+    padding: 13px 14px;
+  }
+
+  .compactPayoutAmount {
+    font-size: 22px;
+  }
+}
+
+/* Vet Head public player handicap list */
+.vetPlayerHandicapList {
+  display: flex;
+  flex-direction: column;
+}
+
+.vetPlayerHandicapRow {
+  padding: 15px 20px;
+  border-top: 1px solid #e2e6ea;
+}
+
+.vetPlayerHandicapRow:first-child {
+  border-top: 0;
+}
+
+.vetPlayerHandicapName {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: baseline;
+}
+
+.vetPlayerHandicapName > strong {
+  font-size: 17px;
+}
+
+.vetPlayerHandicapName span {
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+.vetPlayerCourseHandicaps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin-top: 6px;
+  font-size: 14px;
+}
+
+@media (max-width: 650px) {
+  .vetPlayerHandicapRow {
+    padding: 14px 16px;
+  }
+
+  .vetPlayerHandicapName {
+    display: block;
+  }
+
+  .vetPlayerHandicapName span {
+    display: block;
+    margin-top: 3px;
+  }
+
+  .vetPlayerCourseHandicaps {
+    display: block;
+    margin-top: 7px;
+  }
+
+  .vetPlayerCourseHandicaps span {
+    display: inline;
+  }
+
+  .vetPlayerCourseHandicaps span:not(:last-child)::after {
+    content: " · ";
+    font-weight: 400;
+  }
+}
+
+/* Vet Head outdoor/mobile secondary-text refinement */
+.hybridSaveStatus,
+.compactPayoutPlace,
+.compactPayoutPlayer span,
+.vetPlayerCourseHandicaps {
+  color: #4f6375;
+}
+
+@media (max-width: 650px) {
+  .tournamentBoardSection .boardSectionHeader p {
+    color: #4f6375;
+  }
+}

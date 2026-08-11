@@ -25,14 +25,14 @@ export default async function ThursdayPage() {
     <main className="pageShell">
       <section className="hero">
         <div className="smallLabel">THURSDAY · ROUND 1</div>
-        <h1>Individual Net</h1>
+        <h1>Individual + Best Ball</h1>
         <p>August 13, 2026 · {formatTime(round.tee_time)}</p>
       </section>
 
       <section className="grid">
         <article className="card">
           <div className="smallLabel">ROUND 1 · {formatTime(round.tee_time)}</div>
-          <h2>18-Hole Individual Net</h2>
+          <h2>18-Hole Individual + Best Ball</h2>
           <p>
             {course?.course_name ?? "Course TBD"}
             {course?.tee_name ? ` · ${course.tee_name} Tees` : ""}

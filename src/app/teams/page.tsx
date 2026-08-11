@@ -8,6 +8,24 @@ import {
 
 export const dynamic = "force-dynamic";
 
+type CourseTee = {
+  par: number;
+  course_rating: number;
+  slope_rating: number;
+};
+
+const getCourseTee = (value: unknown): CourseTee | null => {
+  if (Array.isArray(value)) {
+    return (value[0] as CourseTee | undefined) ?? null;
+  }
+
+  if (value && typeof value === "object") {
+    return value as CourseTee;
+  }
+
+  return null;
+};
+
 const formatTime = (value: string) => {
   const [hourText, minuteText] = value.split(":");
   const hour = Number(hourText);
@@ -56,7 +74,7 @@ export default async function VetHeadPairingsPage() {
                 {formatTime(String(round.tee_time).slice(0, 5))} ·{" "}
                 {round.format === "four_man_scramble"
                   ? "4-Man Scramble"
-                  : "Individual Net"}
+                  : "Individual + Best Ball"}
               </p>
             </div>
           </div>
@@ -87,9 +105,9 @@ export default async function VetHeadPairingsPage() {
                           group.players.map((player) =>
                             calculateUnroundedCourseHandicap(
                               Number(player.handicapIndex ?? 0),
-                              Number(round.course_tee?.[0]?.slope_rating ?? 113),
-                              Number(round.course_tee?.[0]?.course_rating ?? 72),
-                              Number(round.course_tee?.[0]?.par ?? 72),
+                              Number(getCourseTee(round.course_tee)?.slope_rating ?? 113),
+                              Number(getCourseTee(round.course_tee)?.course_rating ?? 72),
+                              Number(getCourseTee(round.course_tee)?.par ?? 72),
                             ),
                           ),
                         )
@@ -114,12 +132,12 @@ export default async function VetHeadPairingsPage() {
                     {round.format !== "four_man_scramble" && (
                       <span>
                         {player.handicapIndex === null
-                          ? "HDCP —"
-                          : `HDCP ${calculateCourseHandicap(
+                          ? "CH —"
+                          : `CH ${calculateCourseHandicap(
                               Number(player.handicapIndex),
-                              Number(round.course_tee?.[0]?.slope_rating ?? 113),
-                              Number(round.course_tee?.[0]?.course_rating ?? 72),
-                              Number(round.course_tee?.[0]?.par ?? 72),
+                              Number(getCourseTee(round.course_tee)?.slope_rating ?? 113),
+                              Number(getCourseTee(round.course_tee)?.course_rating ?? 72),
+                              Number(getCourseTee(round.course_tee)?.par ?? 72),
                             )}`}
                       </span>
                     )}
