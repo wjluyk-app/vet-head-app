@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { requireScoreEntryAccess } from "@/lib/auth/score-entry";
 import {
   getVetHeadRoundEntryData,
+  upsertVetHeadIndividualHoleScores,
   upsertVetHeadIndividualScore,
   upsertVetHeadScrambleScore,
 } from "@/lib/repositories/vet-head-db";
@@ -55,10 +56,14 @@ export async function saveIndividualGroupAction(formData: FormData) {
   await requireScoreEntryAccess();
 
   const roundId = String(formData.get("roundId") ?? "");
-  const roundGroupId = String(formData.get("roundGroupId") ?? "");
+  const roundGroupId = String(
+    formData.get("roundGroupId") ?? "",
+  );
 
   if (!roundId || !roundGroupId) {
-    throw new Error("Invalid individual group score entry.");
+    throw new Error(
+      "Invalid individual group score entry.",
+    );
   }
 
   const data = await getVetHeadRoundEntryData(roundId);
@@ -68,7 +73,9 @@ export async function saveIndividualGroupAction(formData: FormData) {
     : data.round.course_tee;
 
   if (!courseTee) {
-    throw new Error("Course and tee setup was not found.");
+    throw new Error(
+      "Course and tee setup was not found.",
+    );
   }
 
   const groupAssignments = data.assignments
@@ -82,36 +89,78 @@ export async function saveIndividualGroupAction(formData: FormData) {
     );
 
   if (groupAssignments.length !== 4) {
-    throw new Error("Individual group must contain exactly four players.");
+    throw new Error(
+      "Individual group must contain exactly four players.",
+    );
   }
 
   for (const assignment of groupAssignments) {
     if (!assignment.player) {
-      throw new Error("A player was not found in this group.");
-    }
-
-    const grossScore = Number(
-      formData.get(`grossScore_${assignment.player_id}`),
-    );
-
-    if (!Number.isFinite(grossScore)) {
       throw new Error(
-        `Invalid gross score for ${assignment.player.display_name}.`,
+        "A player was not found in this group.",
       );
     }
+
+    const holes = Array.from(
+      { length: 18 },
+      (_, index) => {
+        const holeNumber = index + 1;
+
+        const grossScore = Number(
+          formData.get(
+            `grossScore_${assignment.player_id}_${holeNumber}`,
+          ),
+        );
+
+        if (
+          !Number.isInteger(grossScore) ||
+          grossScore < 1 ||
+          grossScore > 20
+        ) {
+          throw new Error(
+            `Invalid hole ${holeNumber} score for ${assignment.player.display_name}.`,
+          );
+        }
+
+        return {
+          holeNumber,
+          grossScore,
+        };
+      },
+    );
+
+    const grossScore = holes.reduce(
+      (sum, hole) => sum + hole.grossScore,
+      0,
+    );
+
+    await upsertVetHeadIndividualHoleScores({
+      roundId,
+      playerId: assignment.player_id,
+      holes,
+    });
 
     await upsertVetHeadIndividualScore({
       roundId,
       playerId: assignment.player_id,
       grossScore,
-      handicapIndex: Number(assignment.player.handicap_index),
-      slopeRating: Number(courseTee.slope_rating),
-      courseRating: Number(courseTee.course_rating),
+      handicapIndex: Number(
+        assignment.player.handicap_index,
+      ),
+      slopeRating: Number(
+        courseTee.slope_rating,
+      ),
+      courseRating: Number(
+        courseTee.course_rating,
+      ),
       par: Number(courseTee.par),
     });
   }
 
   revalidatePath(`/score/round/${roundId}`);
+  revalidatePath("/scoreboard");
+  revalidatePath("/payout-results");
+  revalidatePath("/final-results");
 
   const orderedGroups = [...data.groups].sort(
     (a, b) => a.group_number - b.group_number,

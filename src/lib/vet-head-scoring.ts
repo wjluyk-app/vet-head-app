@@ -191,3 +191,104 @@ export function calculateVetHeadMvpStandings(
       place: index + 1,
     }));
 }
+
+export function calculateHoleStrokes(
+  courseHandicap: number,
+  strokeIndex: number,
+): number {
+  if (courseHandicap === 0) {
+    return 0;
+  }
+
+  if (courseHandicap > 0) {
+    const fullRounds = Math.floor(courseHandicap / 18);
+    const remainder = courseHandicap % 18;
+
+    return fullRounds + (strokeIndex <= remainder ? 1 : 0);
+  }
+
+  const plusHandicap = Math.abs(courseHandicap);
+  const fullRounds = Math.floor(plusHandicap / 18);
+  const remainder = plusHandicap % 18;
+
+  const givesExtraStroke =
+    remainder > 0 && strokeIndex > 18 - remainder;
+
+  return -(fullRounds + (givesExtraStroke ? 1 : 0));
+}
+
+export function calculateHoleNet(
+  grossScore: number,
+  courseHandicap: number,
+  strokeIndex: number,
+): number {
+  return grossScore - calculateHoleStrokes(
+    courseHandicap,
+    strokeIndex,
+  );
+}
+
+export function calculateHybridGroupTotal(
+  players: Array<{
+    courseHandicap: number;
+    holes: Array<{
+      holeNumber: number;
+      grossScore: number;
+      strokeIndex: number;
+    }>;
+  }>,
+): {
+  frontNine: number;
+  backNine: number;
+  total: number;
+} {
+  if (players.length !== 4) {
+    throw new Error(
+      "Hybrid group scoring requires exactly four players.",
+    );
+  }
+
+  const holeTotals: number[] = [];
+
+  for (let holeNumber = 1; holeNumber <= 18; holeNumber += 1) {
+    const netScores = players
+      .map((player) => {
+        const hole = player.holes.find(
+          (item) => item.holeNumber === holeNumber,
+        );
+
+        if (!hole) {
+          throw new Error(`Missing hole ${holeNumber} score.`);
+        }
+
+        return calculateHoleNet(
+          hole.grossScore,
+          player.courseHandicap,
+          hole.strokeIndex,
+        );
+      })
+      .sort((a, b) => a - b);
+
+    const scoresToCount = holeNumber <= 9 ? 2 : 3;
+
+    holeTotals.push(
+      netScores
+        .slice(0, scoresToCount)
+        .reduce((sum, score) => sum + score, 0),
+    );
+  }
+
+  const frontNine = holeTotals
+    .slice(0, 9)
+    .reduce((sum, score) => sum + score, 0);
+
+  const backNine = holeTotals
+    .slice(9)
+    .reduce((sum, score) => sum + score, 0);
+
+  return {
+    frontNine,
+    backNine,
+    total: frontNine + backNine,
+  };
+}

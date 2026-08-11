@@ -1,5 +1,6 @@
 import { createAdminClient } from "@/lib/supabase/admin";
 import {
+  calculateHybridGroupTotal,
   calculateRoundGroupPoints,
   calculateVetHeaderStandings,
   calculateVetHeadMvpStandings,
@@ -40,6 +41,13 @@ type IndividualScoreRow = {
   net_score: number;
 };
 
+type IndividualHoleScoreRow = {
+  round_id: string;
+  player_id: string;
+  hole_number: number;
+  gross_score: number;
+};
+
 type ScrambleScoreRow = {
   round_id: string;
   round_group_id: string;
@@ -70,6 +78,7 @@ export async function getVetHeadScoreboardData() {
     groupsResult,
     assignmentsResult,
     individualScoresResult,
+    individualHoleScoresResult,
     scrambleScoresResult,
   ] = await Promise.all([
     supabase
@@ -103,6 +112,12 @@ export async function getVetHeadScoreboardData() {
       ),
 
     supabase
+      .from("individual_hole_score")
+      .select(
+        "round_id, player_id, hole_number, gross_score",
+      ),
+
+    supabase
       .from("scramble_score")
       .select(
         "round_id, round_group_id, gross_score, team_handicap, net_score",
@@ -115,6 +130,7 @@ export async function getVetHeadScoreboardData() {
     groupsResult.error,
     assignmentsResult.error,
     individualScoresResult.error,
+    individualHoleScoresResult.error,
     scrambleScoresResult.error,
   ].filter(Boolean);
 
@@ -131,6 +147,8 @@ export async function getVetHeadScoreboardData() {
     (assignmentsResult.data ?? []) as AssignmentRow[];
   const individualScores =
     (individualScoresResult.data ?? []) as IndividualScoreRow[];
+  const individualHoleScores =
+    (individualHoleScoresResult.data ?? []) as IndividualHoleScoreRow[];
   const scrambleScores =
     (scrambleScoresResult.data ?? []) as ScrambleScoreRow[];
 
@@ -154,9 +172,39 @@ export async function getVetHeadScoreboardData() {
     roundIds.has(score.round_id),
   );
 
+  const tournamentIndividualHoleScores = individualHoleScores.filter(
+    (score) => roundIds.has(score.round_id),
+  );
+
   const tournamentScrambleScores = scrambleScores.filter((score) =>
     roundIds.has(score.round_id),
   );
+
+  const cedarRiverStrokeIndexes = [
+    7, 11, 3, 13, 1, 17, 9, 15, 5,
+    6, 12, 2, 16, 18, 10, 8, 14, 4,
+  ];
+
+  const hawksEyeStrokeIndexes = [
+    9, 7, 13, 3, 5, 15, 17, 12, 10,
+    16, 8, 2, 11, 1, 6, 18, 4, 14,
+  ];
+
+  const getIndividualRoundStrokeIndexes = (
+    roundNumber: number,
+  ) => {
+    if (roundNumber === 1 || roundNumber === 2) {
+      return cedarRiverStrokeIndexes;
+    }
+
+    if (roundNumber === 4) {
+      return hawksEyeStrokeIndexes;
+    }
+
+    throw new Error(
+      `Stroke indexes are not configured for individual round ${roundNumber}.`,
+    );
+  };
 
   const roundBoards = rounds.map((round) => {
     const roundGroups = groups
@@ -194,15 +242,62 @@ export async function getVetHeadScoreboardData() {
           };
         });
 
+        const strokeIndexes =
+          getIndividualRoundStrokeIndexes(
+            round.round_number,
+          );
+
+        const hybridPlayers = scores.map((player) => {
+          const holeScores =
+            tournamentIndividualHoleScores
+              .filter(
+                (holeScore) =>
+                  holeScore.round_id === round.id &&
+                  holeScore.player_id === player.id,
+              )
+              .sort(
+                (a, b) =>
+                  a.hole_number - b.hole_number,
+              );
+
+          return {
+            courseHandicap:
+              player.handicap === null
+                ? null
+                : Number(player.handicap),
+            holes: holeScores.map((holeScore) => ({
+              holeNumber: holeScore.hole_number,
+              grossScore: holeScore.gross_score,
+              strokeIndex:
+                strokeIndexes[
+                  holeScore.hole_number - 1
+                ],
+            })),
+          };
+        });
+
         const complete =
           scores.length === 4 &&
-          scores.every((score) => score.net !== null);
+          scores.every(
+            (score) =>
+              score.net !== null &&
+              score.handicap !== null,
+          ) &&
+          hybridPlayers.every(
+            (player) =>
+              player.courseHandicap !== null &&
+              player.holes.length === 18,
+          );
 
         const total = complete
-          ? scores.reduce(
-              (sum, score) => sum + Number(score.net),
-              0,
-            )
+          ? calculateHybridGroupTotal(
+              hybridPlayers.map((player) => ({
+                courseHandicap: Number(
+                  player.courseHandicap,
+                ),
+                holes: player.holes,
+              })),
+            ).total
           : null;
 
         return {

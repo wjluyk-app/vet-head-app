@@ -122,6 +122,62 @@ export async function upsertVetHeadIndividualScore(params: {
   return data;
 }
 
+export async function upsertVetHeadIndividualHoleScores(params: {
+  roundId: string;
+  playerId: string;
+  holes: Array<{
+    holeNumber: number;
+    grossScore: number;
+  }>;
+}) {
+  const supabase = createAdminClient();
+
+  if (params.holes.length !== 18) {
+    throw new Error(
+      "An individual round requires exactly 18 hole scores.",
+    );
+  }
+
+  const holeNumbers = params.holes.map(
+    (hole) => hole.holeNumber,
+  );
+
+  if (
+    new Set(holeNumbers).size !== 18 ||
+    holeNumbers.some(
+      (holeNumber) =>
+        holeNumber < 1 || holeNumber > 18,
+    )
+  ) {
+    throw new Error(
+      "Individual hole scores must contain holes 1 through 18 exactly once.",
+    );
+  }
+
+  const rows = params.holes.map((hole) => ({
+    round_id: params.roundId,
+    player_id: params.playerId,
+    hole_number: hole.holeNumber,
+    gross_score: hole.grossScore,
+    updated_at: new Date().toISOString(),
+  }));
+
+  const { data, error } = await supabase
+    .from("individual_hole_score")
+    .upsert(rows, {
+      onConflict: "round_id,player_id,hole_number",
+    })
+    .select("*");
+
+  if (error) {
+    throw new Error(
+      `Failed to save individual hole scores: ${error.message}`,
+    );
+  }
+
+  return data ?? [];
+}
+
 export async function upsertVetHeadScrambleScore(params: {
   roundId: string;
   roundGroupId: string;
@@ -241,12 +297,19 @@ export async function getVetHeadRoundEntryData(roundId: string) {
 
   const [
     individualScoresResult,
+    individualHoleScoresResult,
     scrambleScoresResult,
   ] = await Promise.all([
     supabase
       .from("individual_score")
       .select("*")
       .eq("round_id", roundId),
+
+    supabase
+      .from("individual_hole_score")
+      .select("*")
+      .eq("round_id", roundId)
+      .order("hole_number"),
 
     supabase
       .from("scramble_score")
@@ -257,6 +320,12 @@ export async function getVetHeadRoundEntryData(roundId: string) {
   if (individualScoresResult.error) {
     throw new Error(
       `Failed to load individual scores: ${individualScoresResult.error.message}`,
+    );
+  }
+
+  if (individualHoleScoresResult.error) {
+    throw new Error(
+      `Failed to load individual hole scores: ${individualHoleScoresResult.error.message}`,
     );
   }
 
@@ -271,6 +340,7 @@ export async function getVetHeadRoundEntryData(roundId: string) {
     groups: groups ?? [],
     assignments: assignments ?? [],
     individualScores: individualScoresResult.data ?? [],
+    individualHoleScores: individualHoleScoresResult.data ?? [],
     scrambleScores: scrambleScoresResult.data ?? [],
   };
 }
