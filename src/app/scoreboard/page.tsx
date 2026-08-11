@@ -81,8 +81,8 @@ export default async function ScoreboardPage() {
               8 points for 1st · 6 for 2nd · 4 for 3rd in each round
             </p>
             <p>
-              Final ties are broken by most 1st-place finishes, then most
-              2nd-place finishes, then lowest Vet Head MVP 54-hole total.
+              Final ties remain tied. Prize money for occupied places is
+              pooled and split evenly.
             </p>
           </div>
         </div>
@@ -102,8 +102,6 @@ export default async function ScoreboardPage() {
                 <th>Pos</th>
                 <th>Player</th>
                 <th>Points</th>
-                <th>1sts</th>
-                <th>2nds</th>
               </tr>
             </thead>
             <tbody>
@@ -112,8 +110,6 @@ export default async function ScoreboardPage() {
                   <td>{standing.place}</td>
                   <td><strong>{standing.playerName}</strong></td>
                   <td>{standing.totalPoints}</td>
-                  <td>{standing.firstPlaceFinishes}</td>
-                  <td>{standing.secondPlaceFinishes}</td>
                 </tr>
               ))}
             </tbody>
@@ -128,10 +124,6 @@ export default async function ScoreboardPage() {
                 <strong>{standing.playerName}</strong>
                 <span>
                   <b>{standing.totalPoints} pts</b>
-                  {" · "}
-                  {standing.firstPlaceFinishes} firsts
-                  {" · "}
-                  {standing.secondPlaceFinishes} seconds
                 </span>
               </div>
             </article>
@@ -154,8 +146,8 @@ export default async function ScoreboardPage() {
               Thursday + Friday AM + Saturday AM individual net
             </p>
             <p>
-              Ties are broken by Saturday AM net, then Friday AM net,
-              then Thursday net.
+              Ties remain tied. Prize money for occupied places is pooled
+              and split evenly.
             </p>
           </div>
         </div>
