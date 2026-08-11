@@ -332,6 +332,7 @@ export default function HybridIndividualGroupForm({
                             >
                               <input
                                 type="number"
+                                id={`score-${playerIndex}-${holeNumber}`}
                                 name={`grossScore_${player.playerId}_${holeNumber}`}
                                 min="1"
                                 max="20"
@@ -353,6 +354,70 @@ export default function HybridIndividualGroupForm({
                                         value,
                                     }),
                                   );
+                                }}
+                                onKeyDown={(event) => {
+                                  if (
+                                    event.key !== "Enter" &&
+                                    event.key !== "Tab"
+                                  ) {
+                                    return;
+                                  }
+
+                                  event.preventDefault();
+
+                                  const goingBackward =
+                                    event.key === "Tab" &&
+                                    event.shiftKey;
+
+                                  let nextPlayerIndex =
+                                    playerIndex;
+                                  let nextHoleNumber =
+                                    holeNumber;
+
+                                  if (goingBackward) {
+                                    if (holeNumber > 1) {
+                                      nextHoleNumber =
+                                        holeNumber - 1;
+                                    } else if (
+                                      playerIndex > 0
+                                    ) {
+                                      nextPlayerIndex =
+                                        playerIndex - 1;
+                                      nextHoleNumber = 18;
+                                    } else {
+                                      return;
+                                    }
+                                  } else {
+                                    if (holeNumber < 18) {
+                                      nextHoleNumber =
+                                        holeNumber + 1;
+                                    } else if (
+                                      playerIndex <
+                                      playerData.length - 1
+                                    ) {
+                                      nextPlayerIndex =
+                                        playerIndex + 1;
+                                      nextHoleNumber = 1;
+                                    } else {
+                                      const saveButton =
+                                        document.getElementById(
+                                          `save-group-${roundGroupId}`,
+                                        );
+
+                                      saveButton?.focus();
+                                      return;
+                                    }
+                                  }
+
+                                  const nextInput =
+                                    document.getElementById(
+                                      `score-${nextPlayerIndex}-${nextHoleNumber}`,
+                                    );
+
+                                  nextInput?.focus();
+                                  (
+                                    nextInput as HTMLInputElement | null
+                                  )?.select();
                                 }}
                                 autoFocus={
                                   autoFocus &&
@@ -507,6 +572,7 @@ export default function HybridIndividualGroupForm({
 
         <button
           type="submit"
+          id={`save-group-${roundGroupId}`}
           className="vetSaveScoreButton vetSaveGroupButton"
           disabled={!allComplete}
         >
