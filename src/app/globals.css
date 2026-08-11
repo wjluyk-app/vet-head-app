@@ -6401,3 +6401,26 @@ a.card strong {
     background: white;
   }
 }
+
+.vetClearScoreButton {
+  appearance: none;
+  border: 1px solid #b42318;
+  background: #fff;
+  color: #b42318;
+  border-radius: 8px;
+  min-height: 44px;
+  padding: 10px 16px;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.vetClearScoreButton:hover {
+  background: #fff4f2;
+}
+
+@media (max-width: 650px) {
+  .vetClearScoreButton {
+    width: 100%;
+  }
+}

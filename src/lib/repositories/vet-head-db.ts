@@ -238,6 +238,62 @@ export async function upsertVetHeadScrambleScore(params: {
   return data;
 }
 
+export async function clearVetHeadIndividualGroupScores(params: {
+  roundId: string;
+  playerIds: string[];
+}) {
+  const supabase = createAdminClient();
+
+  if (params.playerIds.length !== 4) {
+    throw new Error(
+      "An individual group clear requires exactly four players.",
+    );
+  }
+
+  const { error: holeError } = await supabase
+    .from("individual_hole_score")
+    .delete()
+    .eq("round_id", params.roundId)
+    .in("player_id", params.playerIds);
+
+  if (holeError) {
+    throw new Error(
+      `Failed to clear individual hole scores: ${holeError.message}`,
+    );
+  }
+
+  const { error: scoreError } = await supabase
+    .from("individual_score")
+    .delete()
+    .eq("round_id", params.roundId)
+    .in("player_id", params.playerIds);
+
+  if (scoreError) {
+    throw new Error(
+      `Failed to clear individual scores: ${scoreError.message}`,
+    );
+  }
+}
+
+export async function clearVetHeadScrambleScore(params: {
+  roundId: string;
+  roundGroupId: string;
+}) {
+  const supabase = createAdminClient();
+
+  const { error } = await supabase
+    .from("scramble_score")
+    .delete()
+    .eq("round_id", params.roundId)
+    .eq("round_group_id", params.roundGroupId);
+
+  if (error) {
+    throw new Error(
+      `Failed to clear scramble score: ${error.message}`,
+    );
+  }
+}
+
 export async function getVetHeadRoundEntryData(roundId: string) {
   const supabase = createAdminClient();
 

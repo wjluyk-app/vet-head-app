@@ -1,7 +1,9 @@
 import Link from "next/link";
+import ConfirmClearScoreButton from "@/components/ConfirmClearScoreButton";
 import { requireScoreEntryAccess } from "@/lib/auth/score-entry";
 import { getVetHeadRoundEntryData } from "@/lib/repositories/vet-head-db";
 import {
+  clearScrambleScoreAction,
   saveScrambleScoreAction,
 } from "./actions";
 import HybridIndividualGroupForm from "./HybridIndividualGroupForm";
@@ -191,6 +193,14 @@ export default async function VetHeadRoundEntryPage({
                     >
                       {scrambleScore ? "UPDATE TEAM" : "SAVE TEAM"}
                     </button>
+
+                    {scrambleScore && (
+                      <ConfirmClearScoreButton
+                        action={clearScrambleScoreAction}
+                        label="CLEAR SCORE"
+                        message="Clear this saved scramble score? This cannot be undone."
+                      />
+                    )}
                   </div>
                 </form>
               )}

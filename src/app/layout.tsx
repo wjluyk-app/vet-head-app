@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { getBillAdminUser } from "@/lib/auth/admin";
+import { getScoreEntryUser } from "@/lib/auth/score-entry";
 import MobileHeaderNav from "@/components/MobileHeaderNav";
 import "./globals.css";
 
@@ -14,6 +15,8 @@ export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   const adminUser = await getBillAdminUser();
+  const scoreEntryAccess = await getScoreEntryUser();
+  const hasScoreEntryAccess = Boolean(scoreEntryAccess);
 
   return (
     <html lang="en">
@@ -36,18 +39,28 @@ export default async function RootLayout({
             <Link href="/schedule">Schedule</Link>
             <Link href="/teams">Pairings</Link>
             <Link href="/scoreboard">Scoreboard</Link>
-        <Link href="/prize-money">Payouts</Link>
+            <Link href="/prize-money">Payouts</Link>
+
+            {hasScoreEntryAccess && (
+              <Link href="/score">Score Entry</Link>
+            )}
+
             {adminUser ? (
               <>
                 <Link href="/admin">Admin</Link>
                 <Link href="/login">Account</Link>
               </>
+            ) : hasScoreEntryAccess ? (
+              <Link href="/login">Account</Link>
             ) : (
               <Link href="/login">Sign In</Link>
             )}
           </nav>
 
-          <MobileHeaderNav isAdmin={Boolean(adminUser)} />
+          <MobileHeaderNav
+            isAdmin={Boolean(adminUser)}
+            hasScoreEntryAccess={hasScoreEntryAccess}
+          />
         </header>
 
         <main>{children}</main>

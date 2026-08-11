@@ -5,9 +5,13 @@ import { useState } from "react";
 
 type MobileHeaderNavProps = {
   isAdmin: boolean;
+  hasScoreEntryAccess: boolean;
 };
 
-export default function MobileHeaderNav({ isAdmin }: MobileHeaderNavProps) {
+export default function MobileHeaderNav({
+  isAdmin,
+  hasScoreEntryAccess,
+}: MobileHeaderNavProps) {
   const [open, setOpen] = useState(false);
 
   const closeMenu = () => setOpen(false);
@@ -38,9 +42,16 @@ export default function MobileHeaderNav({ isAdmin }: MobileHeaderNavProps) {
           <Link href="/scoreboard" onClick={closeMenu}>
             Scoreboard
           </Link>
-            <Link href="/prize-money" onClick={closeMenu}>
-              Payouts
+          <Link href="/prize-money" onClick={closeMenu}>
+            Payouts
+          </Link>
+
+          {hasScoreEntryAccess && (
+            <Link href="/score" onClick={closeMenu}>
+              Score Entry
             </Link>
+          )}
+
           {isAdmin ? (
             <>
               <Link href="/admin" onClick={closeMenu}>
@@ -50,6 +61,10 @@ export default function MobileHeaderNav({ isAdmin }: MobileHeaderNavProps) {
                 Account
               </Link>
             </>
+          ) : hasScoreEntryAccess ? (
+            <Link href="/login" onClick={closeMenu}>
+              Account
+            </Link>
           ) : (
             <Link href="/login" onClick={closeMenu}>
               Sign In

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getBillAdminUser } from "@/lib/auth/admin";
 import { getScoreEntryUser } from "@/lib/auth/score-entry";
 import { signIn, signOut } from "./actions";
@@ -36,11 +37,17 @@ export default async function LoginPage({
           Signed in as {scoreEntryAccess.user.email} · Score Entry
         </p>
 
-        <form action={signOut}>
-          <button className="button" type="submit">
-            Sign out
-          </button>
-        </form>
+        <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+          <Link className="button" href="/score">
+            Open Score Entry
+          </Link>
+
+          <form action={signOut}>
+            <button className="button" type="submit">
+              Sign out
+            </button>
+          </form>
+        </div>
       </section>
     );
   }

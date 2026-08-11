@@ -6,7 +6,10 @@ import {
   calculateHoleNet,
   calculateHoleStrokes,
 } from "@/lib/vet-head-scoring";
-import { saveIndividualGroupAction } from "./actions";
+import {
+  clearIndividualGroupAction,
+  saveIndividualGroupAction,
+} from "./actions";
 
 type PlayerAssignment = {
   id: string;
@@ -594,6 +597,26 @@ export default function HybridIndividualGroupForm({
         >
           SAVE GROUP SCORECARD
         </button>
+
+        {hasSavedScorecard && (
+          <button
+            type="submit"
+            className="vetClearScoreButton"
+            formAction={clearIndividualGroupAction}
+            formNoValidate
+            onClick={(event) => {
+              if (
+                !window.confirm(
+                  "Clear all saved scores for this group? This cannot be undone.",
+                )
+              ) {
+                event.preventDefault();
+              }
+            }}
+          >
+            CLEAR SCORECARD
+          </button>
+        )}
       </div>
     </form>
   );

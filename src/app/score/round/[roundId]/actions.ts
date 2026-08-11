@@ -4,6 +4,8 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { requireScoreEntryAccess } from "@/lib/auth/score-entry";
 import {
+  clearVetHeadIndividualGroupScores,
+  clearVetHeadScrambleScore,
   getVetHeadRoundEntryData,
   upsertVetHeadIndividualHoleScores,
   upsertVetHeadIndividualScore,
@@ -180,6 +182,77 @@ export async function saveIndividualGroupAction(formData: FormData) {
 
   redirect(
     `/score/round/${roundId}?complete=1#round-complete`,
+  );
+}
+
+export async function clearIndividualGroupAction(formData: FormData) {
+  await requireScoreEntryAccess();
+
+  const roundId = String(formData.get("roundId") ?? "");
+  const roundGroupId = String(
+    formData.get("roundGroupId") ?? "",
+  );
+
+  if (!roundId || !roundGroupId) {
+    throw new Error(
+      "Invalid individual group clear request.",
+    );
+  }
+
+  const data = await getVetHeadRoundEntryData(roundId);
+
+  const playerIds = data.assignments
+    .filter(
+      (assignment) =>
+        assignment.round_group_id === roundGroupId,
+    )
+    .map((assignment) => assignment.player_id);
+
+  if (playerIds.length !== 4) {
+    throw new Error(
+      "Individual group must contain exactly four players.",
+    );
+  }
+
+  await clearVetHeadIndividualGroupScores({
+    roundId,
+    playerIds,
+  });
+
+  revalidatePath(`/score/round/${roundId}`);
+  revalidatePath("/scoreboard");
+  revalidatePath("/payout-results");
+  revalidatePath("/final-results");
+
+  redirect(
+    `/score/round/${roundId}?focus=${roundGroupId}#group-${roundGroupId}`,
+  );
+}
+
+export async function clearScrambleScoreAction(formData: FormData) {
+  await requireScoreEntryAccess();
+
+  const roundId = String(formData.get("roundId") ?? "");
+  const roundGroupId = String(
+    formData.get("roundGroupId") ?? "",
+  );
+
+  if (!roundId || !roundGroupId) {
+    throw new Error("Invalid scramble clear request.");
+  }
+
+  await clearVetHeadScrambleScore({
+    roundId,
+    roundGroupId,
+  });
+
+  revalidatePath(`/score/round/${roundId}`);
+  revalidatePath("/scoreboard");
+  revalidatePath("/payout-results");
+  revalidatePath("/final-results");
+
+  redirect(
+    `/score/round/${roundId}?focus=${roundGroupId}#group-${roundGroupId}`,
   );
 }
 
