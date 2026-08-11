@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { requireBillAdmin } from "@/lib/auth/admin";
 import { createAdminClient } from "@/lib/supabase/admin";
 
@@ -123,4 +124,6 @@ export async function updateVetHeadPairingRound(formData: FormData) {
   revalidatePath("/schedule");
   revalidatePath("/score");
   revalidatePath("/scoreboard");
+
+  redirect(`/admin/pairings?saved=${encodeURIComponent(roundId)}`);
 }

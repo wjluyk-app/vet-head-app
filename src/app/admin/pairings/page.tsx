@@ -1,15 +1,9 @@
 import Link from "next/link";
 import { requireBillAdmin } from "@/lib/auth/admin";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { updateVetHeadPairingRound } from "./actions";
+import RoundPairingEditor from "./RoundPairingEditor";
 
 export const dynamic = "force-dynamic";
-
-const formatTime = (value: string) => {
-  const [hourText, minuteText] = String(value).slice(0, 5).split(":");
-  const hour = Number(hourText);
-  return `${hour % 12 || 12}:${minuteText} ${hour >= 12 ? "PM" : "AM"}`;
-};
 
 type Player = {
   id: string;
@@ -41,9 +35,14 @@ type Round = {
   round_group: Group[];
 };
 
-export default async function VetHeadPairingsAdminPage() {
+export default async function VetHeadPairingsAdminPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ saved?: string }>;
+}) {
   await requireBillAdmin();
 
+  const query = await searchParams;
   const supabase = createAdminClient();
 
   const { data: tournament, error: tournamentError } = await supabase
@@ -69,17 +68,19 @@ export default async function VetHeadPairingsAdminPage() {
     throw new Error(playersError.message);
   }
 
-  const players = ([...(playersData ?? [])] as Player[]).sort((a, b) => {
-    const aNumber = Number(
-      String(a.import_key ?? "").replace(/^P/i, ""),
-    );
+  const players = ([...(playersData ?? [])] as Player[]).sort(
+    (a, b) => {
+      const aNumber = Number(
+        String(a.import_key ?? "").replace(/^P/i, ""),
+      );
 
-    const bNumber = Number(
-      String(b.import_key ?? "").replace(/^P/i, ""),
-    );
+      const bNumber = Number(
+        String(b.import_key ?? "").replace(/^P/i, ""),
+      );
 
-    return aNumber - bNumber;
-  });
+      return aNumber - bNumber;
+    },
+  );
 
   const { data: roundsData, error: roundsError } = await supabase
     .from("tournament_round")
@@ -122,132 +123,44 @@ export default async function VetHeadPairingsAdminPage() {
     }
   }
 
+  const savedRound = query.saved
+    ? rounds.find((round) => round.id === query.saved)
+    : null;
+
   return (
     <main className="pageShell">
       <section className="hero">
         <div className="smallLabel">VET HEAD ADMIN</div>
         <h1>Pairings</h1>
         <p>
-          Set the predetermined three groups of four for every round.
-          Vet Head does not generate pairings automatically.
+          Set all 12 players for each round. Every player must appear
+          exactly once.
         </p>
       </section>
 
-      {rounds.map((round) => (
-        <section
-          className="tournamentBoardSection"
-          key={round.id}
+      {savedRound && (
+        <article
+          className="card"
           style={{ marginTop: 24 }}
         >
-          <div className="boardSectionHeader">
-            <div>
-              <div className="smallLabel">
-                ROUND {round.round_number}
-              </div>
+          <div className="smallLabel">PAIRINGS SAVED</div>
+          <h2>{savedRound.name}</h2>
+          <p>
+            All 12 player assignments were saved successfully.
+          </p>
 
-              <h2>{round.name}</h2>
+          <Link className="button" href="/teams">
+            View Public Pairings
+          </Link>
+        </article>
+      )}
 
-              <p>
-                {round.round_date} ·{" "}
-                {formatTime(round.tee_time)} ·{" "}
-                {round.format === "four_man_scramble"
-                  ? "4-Man Scramble"
-                  : "Individual Net"}
-              </p>
-            </div>
-          </div>
-
-          <form action={updateVetHeadPairingRound}>
-            <input
-              type="hidden"
-              name="round_id"
-              value={round.id}
-            />
-
-            <section className="grid">
-              {round.round_group.map((group) => (
-                <article className="card" key={group.id}>
-                  <input
-                    type="hidden"
-                    name={`group_${group.group_number}_id`}
-                    value={group.id}
-                  />
-
-                  <div className="smallLabel">
-                    {round.format === "four_man_scramble"
-                      ? `TEAM ${group.group_number}`
-                      : `GROUP ${group.group_number}`}
-                  </div>
-
-                  <h3>
-                    {group.name ??
-                      (round.format === "four_man_scramble"
-                        ? `Team ${group.group_number}`
-                        : `Group ${group.group_number}`)}
-                  </h3>
-
-                  <p>
-                    Tee Time:{" "}
-                    {formatTime(
-                      group.group_tee_time ?? round.tee_time,
-                    )}
-                  </p>
-
-                  {[1, 2, 3, 4].map((order) => {
-                    const assignment =
-                      group.round_group_player.find(
-                        (item) => item.player_order === order,
-                      );
-
-                    return (
-                      <label key={order}>
-                        Player {order}
-
-                        <select
-                          className="textInput"
-                          name={`group_${group.group_number}_player_${order}_id`}
-                          defaultValue={
-                            assignment?.player_id ?? ""
-                          }
-                          required
-                        >
-                          <option value="" disabled>
-                            Select player
-                          </option>
-
-                          {players.map((player) => (
-                            <option
-                              key={player.id}
-                              value={player.id}
-                            >
-                              {player.import_key ?? ""} —{" "}
-                              {player.display_name}
-                            </option>
-                          ))}
-                        </select>
-                      </label>
-                    );
-                  })}
-                </article>
-              ))}
-            </section>
-
-            <div
-              style={{
-                marginTop: 18,
-                padding: "0 20px 20px",
-              }}
-            >
-              <button className="button" type="submit">
-                Save {round.name} Pairings
-              </button>
-
-              <p style={{ marginTop: 10 }}>
-                All 12 players must appear exactly once in this round.
-              </p>
-            </div>
-          </form>
-        </section>
+      {rounds.map((round) => (
+        <RoundPairingEditor
+          key={round.id}
+          round={round}
+          players={players}
+        />
       ))}
 
       <div style={{ marginTop: 24 }}>
