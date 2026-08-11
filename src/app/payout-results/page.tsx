@@ -243,23 +243,12 @@ export default async function PayoutResultsPage() {
   const pointsComplete = board.completedRounds === 5;
 
   const pointsEntries: RankedEntry[] = board.mvp.map(
-    (standing) => {
-      const mvpStanding = board.vetHeader.find(
-        (item) => item.playerId === standing.playerId,
-      );
-
-      return {
-        id: standing.playerId,
-        title: standing.playerName,
-        detail: `${standing.totalPoints} points`,
-        tieKey: [
-          standing.totalPoints,
-          standing.firstPlaceFinishes,
-          standing.secondPlaceFinishes,
-          mvpStanding?.totalNet ?? 9999,
-        ].join("|"),
-      };
-    },
+    (standing) => ({
+      id: standing.playerId,
+      title: standing.playerName,
+      detail: `${standing.totalPoints} points`,
+      tieKey: String(standing.totalPoints),
+    }),
   );
 
   const pointsAwards = pointsComplete
@@ -278,12 +267,7 @@ export default async function PayoutResultsPage() {
       id: standing.playerId,
       title: standing.playerName,
       detail: `${standing.totalNet} net`,
-      tieKey: [
-        standing.totalNet,
-        standing.saturdayAmNet,
-        standing.fridayAmNet,
-        standing.thursdayNet,
-      ].join("|"),
+      tieKey: String(standing.totalNet),
     }),
   );
 
@@ -380,10 +364,8 @@ export default async function PayoutResultsPage() {
         <h1>Payout Results</h1>
         <p>
           Prize money automatically calculated from official scoring
-          results. Round ties split the money for the occupied places.
-          Vet Head Points and Vet Head MVP tiebreakers are applied before
-          championship prize money is awarded. Money is split only if
-          players remain tied after all applicable tiebreakers.
+          results. All ties split the money for the occupied places,
+          including Vet Head Points and Vet Head MVP.
         </p>
       </section>
 

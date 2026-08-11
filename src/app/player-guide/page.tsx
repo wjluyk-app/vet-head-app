@@ -99,9 +99,8 @@ export default function VetHeadPlayerGuidePage() {
           </p>
 
           <p>
-            Final Vet Head Points ties are broken by most 1st-place
-            finishes, then most 2nd-place finishes, then lowest
-            Vet Head MVP 54-hole total.
+            Final Vet Head Points ties remain tied. Prize money for
+            the occupied places is pooled and split evenly.
           </p>
         </article>
       </section>
@@ -125,8 +124,8 @@ export default function VetHeadPlayerGuidePage() {
           </p>
 
           <p>
-            Ties are broken by Saturday morning net, then
-            Friday morning net, then Thursday net.
+            Ties in the 54-hole Vet Head MVP remain tied. Prize money
+            for the occupied places is pooled and split evenly.
           </p>
         </article>
       </section>

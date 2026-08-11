@@ -126,7 +126,7 @@ export type VetHeaderStanding = VetHeaderStandingInput & {
 export function calculateVetHeaderStandings(
   players: VetHeaderStandingInput[],
 ): VetHeaderStanding[] {
-  return players
+  const sorted = players
     .map((player) => ({
       ...player,
       totalNet:
@@ -134,25 +134,26 @@ export function calculateVetHeaderStandings(
         player.fridayAmNet +
         player.saturdayAmNet,
     }))
-    .sort((a, b) => {
-      if (a.totalNet !== b.totalNet) {
-        return a.totalNet - b.totalNet;
-      }
+    .sort((a, b) => a.totalNet - b.totalNet);
 
-      if (a.saturdayAmNet !== b.saturdayAmNet) {
-        return a.saturdayAmNet - b.saturdayAmNet;
-      }
+  let previousTotal: number | null = null;
+  let previousPlace = 0;
 
-      if (a.fridayAmNet !== b.fridayAmNet) {
-        return a.fridayAmNet - b.fridayAmNet;
-      }
+  return sorted.map((player, index) => {
+    const place =
+      previousTotal !== null &&
+      player.totalNet === previousTotal
+        ? previousPlace
+        : index + 1;
 
-      return a.thursdayNet - b.thursdayNet;
-    })
-    .map((player, index) => ({
+    previousTotal = player.totalNet;
+    previousPlace = place;
+
+    return {
       ...player,
-      place: index + 1,
-    }));
+      place,
+    };
+  });
 }
 
 export type VetHeadMvpStandingInput = {
@@ -170,26 +171,28 @@ export type VetHeadMvpStanding = VetHeadMvpStandingInput & {
 export function calculateVetHeadMvpStandings(
   players: VetHeadMvpStandingInput[],
 ): VetHeadMvpStanding[] {
-  return [...players]
-    .sort((a, b) => {
-      if (a.totalPoints !== b.totalPoints) {
-        return b.totalPoints - a.totalPoints;
-      }
+  const sorted = [...players].sort(
+    (a, b) => b.totalPoints - a.totalPoints,
+  );
 
-      if (a.firstPlaceFinishes !== b.firstPlaceFinishes) {
-        return b.firstPlaceFinishes - a.firstPlaceFinishes;
-      }
+  let previousPoints: number | null = null;
+  let previousPlace = 0;
 
-      if (a.secondPlaceFinishes !== b.secondPlaceFinishes) {
-        return b.secondPlaceFinishes - a.secondPlaceFinishes;
-      }
+  return sorted.map((player, index) => {
+    const place =
+      previousPoints !== null &&
+      player.totalPoints === previousPoints
+        ? previousPlace
+        : index + 1;
 
-      return a.vetHeaderTotalNet - b.vetHeaderTotalNet;
-    })
-    .map((player, index) => ({
+    previousPoints = player.totalPoints;
+    previousPlace = place;
+
+    return {
       ...player,
-      place: index + 1,
-    }));
+      place,
+    };
+  });
 }
 
 export function calculateHoleStrokes(
