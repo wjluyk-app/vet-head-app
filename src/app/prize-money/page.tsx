@@ -110,7 +110,11 @@ export default async function VetHeadPayoutsPage() {
               <div className="boardSectionHeader">
                 <div>
                   <div className="smallLabel">PRIZE MONEY</div>
-                  <h2>{competition}</h2>
+                  <h2>
+                    {competition === "Vet Head Winners"
+                      ? "Vet Head Points"
+                      : competition}
+                  </h2>
                 </div>
               </div>
 
