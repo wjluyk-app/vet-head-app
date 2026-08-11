@@ -125,5 +125,7 @@ export async function updateVetHeadPairingRound(formData: FormData) {
   revalidatePath("/score");
   revalidatePath("/scoreboard");
 
-  redirect(`/admin/pairings?saved=${encodeURIComponent(roundId)}`);
+  redirect(
+    `/admin/pairings?saved=${encodeURIComponent(roundId)}#pairings-saved`,
+  );
 }

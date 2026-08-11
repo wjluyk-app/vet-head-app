@@ -170,7 +170,13 @@ export default function RoundPairingEditor({
                         Select player
                       </option>
 
-                      {players.map((player) => (
+                      {players
+                    .filter(
+                      (player) =>
+                        player.id === currentPlayerId ||
+                        !selectedSet.has(player.id),
+                    )
+                    .map((player) => (
                         <option
                           key={player.id}
                           value={player.id}
@@ -193,6 +199,25 @@ export default function RoundPairingEditor({
             padding: "0 20px 20px",
           }}
         >
+          <button
+            type="button"
+            className="button"
+            style={{ marginRight: 12 }}
+            onClick={() => {
+              const cleared: Record<string, string> = {};
+
+              for (const group of round.round_group) {
+                for (let order = 1; order <= 4; order += 1) {
+                  cleared[`${group.group_number}-${order}`] = "";
+                }
+              }
+
+              setSelections(cleared);
+            }}
+          >
+            Clear / Rebuild This Round
+          </button>
+
           {!validRound && (
             <p>
               <strong>

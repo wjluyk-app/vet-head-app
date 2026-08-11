@@ -139,20 +139,42 @@ export default async function VetHeadPairingsAdminPage({
       </section>
 
       {savedRound && (
-        <article
+        <section
+          id="pairings-saved"
           className="card"
-          style={{ marginTop: 24 }}
+          style={{
+            marginTop: 24,
+            marginBottom: 24,
+            border: "3px solid #15803d",
+            background: "#f0fdf4",
+            padding: 24,
+          }}
         >
-          <div className="smallLabel">PAIRINGS SAVED</div>
-          <h2>{savedRound.name}</h2>
-          <p>
-            All 12 player assignments were saved successfully.
+          <div
+            className="smallLabel"
+            style={{
+              color: "#15803d",
+              fontSize: 16,
+              fontWeight: 800,
+            }}
+          >
+            ✓ PAIRINGS SAVED
+          </div>
+
+          <h2 style={{ marginTop: 6 }}>
+            {savedRound.name}
+          </h2>
+
+          <p style={{ fontSize: 18 }}>
+            <strong>
+              All 12 player assignments were saved successfully.
+            </strong>
           </p>
 
           <Link className="button" href="/teams">
             View Public Pairings
           </Link>
-        </article>
+        </section>
       )}
 
       {rounds.map((round) => (
