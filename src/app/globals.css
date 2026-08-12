@@ -6424,3 +6424,12 @@ a.card strong {
     width: 100%;
   }
 }
+
+/* Vet Head mobile readability: shared section/group labels */
+@media (max-width: 700px) {
+  .smallLabel {
+    font-size: 15px;
+    line-height: 1.25;
+    letter-spacing: 0.08em;
+  }
+}
