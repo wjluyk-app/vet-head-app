@@ -362,6 +362,59 @@ export default function HybridIndividualGroupForm({
                                     }),
                                   );
                                   setDirty(true);
+
+                                  const numericValue =
+                                    Number(value);
+
+                                  if (
+                                    !Number.isInteger(
+                                      numericValue,
+                                    ) ||
+                                    numericValue < 2 ||
+                                    numericValue > 20
+                                  ) {
+                                    return;
+                                  }
+
+                                  let nextPlayerIndex =
+                                    playerIndex;
+                                  let nextHoleNumber =
+                                    holeNumber;
+
+                                  if (holeNumber < 18) {
+                                    nextHoleNumber =
+                                      holeNumber + 1;
+                                  } else if (
+                                    playerIndex <
+                                    playerData.length - 1
+                                  ) {
+                                    nextPlayerIndex =
+                                      playerIndex + 1;
+                                    nextHoleNumber = 1;
+                                  } else {
+                                    setTimeout(() => {
+                                      const saveButton =
+                                        document.getElementById(
+                                          `save-group-${roundGroupId}`,
+                                        );
+
+                                      saveButton?.focus();
+                                    }, 0);
+                                    return;
+                                  }
+
+                                  setTimeout(() => {
+                                    const nextInput =
+                                      document.getElementById(
+                                        `score-${nextPlayerIndex}-${nextHoleNumber}`,
+                                      );
+
+                                    nextInput?.focus();
+
+                                    (
+                                      nextInput as HTMLInputElement | null
+                                    )?.select();
+                                  }, 0);
                                 }}
                                 onKeyDown={(event) => {
                                   if (
