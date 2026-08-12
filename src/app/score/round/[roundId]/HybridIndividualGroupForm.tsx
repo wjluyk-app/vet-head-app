@@ -414,6 +414,12 @@ export default function HybridIndividualGroupForm({
                                     (
                                       nextInput as HTMLInputElement | null
                                     )?.select();
+
+                                    nextInput?.scrollIntoView({
+                                      behavior: "smooth",
+                                      block: "center",
+                                      inline: "nearest",
+                                    });
                                   }, 0);
                                 }}
                                 onKeyDown={(event) => {
