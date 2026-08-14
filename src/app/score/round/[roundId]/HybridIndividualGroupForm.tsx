@@ -349,6 +349,8 @@ export default function HybridIndividualGroupForm({
                                   ] ?? ""
                                 }
                                 onChange={(event) => {
+                                  const currentForm =
+                                    event.currentTarget.form;
                                   const value =
                                     event.target.value;
 
@@ -392,8 +394,8 @@ export default function HybridIndividualGroupForm({
                                   } else {
                                     setTimeout(() => {
                                       const saveButton =
-                                        document.getElementById(
-                                          `save-group-${roundGroupId}`,
+                                        currentForm?.querySelector<HTMLElement>(
+                                          `#save-group-${roundGroupId}`,
                                         );
 
                                       saveButton?.focus();
@@ -403,15 +405,12 @@ export default function HybridIndividualGroupForm({
 
                                   setTimeout(() => {
                                     const nextInput =
-                                      document.getElementById(
-                                        `score-${roundGroupId}-${nextPlayerIndex}-${nextHoleNumber}`,
+                                      currentForm?.querySelector<HTMLInputElement>(
+                                        `#score-${roundGroupId}-${nextPlayerIndex}-${nextHoleNumber}`,
                                       );
 
                                     nextInput?.focus();
-
-                                    (
-                                      nextInput as HTMLInputElement | null
-                                    )?.select();
+                                    nextInput?.select();
 
                                     nextInput?.scrollIntoView({
                                       behavior: "smooth",
@@ -421,6 +420,9 @@ export default function HybridIndividualGroupForm({
                                   }, 0);
                                 }}
                                 onKeyDown={(event) => {
+                                  const currentForm =
+                                    event.currentTarget.form;
+
                                   if (
                                     event.key !== "Enter" &&
                                     event.key !== "Tab"
@@ -465,8 +467,8 @@ export default function HybridIndividualGroupForm({
                                       nextHoleNumber = 1;
                                     } else {
                                       const saveButton =
-                                        document.getElementById(
-                                          `save-group-${roundGroupId}`,
+                                        currentForm?.querySelector<HTMLElement>(
+                                          `#save-group-${roundGroupId}`,
                                         );
 
                                       saveButton?.focus();
@@ -475,14 +477,12 @@ export default function HybridIndividualGroupForm({
                                   }
 
                                   const nextInput =
-                                    document.getElementById(
-                                      `score-${roundGroupId}-${nextPlayerIndex}-${nextHoleNumber}`,
+                                    currentForm?.querySelector<HTMLInputElement>(
+                                      `#score-${roundGroupId}-${nextPlayerIndex}-${nextHoleNumber}`,
                                     );
 
                                   nextInput?.focus();
-                                  (
-                                    nextInput as HTMLInputElement | null
-                                  )?.select();
+                                  nextInput?.select();
                                 }}
                                 aria-label={`${player.playerName} hole ${holeNumber} gross score`}
                                 style={{
