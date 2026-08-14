@@ -339,7 +339,7 @@ export default function HybridIndividualGroupForm({
                             >
                               <input
                                 type="number"
-                                id={`score-${playerIndex}-${holeNumber}`}
+                                id={`score-${roundGroupId}-${playerIndex}-${holeNumber}`}
                                 name={`grossScore_${player.playerId}_${holeNumber}`}
                                 min="1"
                                 max="20"
@@ -406,7 +406,7 @@ export default function HybridIndividualGroupForm({
                                   setTimeout(() => {
                                     const nextInput =
                                       document.getElementById(
-                                        `score-${nextPlayerIndex}-${nextHoleNumber}`,
+                                        `score-${roundGroupId}-${nextPlayerIndex}-${nextHoleNumber}`,
                                       );
 
                                     nextInput?.focus();
@@ -478,7 +478,7 @@ export default function HybridIndividualGroupForm({
 
                                   const nextInput =
                                     document.getElementById(
-                                      `score-${nextPlayerIndex}-${nextHoleNumber}`,
+                                      `score-${roundGroupId}-${nextPlayerIndex}-${nextHoleNumber}`,
                                     );
 
                                   nextInput?.focus();
