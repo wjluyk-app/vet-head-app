@@ -349,8 +349,10 @@ export default function HybridIndividualGroupForm({
                                   ] ?? ""
                                 }
                                 onChange={(event) => {
-                                  const currentForm =
-                                    event.currentTarget.form;
+                                  const currentGroup =
+                                    event.currentTarget.closest(
+                                      `#group-${roundGroupId}`,
+                                    );
                                   const value =
                                     event.target.value;
 
@@ -394,7 +396,7 @@ export default function HybridIndividualGroupForm({
                                   } else {
                                     setTimeout(() => {
                                       const saveButton =
-                                        currentForm?.querySelector<HTMLElement>(
+                                        currentGroup?.querySelector<HTMLElement>(
                                           `#save-group-${roundGroupId}`,
                                         );
 
@@ -405,7 +407,7 @@ export default function HybridIndividualGroupForm({
 
                                   setTimeout(() => {
                                     const nextInput =
-                                      currentForm?.querySelector<HTMLInputElement>(
+                                      currentGroup?.querySelector<HTMLInputElement>(
                                         `#score-${roundGroupId}-${nextPlayerIndex}-${nextHoleNumber}`,
                                       );
 
@@ -420,8 +422,10 @@ export default function HybridIndividualGroupForm({
                                   }, 0);
                                 }}
                                 onKeyDown={(event) => {
-                                  const currentForm =
-                                    event.currentTarget.form;
+                                  const currentGroup =
+                                    event.currentTarget.closest(
+                                      `#group-${roundGroupId}`,
+                                    );
 
                                   if (
                                     event.key !== "Enter" &&
@@ -467,7 +471,7 @@ export default function HybridIndividualGroupForm({
                                       nextHoleNumber = 1;
                                     } else {
                                       const saveButton =
-                                        currentForm?.querySelector<HTMLElement>(
+                                        currentGroup?.querySelector<HTMLElement>(
                                           `#save-group-${roundGroupId}`,
                                         );
 
@@ -477,7 +481,7 @@ export default function HybridIndividualGroupForm({
                                   }
 
                                   const nextInput =
-                                    currentForm?.querySelector<HTMLInputElement>(
+                                    currentGroup?.querySelector<HTMLInputElement>(
                                       `#score-${roundGroupId}-${nextPlayerIndex}-${nextHoleNumber}`,
                                     );
 
