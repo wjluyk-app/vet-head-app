@@ -129,7 +129,6 @@ export default async function VetHeadRoundEntryPage({
                 courseTee?.course_rating ?? 0,
               )}
               par={Number(courseTee?.par ?? 72)}
-              autoFocus={focusGroupId === group.id}
             />
           ) : (
                 <form

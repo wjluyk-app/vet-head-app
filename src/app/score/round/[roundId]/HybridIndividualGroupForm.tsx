@@ -33,7 +33,6 @@ type Props = {
   slopeRating: number;
   courseRating: number;
   par: number;
-  autoFocus: boolean;
 };
 
 const CEDAR_RIVER_STROKE_INDEXES = [
@@ -71,7 +70,6 @@ export default function HybridIndividualGroupForm({
   slopeRating,
   courseRating,
   par,
-  autoFocus,
 }: Props) {
   const strokeIndexes = getStrokeIndexes(courseName);
 
@@ -486,11 +484,6 @@ export default function HybridIndividualGroupForm({
                                     nextInput as HTMLInputElement | null
                                   )?.select();
                                 }}
-                                autoFocus={
-                                  autoFocus &&
-                                  playerIndex === 0 &&
-                                  holeNumber === 1
-                                }
                                 aria-label={`${player.playerName} hole ${holeNumber} gross score`}
                                 style={{
                                   width: 62,
