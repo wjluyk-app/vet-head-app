@@ -50,7 +50,7 @@ export default async function AdminPage() {
   const groupsComplete = data.groups.length === 15;
 
   const payoutsComplete =
-    payoutRows.length === 17 && payoutTotal === 1200;
+    payoutRows.length === 18 && payoutTotal === 1200;
 
   const setupComplete =
     playersComplete &&
@@ -140,7 +140,7 @@ export default async function AdminPage() {
           <article className="card">
             <div className="smallLabel">PAYOUTS</div>
             <div className="kpi">
-              {payoutRows.length} / 17
+              {payoutRows.length} / 18
             </div>
             <p>
               ${payoutTotal.toFixed(0)} / $1,200
